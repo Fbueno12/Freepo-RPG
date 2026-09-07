@@ -1,0 +1,328 @@
+{
+  "bruto": {
+    "name": "Bruto",
+    "hitDie": 12,
+    "primaryAbility": "Força",
+    "armorProficiencies": ["Armaduras leves", "Armaduras médias", "Escudos leves", "Escudos pesados"],
+    "shieldProficiency": true,
+    "weaponProficiencies": ["Armas simples", "Armas marciais"],
+    "toolProficiencies": [],
+    "savingThrows": ["Força", "Constituição"],
+    "skillChoices": {
+      "count": 2,
+      "options": ["Atletismo", "Intimidação", "Lidar com Animais", "Natureza", "Percepção", "Sobrevivência"],
+      "description": "Escolha duas perícias."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Machado grande (a) ou qualquer arma marcial corpo a corpo (b)" },
+      { "qty": 2, "name": "Machadinhas (a) ou qualquer arma simples (b)" },
+      { "qty": 1, "name": "Conjunto de aventureiro" },
+      { "qty": 4, "name": "Azagaias" }
+    ],
+    "startingGold": "Nenhum — equipamento inicial fornecido; mountagem concedida pelo Passado.",
+    "features": [
+      { "level": 1, "name": "Anima", "description": "Escolha um caminho que molda a natureza da sua fúria: Anima do Berserker, Anima das Cicatrizes Rúnicas ou Anima do Lutador. Concede características no 1º nível e novamente no 6º, 10º, 14º, 18º e 20º." },
+      { "level": 1, "name": "Fúria", "description": "Ação bônus para entrar em Fúria (2 usos no 1º nível, descanso pleno para recuperar; coluna Fúria até nível 20: Ilimitado). Enquanto em Fúria, se não vestir armadura pesada: vantagem em testes e salvaguardas de Força, +Dano de Fúria (1d4) em ataques corpo a corpo com Força, resistência a danos físicos simples, e não pode conjurar nem se concentrar em magias. Dura 1 minuto; encerra se cair Inconsciente, terminar o turno sem atacar ou sem sofrer dano." },
+      { "level": 1, "name": "Defesa sem Armadura", "description": "CA = 10 + mod. de Destreza + mod. de Constituição quando sem armadura. Pode usar escudo e manter o benefício." },
+      { "level": 1, "name": "Maestria de Armas", "description": "Usa a propriedade Maestria com armas simples e marciais corpo a corpo que domine. Escolhe um número de armas igual a 1 + metade do bônus de proficiência; pode trocar maestrias em descanso pleno." },
+      { "level": 2, "name": "Ataque Descuidado", "description": "Vantagem em ataques corpo a corpo com Força no turno; ataques contra você têm vantagem até o início do seu próximo turno." },
+      { "level": 2, "name": "Sentido de Perigo", "description": "Vantagem em salvaguardas de Destreza contra efeitos visíveis (armadilhas e magias). No nível 11, ataques contra você não têm mais vantagem se não usar armadura pesada." },
+      { "level": 3, "name": "Ira", "description": "Escolha uma Ira (Capítulo 5: Iras). Usos = modificador de Constituição (mín. 1) por descanso. Aprende novas Iras nos níveis 8, 12, 15 e 17. CD = 8 + proficiência + Força." },
+      { "level": 4, "name": "Aprimoramento", "description": "Aumente um atributo em 2 ou dois em 1, ou escolha um Aprimoramento Geral. Níveis 4, 8, 12, 16 e 19." },
+      { "level": 5, "name": "Ataque Extra", "description": "Ataca duas vezes ao usar a ação Atacar." },
+      { "level": 5, "name": "Crítico Brutal", "description": "Dano crítico com arma corpo a corpo aumenta 1 na escala de dano no nível 5, 2 no 9, 3 no 13 e 4 no 17." },
+      { "level": 7, "name": "Instinto Selvagem", "description": "Vantagem em iniciativa. Se estiver surpreso e com Fúria disponível, age normalmente." },
+      { "level": 11, "name": "Fúria Implacável", "description": "Ao cair a 0 PV em Fúria, salvaguarda de Constituição CD 10 para ficar com 1 PV; CD aumenta 5 a cada uso, resetando em descanso." },
+      { "level": 15, "name": "Fúria Persistente", "description": "A Fúria só termina prematuramente se ficar Inconsciente ou encerrar voluntariamente." },
+      { "level": 18, "name": "Força Indomável", "description": "Se o resultado de um teste de Força for menor que o valor de Força, usa o valor de Força." }
+    ],
+    "subclass": {
+      "choiceName": "Anima",
+      "grantedAt": 1,
+      "options": [
+        {
+          "name": "Anima do Berserker",
+          "description": "Fúria livre embevecida de sangue. Nível 1: Vigor do Berserker (soma proficiência à PV máx. no 1º e a cada nível). Nível 6: Fúria Inconsciente (imune a Amedrontado/Enfeitiçado em Fúria). Nível 10: Ataques Brutais (+1 categoria de dano, dano mágico, +vantagem no 1º ataque em Fúria e em cima de sua Fúria). Nível 14: Retaliação (reação para atacar quem o atingir a 5 pés). Nível 18: Massacrar (dobra dados de Dano de Fúria abaixo da metade da PV). Nível 20: Mensageiro da Dor (ataque adicional em crítico ou ao reduzir criatura a 0; Força e Constituição +2, máximo 24)."
+        },
+        {
+          "name": "Anima das Cicatrizes Rúnicas",
+          "description": "Magia rúnica talhada no próprio corpo. Nível 1: Conjuração (Bruto Conjurador: 2 truques; 3 magias de 1º no nível 3; mana por tabela — 4 no nível 3 até 30 no 20º; máximo de magia 1º (nível 3), 2º (8), 3º (13), 4º (19); atributo de conjuração: Constituição; recupera mod. de Constituição em mana no descanso longo) e Talhador de Runas (fala Rúnico; conjunto primário de 4 truques; conjura sacrificando PV = nível da magia; pode conjurar em Fúria: truques no 3º, magias 1º no 8º, 2º no 13º, 3º no 19º, sem concentração; não pode trocar magias). Nível 6: Fúria do Entalhe Arcano (magias de dano em Fúria somam Dano de Fúria; pode imbuir objetos com magias). Nível 10: Resiliência Rúnica (PV temporários em crítico/abate com magia; pode absorver magia 1x/descanso, 2x no 15, 3x no 20). Nível 14: Runa de Sobrecarga (explosão 20 pés, 1d6 × metade do nível, salv. Destreza). Nível 18: Runa de Guerra (uma magia de concentração perde concentração; resistência a danos mágicos por 1 minuto). Nível 20: Volatilidade Rúnica (reação para conjurar magia ao acertar corpo a corpo, maximizada; dano em área das suas magias não te afeta; Constituição +4, máximo 24)."
+        },
+        {
+          "name": "Anima do Lutador",
+          "description": "Luta desarmada. Nível 1: Ataque Desarmado (1d4+Força, conta como arma marcial; escala 1d6 no 5, 1d8 no 10, 1d10 no 16, 1d12 no 20; +1 categoria em Fúria; crítico 19-20 no 10, 18-20 no 16) e Proficiência Adicional (Atletismo ou especialidade). Nível 6: Bater Onde Dói (+1 acerto/dano desarmado, +2 no 12, +3 no 18). Nível 10: Ataque Extra (3 ataques). Nível 14: Desviar ou Revidar (Evasão ou Retaliação). Nível 18: Marcha de Ataque (ataque desarmado +1 categoria, +15 pés de alcance, incinerante/vibracional). Nível 20: Quebrador de Ossos (multiplicador de crítico +1; Força +4, máximo 24)."
+        }
+      ]
+    },
+    "fightingTechniques": "Bruto não possui Técnicas de Combate; usa Iras (recursos de classe externos).",
+    "spellcasting": null,
+    "spellList": [],
+    "levelTable": [
+      { "level": "1", "features": ["Anima", "Fúria", "Defesa sem Armadura", "Maestria de Armas"] },
+      { "level": "2", "features": ["Ataque Descuidado", "Sentido de Perigo"] },
+      { "level": "3", "features": ["Ira"] },
+      { "level": "4", "features": ["Aprimoramento"] },
+      { "level": "5", "features": ["Ataque Extra", "Crítico Brutal (1 escala)"] },
+      { "level": "6", "features": ["Característica de Anima"] },
+      { "level": "7", "features": ["Instinto Selvagem"] },
+      { "level": "8", "features": ["Ira", "Aprimoramento"] },
+      { "level": "9", "features": ["Crítico Brutal (2 escala)"] },
+      { "level": "10", "features": ["Característica de Anima"] },
+      { "level": "11", "features": ["Fúria Implacável"] },
+      { "level": "12", "features": ["Ira", "Aprimoramento"] },
+      { "level": "13", "features": ["Crítico Brutal (3 escala)"] },
+      { "level": "14", "features": ["Característica de Anima"] },
+      { "level": "15", "features": ["Ira", "Fúria Persistente"] },
+      { "level": "16", "features": ["Aprimoramento"] },
+      { "level": "17", "features": ["Ira", "Crítico Brutal (4 escala)"] },
+      { "level": "18", "features": ["Característica de Anima", "Força Indomável"] },
+      { "level": "19", "features": ["Aprimoramento"] },
+      { "level": "20", "features": ["Característica de Anima"] }
+    ]
+  },
+  "cacador": {
+    "name": "Caçador",
+    "hitDie": 10,
+    "primaryAbility": "Destreza",
+    "armorProficiencies": ["Armaduras leves", "Armaduras médias", "Broquel", "Escudos leves", "Escudos pesados"],
+    "shieldProficiency": true,
+    "weaponProficiencies": ["Armas simples", "Armas marciais"],
+    "toolProficiencies": ["Ofício de Armadilheiro"],
+    "savingThrows": ["Destreza", "Sabedoria"],
+    "skillChoices": {
+      "count": 3,
+      "options": ["Atletismo", "Furtividade", "Intuição", "Investigação", "Lidar com Animais", "Natureza", "Percepção", "Sobrevivência"],
+      "description": "Escolha três perícias."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Lórica de escamas (a) ou armadura de couro (b)" },
+      { "qty": 2, "name": "Espadas curtas (a) ou duas armas simples corpo a corpo (b)" },
+      { "qty": 1, "name": "Conjunto de aventureiro (a) ou conjunto de explorador de masmorras (b)" },
+      { "qty": 1, "name": "Arco longo" },
+      { "qty": 20, "name": "Flechas" }
+    ],
+    "startingGold": "Nenhum — equipamento inicial fornecido; montagem concedida pelo Passado.",
+    "features": [
+      { "level": 1, "name": "Inimigo Favorito", "description": "Escolha um tipo (Celestiais, Construtos, Dragões, Elementais, Espíritos, Feéricos, Feras, Humanoides, Ínferos, Mortos-vivos, Plantas ou Vastinatas). Soma 1,5× proficiência no dano contra eles; vantagem em Sobrevivência para rastrear e Inteligência para recordar; aprende um idioma. Novo em 6 e 14; no 6 também vantagem em salvaguardas contra o inimigo escolhido." },
+      { "level": 1, "name": "Explorador Natural", "description": "Ignora terreno difícil natural, vantagem em iniciativa e vantagem em ataques no primeiro turno contra criaturas que ainda não agiram. Em viagens: terreno difícil não retarda, grupo não se perde (exceto mágico), permanece alerta, movimento furtivo em ritmo normal sozinho, dobra comida/água recolhida e percebe número/tamanho/tempo de rastros." },
+      { "level": 1, "name": "Maestria de Armas", "description": "Usa a propriedade Maestria com armas simples e marciais corpo a corpo que domine. Escolhe um número de armas igual a 1 + metade do bônus de proficiência; pode trocar maestrias em descanso pleno." },
+      { "level": 1, "name": "Enclave", "description": "Escolha uma Enclave de Caçador: Amigo das Feras, Arqueiro Rúnico ou Mestre da Caça. Características no 1º e de novo nos 3º, 5º, 7º, 9º, 11º, 13º, 15º, 17º e 20º." },
+      { "level": 2, "name": "Consciência Primitiva", "description": "Ação bônus marca uma presa visível a 90 pés: +1d6 de dano com arma e vantagem em Percepção/Sobrevivência para encontrá-la por 1 hora. Usos = modificador de Sabedoria (mín. 1) por descanso pleno. Também pode sentir inimigos favoritos a até 5 milhas após 1 minuto de concentração." },
+      { "level": 3, "name": "Estilo de Luta", "description": "Escolha um estilo: Arquearia, Combate com Duas Armas, Defesa ou Duelismo (não pode repetir estilo)." },
+      { "level": 4, "name": "Aprimoramento", "description": "Aumente um atributo em 2 ou dois em 1, ou escolha um Aprimoramento Geral. Níveis 4, 8, 12, 16 e 19." },
+      { "level": 6, "name": "Inimigo Favorito", "description": "Escolha novo Inimigo Favorito e ganha vantagem em salvaguardas contra magias, ataques e habilidades de inimigos favoritos." },
+      { "level": 8, "name": "Movimento Elusivo", "description": "Pode usar Disparada como ação bônus e não provoca ataques de oportunidade ao sair do alcance de criatura hostil." },
+      { "level": 10, "name": "Mimetismo", "description": "Ficar imóvel ao se Esconder impõe −10 em testes de Percepção de criaturas para detectá-lo até iniciar movimento ou ser detectado." },
+      { "level": 14, "name": "Trunfo", "description": "Escolha um Trunfo (Aljava Veloz, Comunhão com a Natureza, Conjurar Saraivada, Desaparecer, Tempestade de Lâminas). Usos = metade do modificador de Sabedoria (mín. 1) por descanso. Trunfos adicionais nos níveis 16 e 19." },
+      { "level": 18, "name": "Sentidos Selvagens", "description": "Nenhuma desvantagem ao atacar criaturas invisíveis e fica ciente da localização de criaturas invisíveis a 30 pés (se não escondidas, e não estiver Cego/Surdo)." }
+    ],
+    "subclass": {
+      "choiceName": "Enclave",
+      "grantedAt": 1,
+      "options": [
+        {
+          "name": "Enclave do Amigo das Feras",
+          "description": "Ligação com animais. Nível 1: Consciência Animal (comunicação por gestos/sons, lê humor e intenções, fala Silvestre; não usável contra quem atacou nos últimos 10 min). Nível 3: Companheiro Animal (fera Grande ou menor, ND ≤ 1, Função Lacaio/Capanga/Soldado — Companion options alteram estatísticas; Lacaio: Companheiro Fiel ou Táticas de Grupo com 4/6/8 feras em Coletivo). Nível 5: Ataque Coordenado (companheiro ataca com sua reação quando você usa Ataque). Nível 7: Combate Cruel (escolha Armadura Natural, Fera de Guerra, Selvagens ou Tenacidade). Nível 9: Vontade de Ferro da Fera (companheiro com vantagem em salvaguardas ao vê-lo). Nível 11: Ataque Furacão Bestial (ataque contra cada criatura a 5 pés do companheiro). Nível 13: Pega! (companheiro busca/agarra e traz um alvo). Nível 15: Vínculo Espiritual (telepatia, resistência a todos os danos, dano compartilhado, 1 dado de vida por turno). Nível 17: Dupla Unida (reação soma proficiência à CA do outro; +Força da fera em Agarrar). Nível 20: Matadores de Inimigos (uma vez por turno, soma modificador de Sabedoria em acerto e dano)."
+        },
+        {
+          "name": "Enclave do Arqueiro Rúnico",
+          "description": "Arqueiro imbuído por runas, com conjuração (atributo: Sabedoria). Nível 1: Conjuração (Caçador Conjurador: 2 truques; 3 magias de 1º no 3º; mana por tabela — 4 (3º) até 30 (20º); máximo de magia 1º (3), 2º (8), 3º (13), 4º (19); recupera mod. de Sabedoria em mana no descanso longo; arco como foco; pode trocar 1 magia por nível). Nível 3: Runas do Arqueiro (Sussurro Rúnico — proficiência ou especialidade em Arcanismo/Natureza; Arco Rúnico — arco mágico +1 com dano incisivo; Disparo Rúnico — 2 opções, 2 usos/descanso, +1 opção e +2 usos nos 7, 10, 15 e 18). Nível 5: Aceleração Rúnica (ataque adicional ao usar Disparo Rúnico). Nível 7: Adepto Rúnico (Ataque Extra — 2 ataques, 3 no 13; resistência a dano psíquico). Nível 9: Disparo Curvo (ação bônus para redirecionar flecha errada a novo alvo a 60 pés). Nível 11: Impulso Rúnico (Atirador Rúnico, Escudo Rúnico +2 CA ou Visão Arcana por 1 minuto). Nível 13: Égide Rúnica (salvaguarda rúnica — refazer salvaguarda de magia 1x/descanso; recupera 1 uso na iniciativa). Nível 15: Arquear Magia (após conjurar magia pode atacar com o Arco Rúnico). Nível 17: Carga Rúnica (sem munição, flechas de energia +1d8). Nível 20: Flecha da Morte (flecha que exige salv. de Constituição CD 6 + proficiência + Sabedoria ou morte instantânea; CD de Disparos Rúnicos com Sabedoria dobrada; +metade do nível como dano rúnico). Opções de Disparo Rúnico (CD 8 + proficiência + Sabedoria): Agarre, Banimento, Buscadora, Elétrica, Enfraquecimento, Explosão, Flamejante, Glacial, Perfurante, Retorno e Sombria — com escalonamentos nos níveis 11 e 18."
+        },
+        {
+          "name": "Enclave do Mestre da Caça",
+          "description": "Técnicas de combate sem magia. Nível 1: Presa do Caçador (Assassino de Gigantes, Exterminador de Aparições, Matador de Colossos ou Rompedor de Hordas; nova opção no 12). Nível 3: Táticas de Tamanho (vantagem e evasão em salvaguardas de Destreza contra criaturas maiores). Nível 5: Ataque Extra (2 ataques). Nível 7: Táticas Defensivas (Defesa Contra Ataques Múltiplos, Precisão do Vigia ou Vontade de Aço). Nível 9: Variar Ataques (técnica de combate da lista — Armas Fortalecidas, Ataque Visceral, Defesa Veloz, Domínio Tático, Esfaqueamento Incapacitante, Tiro de Oposição; nova nos 14 e 17). Nível 11: Ataques Múltiplos (Ataque Giratório ou Saraivada). Nível 13: Caça Aprimorada (torna um alvo inimigo favorito temporário com ação bônus). Nível 15: Defesa Superior do Caçador (Esquiva Sobrenatural, Evasão ou Manter-se contra a Maré; nova no 19). Nível 17: Leve como o Vento (margem de crítico −1, +deslocamento). Nível 20: Aniquilador (vantagem e dano dobrado contra inimigos favoritos, crítico −1)."
+        }
+      ]
+    },
+    "fightingTechniques": "Caçador não possui Técnicas de Combate; o Enclave do Mestre da Caça concede técnicas via Domínio Tático / Variar Ataques (das Técnicas de Combate do Combatente).",
+    "spellcasting": null,
+    "spellList": [],
+    "levelTable": [
+      { "level": "1", "features": ["Inimigo Favorito", "Explorador Natural", "Maestria de Armas", "Enclave"] },
+      { "level": "2", "features": ["Consciência Primitiva"] },
+      { "level": "3", "features": ["Estilo de Luta", "Característica de Enclave"] },
+      { "level": "4", "features": ["Aprimoramento"] },
+      { "level": "5", "features": ["Característica de Enclave"] },
+      { "level": "6", "features": ["Inimigo Favorito"] },
+      { "level": "7", "features": ["Característica de Enclave"] },
+      { "level": "8", "features": ["Aprimoramento", "Movimento Elusivo"] },
+      { "level": "9", "features": ["Característica de Enclave"] },
+      { "level": "10", "features": ["Mimetismo"] },
+      { "level": "11", "features": ["Característica de Enclave"] },
+      { "level": "12", "features": ["Aprimoramento"] },
+      { "level": "13", "features": ["Característica de Enclave"] },
+      { "level": "14", "features": ["Inimigo Favorito", "Trunfo"] },
+      { "level": "15", "features": ["Característica de Enclave"] },
+      { "level": "16", "features": ["Aprimoramento", "Trunfo"] },
+      { "level": "17", "features": ["Característica de Enclave"] },
+      { "level": "18", "features": ["Sentidos Selvagens"] },
+      { "level": "19", "features": ["Aprimoramento", "Trunfo"] },
+      { "level": "20", "features": ["Característica de Enclave"] }
+    ]
+  },
+  "combatente": {
+    "name": "Combatente",
+    "hitDie": 10,
+    "primaryAbility": "Força",
+    "armorProficiencies": ["Todas as armaduras", "Escudos"],
+    "shieldProficiency": true,
+    "weaponProficiencies": ["Armas simples", "Armas marciais"],
+    "toolProficiencies": [],
+    "savingThrows": ["Constituição", "Força ou Destreza"],
+    "skillChoices": {
+      "count": 2,
+      "options": ["Acrobacia", "Atletismo", "História", "Intimidação", "Intuição", "Lidar com Animais", "Percepção", "Sobrevivência"],
+      "description": "Escolha duas perícias."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Cota de malha (a) ou armadura de couro, arco longo e 20 flechas (b)" },
+      { "qty": 1, "name": "Arma marcial de até 50 PO e escudo leve (a) ou duas armas marciais de até 50 PO (b)" },
+      { "qty": 1, "name": "Besta leve e 20 virotes (a) ou duas machadinhas (b)" },
+      { "qty": 1, "name": "Conjunto de aventureiro (a) ou conjunto de explorador de masmorras (b)" }
+    ],
+    "startingGold": "Nenhum — equipamento inicial fornecido; montagem concedida pelo Passado.",
+    "features": [
+      { "level": 1, "name": "Estilo de Luta", "description": "Adota um número de estilos igual ao bônus de proficiência (um ativo por vez; troca com ação bônus ou reação ao acertar/receber ataque). Estilos: Arremessar, Arquearia, Combate com Arma de Duas Mãos, Combate com Armas Grandes, Combate com Duas Armas, Combate de Escudo, Combate Desarmado, Defesa, Duelismo, Phalanx, Proteção, Defesa sem Armadura e YAAAAAR!. Estilos adicionais nos níveis 7, 13 e 19." },
+      { "level": 1, "name": "Retomar o Fôlego", "description": "Ação bônus recupera 1d10 + modificador de Constituição + nível de Combatente. 1 uso por descanso longo ou pleno." },
+      { "level": 1, "name": "Técnicas de Combate", "description": "Conhece 1 Técnica de Combate à sua escolha (Capítulo 5 — Técnicas de Combate); técnicas com execução podem ser usadas um número de vezes por descanso pleno igual ao bônus de proficiência. Aprende novas nos níveis 4, 6, 9, 12 e 16. CD = 8 + proficiência + Força ou Destreza (escolha fixa)." },
+      { "level": 1, "name": "Maestria de Armas", "description": "Usa a propriedade Maestria com armas simples e marciais que domine. Escolhe um número de armas igual a 1 + bônus de proficiência; pode trocar maestrias em descanso pleno." },
+      { "level": 1, "name": "Honra do Combatente", "description": "Escolha uma Honra: Armestre, Belator, Guardião ou Strategos. Concede características no 1º nível e de novo nos 3º, 7º, 10º, 13º, 16º, 18º e 20º." },
+      { "level": 2, "name": "Surto de Ação", "description": "Realiza uma ação adicional no turno. 1 uso por descanso (2 no 10º, 3 no 17º; máximo 1 por turno)." },
+      { "level": 4, "name": "Aprimoramento", "description": "Aumente um atributo em 2 ou dois em 1, ou escolha um Aprimoramento Geral. Níveis 4, 8, 12, 14, 16 e 19." },
+      { "level": 5, "name": "Ataque Extra", "description": "Ataca duas vezes ao usar a ação Atacar. Aumenta para 3 no nível 11 e 4 no 18." },
+      { "level": 9, "name": "Indomável", "description": "Refaz salvaguardas de Força, Destreza ou Constituição falhadas. 1 uso (2 no 13, 3 no 17); no 17 também vale para Inteligência, Sabedoria e Carisma." }
+    ],
+    "subclass": {
+      "choiceName": "Honra",
+      "grantedAt": 1,
+      "options": [
+        {
+          "name": "Honra do Armestre",
+          "description": "Mestre de uma arma vincula. Nível 1: Arma Vinculada (vínculo com um tipo de arma corpo a corpo; não pode ser desarmado) e Força Dedicada (dano +1 categoria e metade da proficiência no acerto). Nível 3: First Blood (dano extra no primeiro ataque; crítico automático contra surpresos; danca ignora 2× proficiência de RD). Nível 7: Vínculo Mortal (dado de dano e crítico +1, ataques mágicos; torna-se Especialista com 20 natural: contundente perde ataque, cortante sangra 1d4, perfurante Enfraquece). Nível 14: Precisão Fatal (especialidade ativa em crítico com 20 natural e efeitos melhorados). Nível 18: Domínio da Arma (multiplicador de crítico +1; técnicas com 20 natural não gastam uso). Nível 20: Arquimestre (Força ou Destreza +2 até 22; 20 natural ou entrada em combate concede Surto; margem/multiplicador/categoria +1; ganha Aparar Ataque, Atacar Magia e Contra Ataque + reação extra para elas). Técnicas citadas: Aparar Ataque, Atacar Magia, Contra Ataque." 
+        },
+        {
+          "name": "Honra do Belator",
+          "description": "Guerreiro versátil que troca de armas. Nível 1: Ataques Versáteis (troca de arma como ação livre após acertar; bônus no ataque seguinte com arma diferente) e Maestria Flexível (maestria temporária com armas). Nível 3: Troca Habilidosa (efeito por combinação de tipos de dano; 3 combinações, +3 no 7, todas no 11; troca de Estilo de Luta junto). Nível 7: Combate Mutável (usa técnicas com execução desconhecidas 1×/descanso por ponto de proficiência; proficiência com armas improvisadas). Nível 14: Agilidade de Combate (Salto Marcial ou Proteção Marcial). Nível 18: Mestre de Situações (próximo ataque com vantagem após Agilidade de Combate). Nível 20: Postura do Grão-mestre (resistência a quase todos os danos, salvaguarda para ignorar dano, acerto/dano crescentes em trocas, proficiência com armas exóticas/impróprias/improvisadas)."
+        },
+        {
+          "name": "Honra do Guardião",
+          "description": "Protetor de aliados. Nível 1: Primeiro Dentro, Último Fora (+5 iniciativa) e Arma Dura (escudo vira arma marcial: broquel 1d4 c, leve 1d6, pesado 1d8, torre 1d10; +Força no dano). Nível 3: Proteger os Fracos (reação para se deslocar e tomar o ataque de aliado). Nível 7: Táticas Persistentes (técnica como reação ao usar Surto de Ação; +1 uso de Retomar o Fôlego). Nível 14: Busca da Autoperfeição (investida contra inimigo a 10 pés; escolhe um Aprimoramento de uma lista). Nível 18: Sobrevivente (recupera 5 + mod. Constituição no começo do turno, abaixo da metade da vida). Nível 20: Lendário Guardião (Constituição +2 até 22; imune a extremos de clima, doença e envelhecimento mágico; reação extra com Surto; vantagem em salvaguarda contra morte; +1 Retomar o Fôlego; −20 de dano de qualquer fonte, críticos −10)."
+        },
+        {
+          "name": "Honra do Strategos",
+          "description": "Mestre estratégico. Nível 1: Proficiência Adicional (2 idiomas) e Estratégia (ação inspira aliados a 120 pés com +1d4 em ataque/salvaguarda por 1 minuto; usos = Inteligência + Carisma por descanso). Nível 3: Visão Treinada (observar 1 minuto revela um aspecto do alvo; mais aspectos no 10 e 16). Nível 7: Retirada Estratégica (ataque de oportunidade contra você conta como 1 com reação). Nível 14: Desprezo (provoca inimigos a 60 pés; desvantagem em ataques contra você e +CA). Nível 18: Líder Inspirador (Estratégia vira +2d6; +2 CA e PV temporários para aliados). Nível 20: Perfeição em Combate (10 minutos de buff: 25 PV temporários, +2 CA, vantagem em salvaguardas de Força/Constituição e ataques, +1d10 de dano, +10 pés)."
+        }
+      ]
+    },
+    "fightingTechniques": "Técnicas de Combate são escolhidas da lista do Capítulo 5 (recurso de classe Técnicas de Combate), 1 no 1º e mais nos níveis 4, 6, 9, 12, 16. CD = 8 + proficiência + Força ou Destreza. Nomes citados na página: Aparar Ataque, Atacar Magia, Contra Ataque (listados na Honra do Armestre).",
+    "spellcasting": null,
+    "spellList": [],
+    "levelTable": [
+      { "level": "1", "features": ["Estilo de Luta", "Retomar o Fôlego", "Técnicas de Combate", "Maestria de Armas", "Honra do Combatente"] },
+      { "level": "2", "features": ["Surto de Ação (um uso)"] },
+      { "level": "3", "features": ["Característica de Honra"] },
+      { "level": "4", "features": ["Aprimoramento", "Técnica de Combate"] },
+      { "level": "5", "features": ["Ataque Extra"] },
+      { "level": "6", "features": ["Técnica de Combate"] },
+      { "level": "7", "features": ["Característica de Honra", "Estilo de Luta"] },
+      { "level": "8", "features": ["Aprimoramento"] },
+      { "level": "9", "features": ["Técnica de Combate", "Indomável (um uso)"] },
+      { "level": "10", "features": ["Surto de Ação (dois usos)"] },
+      { "level": "11", "features": ["Ataque Extra (2)"] },
+      { "level": "12", "features": ["Aprimoramento", "Técnica de Combate"] },
+      { "level": "13", "features": ["Indomável (dois usos)", "Estilo de Luta"] },
+      { "level": "14", "features": ["Aprimoramento", "Característica de Honra"] },
+      { "level": "15", "features": [] },
+      { "level": "16", "features": ["Aprimoramento", "Técnica de Combate"] },
+      { "level": "17", "features": ["Surto de Ação (três usos)", "Indomável (três usos)"] },
+      { "level": "18", "features": ["Característica de Honra", "Ataque Extra (3)"] },
+      { "level": "19", "features": ["Aprimoramento", "Estilo de Luta"] },
+      { "level": "20", "features": ["Característica de Honra"] }
+    ]
+  },
+  "mercurial": {
+    "name": "Mercurial",
+    "hitDie": 8,
+    "primaryAbility": "Destreza",
+    "armorProficiencies": ["Armaduras leves"],
+    "shieldProficiency": false,
+    "weaponProficiencies": ["Armas simples", "Bestas de mão", "Espadas longas", "Rapieiras", "Espadas curtas"],
+    "toolProficiencies": ["Ofício de Chaveiro"],
+    "savingThrows": ["Destreza", "Inteligência"],
+    "skillChoices": {
+      "count": 4,
+      "options": ["Acrobacia", "Atletismo", "Atuação", "Enganação", "Furtividade", "Intimidação", "Intuição", "Investigação", "Percepção", "Persuasão", "Prestidigitação"],
+      "description": "Escolha quatro perícias."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Rapieira (a) ou espada curta (b)" },
+      { "qty": 1, "name": "Arco curto e aljava com 20 flechas (a) ou espada curta (b)" },
+      { "qty": 1, "name": "Conjunto de assaltante (a), conjunto de explorador de masmorras (b) ou conjunto de aventureiro (c)" },
+      { "qty": 1, "name": "Armadura de couro" },
+      { "qty": 2, "name": "Adagas" },
+      { "qty": 1, "name": "Ferramentas de chaveiro" }
+    ],
+    "startingGold": "Nenhum — equipamento inicial fornecido; montagem concedida pelo Passado.",
+    "features": [
+      { "level": 1, "name": "Especialização", "description": "Escolha uma perícia proficiente ou Ofício para dobrar seu bônus de proficiência nos testes (especialidade). Escolhas adicionais: +1 no 3º, +2 no 6º." },
+      { "level": 1, "name": "Ataque Furtivo", "description": "1d6 de dano adicional (coluna Ataque Furtivo: 1d6 → 10d6) uma vez por turno ao acertar com arma de acuidade ou à distância com vantagem, ou quando outro inimigo do alvo está a 5 pés e você não tem desvantagem." },
+      { "level": 1, "name": "Maestria de Armas", "description": "Usa a propriedade Maestria com armas simples, bestas de mão, espadas longas, rapieiras, espadas curtas e marciais leves que domine. Escolhe um número de armas igual a 2; pode trocar maestrias em descanso pleno." },
+      { "level": 1, "name": "Cabala", "description": "Escolha um grupo filosófico: Cabala do Ás Rúnico, Cabala do Assassino, Cabala do Espião ou Cabala do Explorador. Características no 1º e de novo no 3º, 5º, 7º, 9º, 11º, 13º, 17º e 20º." },
+      { "level": 2, "name": "Ação Ardilosa", "description": "Ação bônus para usar as ações Desengajar, Disparar ou Esconder." },
+      { "level": 3, "name": "Especialização", "description": "Escolha mais uma proficiência (perícia ou Ofício) para ganhar especialidade." },
+      { "level": 4, "name": "Aprimoramento", "description": "Aumente um atributo em 2 ou dois em 1, ou escolha um Aprimoramento Geral. Níveis 4, 8, 10, 12, 16 e 19." },
+      { "level": 6, "name": "Especialização", "description": "Escolha mais duas proficiências (perícias ou Ofício de Chaveiro) para ganhar especialidade." },
+      { "level": 7, "name": "Evasão", "description": "Em salvaguardas de Destreza para metade do dano: nenhum dano no sucesso, metade na falha." },
+      { "level": 14, "name": "Sentido Cego", "description": "Se puder ouvir, fica ciente da localização de criaturas escondidas ou invisíveis a 10 pés." },
+      { "level": 15, "name": "Essência Elusiva", "description": "Proficiência em salvaguardas de Sabedoria; nenhuma jogada de ataque tem vantagem contra você (se não Incapacitado)." },
+      { "level": 18, "name": "Golpe de Sorte", "description": "Transforma ataque perdido em acerto ou uma falha em um 20; usos = metade do modificador de Inteligência (mín. 1) por descanso." }
+    ],
+    "subclass": {
+      "choiceName": "Cabala",
+      "grantedAt": 1,
+      "options": [
+        {
+          "name": "Cabala do Ás Rúnico",
+          "description": "Manipulador da sorte com Munição Rúnica. Nível 1: Prodígio Rúnico (Munição Rúnica — 1d6 acuidade/arremesso 20/60, definição de formato e dano, 50 peças por hora, bônus de ataque; Carga Rúnica — 4 pontos no 1º, +1 nos 4, 7, 10, 13, 16, 19; dados d6 (d8 no 5, d10 no 11, d12 no 17); recupera em descanso longo/pleno; escolhe 3 recursos de uma lista de 9: Arremesso Trapaceiro, Chamariz, Esguio, Fugaz, Imbuir, Jogada de Sorte, Julgamento Errado, Meter o Pé, Torrente, Tríplice; +1 recurso nos 3, 6, 10, 14, 18). Nível 3: Energizar (munição mágica; encanta 2 munições — Atordoante, Encantadora, Envenenada, Flamejante, Sanguinária; 2 efeitos no 9). Nível 5: Mãos Rápidas (dano +1 categoria, alcance 60/120). Nível 7: Ataque Extra (2 ataques; 3 no 18). Nível 9: Hora do Duelo (Persuasão × Intuição para compelir duelista). Nível 11: Especialização em Combate (erro vira acerto gastando 1 Carga). Nível 13: Recarga Rúnica (crítico devolve munição; recupera munição pós-combate). Nível 17: Intuição Superior (solida dados de Carga em salvaguardas mentais próprias e aliadas). Nível 20: Às na Manga (refaz teste/salvaguarda com 2 Cargas; munição +1 categoria, crítico melhorado, efeitos em dobro)."
+        },
+        {
+          "name": "Cabala do Assassino",
+          "description": "Assassino focado em morte, veneno e subterfúgio. Nível 1: Proficiência Adicional (Ofícios Artista-Maquiador e Apotecário; especialização em Armas Assassinas — adagas, chakrans pequenos, dardos, espadas curtas, katares). Nível 3: Fio da Lâmina (escolha Ciclone de Adagas, Gume Venenoso ou Limiar da Lâmina). Nível 5: Esquiva Sobrenatural (reação reduz dano pela metade). Nível 7: Espreitar (Assinatura Vitriólica, Invisibilidade ou Shunpo). Nível 9: Silenciosamente Mortal (vantagem em Furtividade sonora, imune a sentido sísmico; +60 pés de visão no escuro). Nível 11: Ataque de Investida (salto de 10 pés com crítico automático se acertar). Nível 13: Fenda na Armadura (margem de crítico −1, dano e multiplicador de crítico +1). Nível 17: Espreita Fantasmagórica (melhora a característica de Espreitar; escolhe uma nova). Nível 20: Contagem de Corpos (recupera PV = d20 do ataque que reduziu a criatura a 0; ação extra e deslocamento restaurados)."
+        },
+        {
+          "name": "Cabala do Espião",
+          "description": "Informação e espionagem, com conjuração (atributo: Inteligência). Nível 1: Conjuração (Mercurial Conjurador: aprende mãos mágicas + 2 truques; 3 magias de 1º no 3; mana por tabela — 4 (3º) até 30 (20º); máximo de magia 1º (3), 2º (8), 3º (13), 4º (19); recupera mod. de Inteligência em mana no descanso longo; pode trocar magias por nível) e Proficiência Adicional (Ofícios Falsificador e Artista-Maquiador). Nível 3: Inspecionar Debilidades (prof. Investigação; observa 1 minuto para obter informação; +1 no 10, +1 no 16). Nível 5: Duplipensar (vantagem em Enganação e defesa contra leitura de mentes). Nível 7: Magia Invisível (conjura magia de tempo de ação como ação bônus sem componentes verbais/somáticos). Nível 9: Criar Fraqueza (impõe vulnerabilidade ou desvantagem a uma condição). Nível 11: Enganar (modificar memória de 5º nível sem gastar mana). Nível 13: Mentira Convincente (Enganar em vários alvos; defende contra remoção de memória). Nível 17: Clareza Sombria (bonus para salvaguardas mentais; sempre sob ver o invisível). Nível 20: Imbuir Sombra (Ataque Furtivo funciona com magias de ataque; Desengajar concede invisibilidade)."
+        },
+        {
+          "name": "Cabala do Explorador",
+          "description": "Explorador desbravador de ruínas. Nível 1: Sem Barreiras (prof. Armadilheiro, 2 idiomas + reconhecimento de mais 4; escala e pulos aprimorados). Nível 3: Conhecimento Avançado (Ação Ardilosa para Prestidigitação, desarmar armadilha, Usar Objeto, recarregar; prof. Prestidigitação; encontra armadilhas 1x/descanso; prof. em bestas de repetição ou armas de fogo; margem de crítico −1 com essas armas). Nível 5: Esquiva Sobrenatural (reação reduz dano pela metade). Nível 7: Esquemas Mentais (segundo ataque com mecanismos complexos; detecta magia sem gasto). Nível 9: Aprendizado Rápido (sempre sabe quando mentem para você; vantagens em estudos e Furtividade). Nível 11: Talento Confiável (resultados de d20 de 9 ou menos viram 10; nova especialidade; dano com mecanismos complexos dobrado). Nível 13: Explorador de Catacumbas (vantagem contra Envenenado/Intoxicado, resistência a dano venenoso; identifica itens; ignora requisitos de itens mágicos). Nível 17: Reflexos de Explorador (segundo turno na ordem de iniciativa 10). Nível 20: Experiência de Vida (sucesso automático em testes de atributo/Ofício sem proficiência; não pode ser surpreso; dano dobrado com crítico de 4 no dado)."
+        }
+      ]
+    },
+    "fightingTechniques": "Mercurial não possui Técnicas de Combate.",
+    "spellcasting": null,
+    "spellList": [],
+    "levelTable": [
+      { "level": "1", "features": ["Especialização", "Ataque Furtivo", "Maestria de Armas", "Cabala"] },
+      { "level": "2", "features": ["Ação Ardilosa"] },
+      { "level": "3", "features": ["Especialização", "Característica de Cabala"] },
+      { "level": "4", "features": ["Aprimoramento"] },
+      { "level": "5", "features": ["Característica de Cabala"] },
+      { "level": "6", "features": ["Especialização"] },
+      { "level": "7", "features": ["Evasão", "Característica de Cabala"] },
+      { "level": "8", "features": ["Aprimoramento"] },
+      { "level": "9", "features": ["Característica de Cabala"] },
+      { "level": "10", "features": ["Aprimoramento"] },
+      { "level": "11", "features": ["Característica de Cabala"] },
+      { "level": "12", "features": ["Aprimoramento"] },
+      { "level": "13", "features": ["Característica de Cabala"] },
+      { "level": "14", "features": ["Sentido Cego"] },
+      { "level": "15", "features": ["Essência Elusiva"] },
+      { "level": "16", "features": ["Aprimoramento"] },
+      { "level": "17", "features": ["Característica de Cabala"] },
+      { "level": "18", "features": ["Golpe de Sorte"] },
+      { "level": "19", "features": ["Aprimoramento"] },
+      { "level": "20", "features": ["Característica de Cabala"] }
+    ]
+  }
+}

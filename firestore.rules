@@ -1,0 +1,138 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Filiação vive no doc campaignMembers/{campaignId} com o mapa
+    // members: { uid: "gm" | "pc" } e o array memberUids.
+    function isCampaignMember(campaignId) {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/campaignMembers/$(campaignId)) &&
+        get(/databases/$(database)/documents/campaignMembers/$(campaignId)).data.members.keys().hasAny([request.auth.uid]);
+    }
+
+    function isCampaignGM(campaignId) {
+      return isCampaignMember(campaignId) &&
+        get(/databases/$(database)/documents/campaignMembers/$(campaignId)).data.members.get(request.auth.uid) == 'gm';
+    }
+
+    function isCampaignOwner(campaignId) {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/campaigns/$(campaignId)) &&
+        get(/databases/$(database)/documents/campaigns/$(campaignId)).data.ownerId == request.auth.uid;
+    }
+
+    function isTableOwner(campaignId) {
+      return isCampaignGM(campaignId) || isCampaignOwner(campaignId);
+    }
+
+    // Perfis: cada usuário só lê/escreve o próprio.
+    match /users/{userId} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Campanhas: metadados legíveis por qualquer logado que tenha o link/id;
+    // apenas o dono cria/atualiza/remove. ownerId é imutável e name validado.
+    match /campaigns/{campaignId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn()
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+      allow update: if isCampaignOwner(campaignId)
+        && request.resource.data.ownerId == resource.data.ownerId
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0;
+      allow delete: if isCampaignOwner(campaignId);
+    }
+
+    // Filiação: doc único por campanha. Cada usuário só se insere a si mesmo
+    // (members + memberUids); o dono controla o resto.
+    match /campaignMembers/{campaignId} {
+      allow get: if isSignedIn()
+        && resource.data.memberUids.hasAny([request.auth.uid]);
+      allow list: if isSignedIn()
+        && resource.data.memberUids.hasAny([request.auth.uid]);
+      allow create: if isSignedIn()
+        && request.resource.data.campaignId == campaignId
+        && request.resource.data.members.keys().hasOnly([request.auth.uid])
+        && request.resource.data.members.get(request.auth.uid) == 'gm'
+        && request.resource.data.memberUids.size() == 1
+        && request.resource.data.memberUids.hasAll([request.auth.uid]);
+      allow update: if isCampaignOwner(campaignId)
+        || (isSignedIn()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['members', 'memberUids'])
+          && request.resource.data.members.keys().hasAny([request.auth.uid])
+          && !resource.data.members.keys().hasAny([request.auth.uid])
+          && request.resource.data.members.get(request.auth.uid) == 'pc'
+          && request.resource.data.memberUids.size() == resource.data.memberUids.size() + 1);
+    }
+
+    // Chat da campanha: membros leem; autor cria/edita/remove a própria
+    // mensagem; mestre/dono pode moderar.
+    match /chats/{campaignId}/messages/{messageId} {
+      allow read: if isCampaignMember(campaignId);
+      allow create: if isCampaignMember(campaignId)
+        && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isCampaignMember(campaignId)
+        && (resource.data.userId == request.auth.uid
+          || isTableOwner(campaignId));
+    }
+
+    // Anotações: doc único por campanha; membros leem/escrevem registrando
+    // autoria em updatedBy; apenas mestre/dono remove.
+    match /notes/{campaignId} {
+      allow read: if isCampaignMember(campaignId);
+      allow create, update: if isCampaignMember(campaignId)
+        && request.resource.data.campaignId == campaignId
+        && request.resource.data.updatedBy == request.auth.uid;
+      allow delete: if isTableOwner(campaignId);
+    }
+
+    // Fichas: membros leem; autor (ou GM) edita. Em fichas existentes,
+    // campaignId e userId são imutáveis. delete não usa request.resource
+    // porque ele não existe nessa operação.
+    match /characters/{characterId} {
+      allow read: if isCampaignMember(resource.data.campaignId);
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.campaignId is string;
+      allow update: if isSignedIn()
+        && request.resource.data.campaignId == resource.data.campaignId
+        && request.resource.data.userId == resource.data.userId
+        && isCampaignMember(resource.data.campaignId)
+        && (resource.data.userId == request.auth.uid
+          || isTableOwner(resource.data.campaignId));
+      allow delete: if isSignedIn()
+        && isCampaignMember(resource.data.campaignId)
+        && (resource.data.userId == request.auth.uid
+          || isTableOwner(resource.data.campaignId));
+    }
+
+    // Estado da mesa (combate, mapa, música, NPCs): membros leem,
+    // somente o mestre/dono altera.
+    match /combat/{campaignId} {
+      allow read: if isCampaignMember(campaignId);
+      allow write: if isTableOwner(campaignId);
+    }
+
+    match /map/{campaignId} {
+      allow read: if isCampaignMember(campaignId);
+      allow write: if isTableOwner(campaignId);
+    }
+
+    match /music/{campaignId} {
+      allow read: if isCampaignMember(campaignId);
+      allow write: if isTableOwner(campaignId);
+    }
+
+    match /npcs/{campaignId} {
+      allow read: if isCampaignMember(campaignId);
+      allow write: if isTableOwner(campaignId);
+    }
+  }
+}

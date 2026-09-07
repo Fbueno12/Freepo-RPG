@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criador de Personagem · Runarcana RPG</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">◆</span>
+      <div>
+        <h1>Runarcana RPG</h1>
+        <p>Criador de Personagem</p>
+      </div>
+    </div>
+    <div class="topbar-controls">
+      <button type="button" id="btn-randomize" class="btn btn-sm">🎲 Gerar tudo aleatório</button>
+      <label>Nível do personagem
+        <input type="number" id="input-nivel" min="1" max="20" value="1">
+      </label>
+      <select id="input-vista-livro" hidden></select>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- Sidebar de etapas -->
+  <nav class="steps" id="steps-nav"></nav>
+
+  <!-- Conteúdo -->
+  <main class="content" id="content"></main>
+</div>
+
+<footer class="footer">
+  <span>Ferramenta não oficial para fins de jogo · Conteúdo de <a href="https://wiki.runarcana.org/pt-br/personagens/criacao-de-personagem/index.html" target="_blank" rel="noopener">Runarcana RPG</a></span>
+</footer>
+
+<!-- Área da ficha (oculta fora da impressão) -->
+<div id="sheetWrap" aria-hidden="true">
+  <div id="sheet-actions" class="no-print">
+    <button data-action="back-to-wizard">← Voltar ao criador</button>
+    <button data-action="print-sheet" class="primary">Imprimir / Salvar PDF</button>
+  </div>
+  <div id="sheet"></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

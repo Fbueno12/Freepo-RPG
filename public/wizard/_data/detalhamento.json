@@ -1,0 +1,785 @@
+{
+  "_notes": "Fonte: wiki.runarcana.org (Capítulo 4 · Detalhamento). 'armorProf' e 'weaponProf' foram adicionados aos passados para abranger proficiências extras (Exilado, Gladiador, Pirata). A página de Essência e Comportamento não traz uma taxonomia oficial de essências/alianças; capturamos os 15 conceitos-exemplo com type 'essencia' ou 'personalidade' (axis sempre null, pois não há explicação de eixo no livro). Desconhecido usa regra especial (Perícias e Idiomas: Especial) para recuperar proficiências. Pirata possui juga Equipamento Opcional adicional. 'oficio' (ferramentas) mantém redação original da wiki. A página de Idiomas documenta 3 abordagens (Simples, Fantástica, Pseudo-Canônica) e tabelas de Idiomas Comuns/Exóticos/Mortos.",
+  "passados": [
+    {
+      "name": "Andarilho",
+      "skills": ["Natureza", "Sobrevivência"],
+      "tools": ["Apotecário"],
+      "languages": ["Um idioma comum à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Estojo de pergaminho cheio de notas dos seus estudos e orações" },
+        { "qty": 1, "name": "Cobertor de inverno" },
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Conjunto de Apotecário" },
+        { "qty": 1, "name": "5 PO" }
+      ],
+      "feature": {
+        "name": "Conhecimento do Vento",
+        "description": "Você já ouviu um pouco de tudo e sabe de rumores que correm por Runeterra; uma vez por descanso longo, ao se recordar de uma informação, role o teste com vantagem, mas se rolar menor que 10 não saberá dizer se a memória é rumor ou fato."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Apostador",
+      "skills": ["Enganação", "Persuasão"],
+      "tools": ["Jogador de dois tipos de Jogos"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Conjunto de dados" },
+        { "qty": 1, "name": "Jogo de baralho" },
+        { "qty": 1, "name": "Conjunto de roupas finas" },
+        { "qty": 1, "name": "Algibeira contendo 5 PO" }
+      ],
+      "feature": {
+        "name": "Vamos Tornar as Coisas Interessantes",
+        "description": "Você pode convencer qualquer pessoa a colocar algo que não esteja disposto a compartilhar (propriedade ou informação) em um jogo de azar; o Mestre pode decidir o jogo, e eles só concordam se sentirem que as chances estão fortemente a seu favor."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Aristocrata",
+      "skills": ["História", "Persuasão"],
+      "tools": ["Jogador de um tipo de Jogo"],
+      "languages": ["Um idioma comum à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Conjunto de trajes finos" },
+        { "qty": 1, "name": "Anel de sinete" },
+        { "qty": 1, "name": "Pergaminho de linhagem" },
+        { "qty": 1, "name": "Algibeira contendo 25 PO" }
+      ],
+      "feature": {
+        "name": "Faro Real",
+        "description": "Você sabe dizer quando tentam lhe bajular ou mentir: vantagem em Intuição para perceber mentiras e vantagem em História para recordar conhecimentos sobre uma família Nobre da sua região."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Artesão",
+      "skills": ["Intuição", "Persuasão"],
+      "tools": ["Um Ofício Maior à sua escolha"],
+      "languages": ["Um idioma comum à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Conjunto de Ofício (à sua escolha)" },
+        { "qty": 1, "name": "Cartão de negócios" },
+        { "qty": 1, "name": "Conjunto de roupas de viajante" },
+        { "qty": 1, "name": "Algibeira com 15 PO" }
+      ],
+      "feature": {
+        "name": "Contatos de Negócio",
+        "description": "Você tem fama pela qualidade dos seus produtos na região; pode receber o dobro do dinheiro ao vender seus trabalhos onde é conhecido ou pedir abrigo e alimento a parceiros de negócio com boa relação."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Artista",
+      "skills": ["Acrobacia", "Atuação"],
+      "tools": ["Artista em uma disciplina à sua escolha"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Instrumento musical (à sua escolha)" },
+        { "qty": 1, "name": "Presente de um admirador (carta de amor, mecha de cabelo ou bijuteria)" },
+        { "qty": 1, "name": "Fantasia" },
+        { "qty": 1, "name": "Algibeira contendo 15 PO" }
+      ],
+      "feature": {
+        "name": "Língua de Prata",
+        "description": "Seu carisma facilita agradar plateias e convencer donos de comércios e nobres a deixar você se apresentar; +5 em todos os testes de Atuação e, se a apresentação agradar, o dono pode oferecer estadia e refeição."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Charlatão",
+      "skills": ["Enganação", "Prestidigitação"],
+      "tools": ["Artista: Maquiador", "Falsificador"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Conjunto de roupas finas" },
+        { "qty": 1, "name": "Estojo de maquiagem" },
+        { "qty": 1, "name": "Ferramentas de trapaça à sua escolha (dez garrafas tampadas com líquidos coloridos, dados viciados, baralho marcado ou anel de sinete de um duque imaginário)" },
+        { "qty": 1, "name": "Algibeira contendo 15 PO" }
+      ],
+      "feature": {
+        "name": "Trapaceiro",
+        "description": "Você lê a origem e condição das pessoas com 1 minuto de observação; vantagem em Enganação e Intuição contra elas e pode substituir testes de Persuasão por Enganação."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Criação",
+      "skills": ["Duas perícias à sua escolha, normalmente ligadas ao seu criador"],
+      "tools": ["Um ofício à sua escolha, normalmente ligado ao seu criador"],
+      "languages": ["Um idioma comum à sua escolha, normalmente ligado ao seu criador"],
+      "equipment": [
+        { "qty": 1, "name": "Conjunto de roupas comuns dadas pelo seu criador" },
+        { "qty": 1, "name": "Conjunto de ferramentas para auto-reparo (peças sobressalentes, martelo, pregos, parafusos, etc.)" },
+        { "qty": 1, "name": "Algibeira contendo 1 PO" }
+      ],
+      "feature": {
+        "name": "Cria",
+        "description": "Você é algo fora da curva, um ser de existência não natural; sua mente não cede como a de muitos e você tem vantagem em testes para resistir à Intimidação."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Criminoso",
+      "skills": ["Enganação", "Furtividade"],
+      "tools": ["Jogador de um tipo de estojo de jogo", "Chaveiro"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Pé de cabra" },
+        { "qty": 1, "name": "Conjunto de roupas escuras comuns com capuz" },
+        { "qty": 1, "name": "Algibeira contendo 15 PO" }
+      ],
+      "feature": {
+        "name": "À Margem",
+        "description": "Você recebe contatos da sua antiga vida com oportunidades ou informações locais; com boas relações, tem contatos nas cidades com 'negócios' de seus antigos contratantes, fornecendo informações ou contrabando leve de armas ou venenos."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Desconhecido",
+      "skills": ["Especial"],
+      "tools": [],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Apenas uma muda de roupas que você está vestindo" },
+        { "qty": 1, "name": "1 PO na sua bota" }
+      ],
+      "feature": {
+        "name": "Memória Gradual",
+        "description": "Uma vez por nível, ao encontrar um novo PNJ ou local, você pode decidir se sentir familiar com ele, ligado à sua vida pré-traumática; quanto maior o nível, mais a pessoa/lugar sabe sobre você e sua verdadeira identidade, culminando no nível 9-12 com conflito a resolver."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Estudioso",
+      "skills": ["Arcanismo ou Tecnologia", "História"],
+      "tools": [],
+      "languages": ["Dois idiomas comuns à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Vidro de tinta preta" },
+        { "qty": 1, "name": "Pena" },
+        { "qty": 1, "name": "Faca pequena" },
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Traça de Livro",
+        "description": "Você sabe exatamente onde encontrar uma informação desejada (acadêmicos, bibliotecas, nobres ou comerciantes) e tem vantagem em qualquer teste para recordar um reconhecimento prévio."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Exilado",
+      "skills": ["Sobrevivência", "História"],
+      "tools": ["Artesanato em uma disciplina à sua escolha"],
+      "languages": ["Um idioma comum à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Arma de até 25 PO (tipicamente algo da sua cultura nativa)" },
+        { "qty": 1, "name": "Roupas de viajantes" },
+        { "qty": 1, "name": "Cobertor de inverno" },
+        { "qty": 1, "name": "Lembrete de casa (um desenho, uma folha, um anel...)" },
+        { "qty": 1, "name": "Algibeira contendo 5 PO" }
+      ],
+      "feature": {
+        "name": "Ecos do Passado",
+        "description": "Sua vida anterior não deixou você; escolha duas entre Enganação, Intimidação, Intuição e Persuasão e, uma vez por descanso longo, ganhe vantagem em um teste de atributo para uma das perícias escolhidas."
+      },
+      "variantFeature": null,
+      "armorProf": "Armaduras leves ou médias (à sua escolha)",
+      "weaponProf": null
+    },
+    {
+      "name": "Forasteiro",
+      "skills": ["Atletismo", "Sobrevivência"],
+      "tools": ["Armadilheiro", "Artista: Músico de um instrumento musical à sua escolha"],
+      "languages": ["Um idioma comum à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Armadilha de caça" },
+        { "qty": 1, "name": "Troféu de um animal que você matou" },
+        { "qty": 1, "name": "Conjunto de roupas de viajante" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Sobrevivente",
+        "description": "Seu conhecimento geográfico ajuda a reconhecer regiões, assentamentos, florestas e onde encontrar criaturas; vantagem em Sobrevivência para procurar alimento e entender o terreno local."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Gladiador",
+      "skills": ["Atletismo", "Intimidação"],
+      "tools": [],
+      "languages": ["Um idioma comum à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Traje" },
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Estojo de maquiagem" },
+        { "qty": 1, "name": "Algibeira contendo 15 PO" }
+      ],
+      "feature": {
+        "name": "Contatos",
+        "description": "Quando em uma cidade, você pode encontrar um local para lutar por dinheiro e reputação."
+      },
+      "variantFeature": null,
+      "armorProf": "Armaduras leves e médias",
+      "weaponProf": null
+    },
+    {
+      "name": "Herói Local",
+      "skills": ["Lidar com Animais", "Sobrevivência"],
+      "tools": ["Artesanato em uma disciplina à sua escolha", "Guia (Piloto)"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Conjunto de Ofício à sua escolha" },
+        { "qty": 1, "name": "Pá" },
+        { "qty": 1, "name": "Pote de ferro" },
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Clamor Popular",
+        "description": "Quem conhece sua história pode oferecer a você e aliados comida e abrigo por um ou mais dias, desde que não haja risco; o povo tende a lhe contar rumores sobre os poderosos locais."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Inventor",
+      "skills": ["Tecnologia", "Arcanismo, Medicina, Natureza ou Percepção (à sua escolha)"],
+      "tools": ["Quaisquer dois tipos de ofícios maiores"],
+      "languages": ["Dois idiomas comuns à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Conjunto de um Ofício com o qual você é proficiente" },
+        { "qty": 1, "name": "1d4 livros sobre engenharia" },
+        { "qty": 1, "name": "Invenção minúscula ou pequena feita por você" },
+        { "qty": 1, "name": "Algibeira contendo 15 PO" }
+      ],
+      "feature": {
+        "name": "Uma Vez Estudante, Sempre Estudante",
+        "description": "Você sempre encontra abrigo ou santuário limitado em um local de aprendizado (faculdade ou academia) desde que tenha boas relações, obtendo conhecimentos básicos se contribuir de forma construtiva."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Investigador",
+      "skills": ["Investigação", "Enganação, Intuição, Percepção, Persuasão ou Sobrevivência (à sua escolha)"],
+      "tools": [],
+      "languages": ["Um idioma comum à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Algema" },
+        { "qty": 1, "name": "Conjunto de roupas finas" },
+        { "qty": 1, "name": "Lupa" },
+        { "qty": 1, "name": "Mapa da região em que atuou" },
+        { "qty": 1, "name": "Algibeira contendo 15 PO" }
+      ],
+      "feature": {
+        "name": "Faro Aguçado",
+        "description": "Vantagem para perceber se uma criatura mente para você, em testes para encontrar pistas sobre algo ou alguém e em Percepção para saber se está sendo seguido."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Marujo",
+      "skills": ["Atletismo", "Percepção"],
+      "tools": ["Guia (Navegador) ou Guia (Piloto) (à sua escolha)"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Malagueta (porrete)" },
+        { "qty": 1, "name": "45 pés de corda de seda" },
+        { "qty": 1, "name": "Amuleto da sorte (pé de coelho ou pedra com furo no centro)" },
+        { "qty": 1, "name": "Conjunto de trajes comuns" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Brisa Amiga",
+        "description": "Você tem boa relação com a tripulação de um ou mais navios e pode conseguir passagem gratuita (pagando com serviços) quando eles estiverem no mesmo porto; vantagem em Atletismo relacionado à natação."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Mercenário",
+      "skills": ["Intimidação", "Percepção"],
+      "tools": ["Jogador de um tipo de jogo", "Guia (Piloto)"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Prova do primeiro contrato que você completou" },
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Conjunto de jogos à sua escolha" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Lâmina Contratada",
+        "description": "Soldado da fortuna: você sempre pode encontrar algum trabalho se procurar com atenção, mas empregos menos admiráveis e evitados às vezes caem no seu colo, forçando você a se comprometer entre ética e trabalho."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Órfão",
+      "skills": ["Furtividade", "Prestidigitação"],
+      "tools": ["Artista: Maquiador", "Chaveiro"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Faca pequena" },
+        { "qty": 1, "name": "Mapa da cidade em que você cresceu" },
+        { "qty": 1, "name": "Rato de estimação" },
+        { "qty": 1, "name": "Pequeno objeto para lembrar dos seus pais" },
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Astúcia",
+        "description": "Você conhece os segredos das ruas onde cresceu: vantagem em Furtividade e Percepção no local, dobro de movimentação na região (quando guiando e fora de combate) e vantagem ao pechinchar um item mundano."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Pirata",
+      "skills": ["Duas entre Acrobacia, Lidar com Animais ou Intimidação"],
+      "tools": [],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Cimitarra ou rapieira" },
+        { "qty": 1, "name": "Arcabuz ou pistola" },
+        { "qty": 20, "name": "Munição da arma escolhida" },
+        { "qty": 1, "name": "Diário" },
+        { "qty": 1, "name": "Roupas de pirata" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Ahoy, Parceiro!",
+        "description": "Você sabe dirigir e operar um navio, conhece costumes portuários de várias cidades, tem vantagem para pechinchar a compra de um navio e, em cidades portuárias amigáveis, encontra refúgio com certas pessoas."
+      },
+      "variantFeature": {
+        "name": "Opcional: ênfase de pirata (Tipo de Pirata)",
+        "description": "A tabela de Tipo de Pirata (1d6: Capitão, Primeiro imediato, Canhoneiro, Incursor destemido, Saqueador assustador, Garoto de cabine) e o Equipamento Opcional (perna de pau, gancho, tapa-olho, cachimbo/tabaco, palha, flauta, papagaio como familiar) definem a variedade do seu pirata."
+      },
+      "armorProf": null,
+      "weaponProf": "Cimitarra, Rapieira e Armas de Fogo leves, médias, longas ou canhões (à sua escolha)",
+      "optionalEquipment": [
+        { "qty": 1, "name": "Perna de pau" },
+        { "qty": 1, "name": "Gancho" },
+        { "qty": 1, "name": "Tapa-olho" },
+        { "qty": 1, "name": "Cachimbo e tabaco (com pederneira e ferro para acender)" },
+        { "qty": 1, "name": "Palha" },
+        { "qty": 1, "name": "Flauta" },
+        { "qty": 1, "name": "Papagaio (talvez como familiar)" }
+      ]
+    },
+    {
+      "name": "Religioso",
+      "skills": ["Intuição", "Religião"],
+      "tools": [],
+      "languages": ["Dois idiomas comuns à sua escolha"],
+      "equipment": [
+        { "qty": 1, "name": "Símbolo sagrado" },
+        { "qty": 1, "name": "Livro de preces ou conta de orações" },
+        { "qty": 5, "name": "Varetas de incenso" },
+        { "qty": 1, "name": "Vestimentas cerimoniais" },
+        { "qty": 1, "name": "Conjunto de roupas comuns" },
+        { "qty": 1, "name": "Algibeira contendo 15 PO" }
+      ],
+      "feature": {
+        "name": "Empatia da Fé",
+        "description": "Você detém a simpatia dos que compartilham sua fé: pode participar de cerimônias, pedir ajuda ou cura em locais sagrados, abrigo temporário (estilo de vida modesto) e até abrigo fixo de um templo com o qual tenha boas relações."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    },
+    {
+      "name": "Soldado",
+      "skills": ["Intimidação", "Sobrevivência"],
+      "tools": ["Guia (Piloto)"],
+      "languages": [],
+      "equipment": [
+        { "qty": 1, "name": "Símbolo da sua unidade" },
+        { "qty": 5, "name": "Azagaias" },
+        { "qty": 1, "name": "Vestimentas oficiais" },
+        { "qty": 1, "name": "Arma marcial" },
+        { "qty": 1, "name": "Algibeira contendo 10 PO" }
+      ],
+      "feature": {
+        "name": "Irmãos de Armas",
+        "description": "Você fez amigos em um pelotão que lhe ajudarão com abrigo, comida e equipamento básico; é respeitado por quem conhece sua patente (ou caçado por soldados inimigos) e pode intimidar quem tem patente menor."
+      },
+      "variantFeature": null,
+      "armorProf": null,
+      "weaponProf": null
+    }
+  ],
+  "essencias": [
+    {
+      "name": "Arquiteto",
+      "type": "essencia",
+      "description": "Construir algo realmente duradouro é o que move você.",
+      "axis": null
+    },
+    {
+      "name": "Bom vivant",
+      "type": "essencia",
+      "description": "A vida está aí para ser vivida da melhor forma possível.",
+      "axis": null
+    },
+    {
+      "name": "Camaleão",
+      "type": "essencia",
+      "description": "Adaptar-se a qualquer situação é a chave e o segredo de tudo.",
+      "axis": null
+    },
+    {
+      "name": "Conformista",
+      "type": "essencia",
+      "description": "Tudo está sempre bem, você é capaz de ver isso claramente.",
+      "axis": null
+    },
+    {
+      "name": "Fanático",
+      "type": "essencia",
+      "description": "Sua causa é a coisa mais importante da sua vida, ou talvez até mais importante.",
+      "axis": null
+    },
+    {
+      "name": "Autoritário",
+      "type": "essencia",
+      "description": "A sua forma é a correta, basta que os outros entendam isso.",
+      "axis": null
+    },
+    {
+      "name": "Competidor",
+      "type": "essencia",
+      "description": "Vencer é sempre o mais importante.",
+      "axis": null
+    },
+    {
+      "name": "Cientista",
+      "type": "essencia",
+      "description": "Entender o caminho do sucesso é o mais importante.",
+      "axis": null
+    },
+    {
+      "name": "Celebrante",
+      "type": "essencia",
+      "description": "A vitória é feita para ser celebrada ou ela não tem valor.",
+      "axis": null
+    },
+    {
+      "name": "Visionário",
+      "type": "essencia",
+      "description": "Tudo faz parte de algo muito maior que ainda está em andamento.",
+      "axis": null
+    },
+    {
+      "name": "Cauteloso",
+      "type": "personalidade",
+      "description": "O 'como' conseguir é tão importante quanto o 'conseguir' em si.",
+      "axis": null
+    },
+    {
+      "name": "Rebelde",
+      "type": "personalidade",
+      "description": "Ninguém manda em você e suas regras é você quem faz.",
+      "axis": null
+    },
+    {
+      "name": "Solitário",
+      "type": "personalidade",
+      "description": "No fim das contas o que conta é como você se sente em relação às coisas.",
+      "axis": null
+    },
+    {
+      "name": "Pedagogo",
+      "type": "personalidade",
+      "description": "Ensinar é importante, passar adiante o conhecimento.",
+      "axis": null
+    },
+    {
+      "name": "Sobrevivente",
+      "type": "personalidade",
+      "description": "No fim das contas, o importante é sobreviver mais um dia.",
+      "axis": null
+    }
+  ],
+  "comportamentos": [],
+  "idiomas": [
+    {
+      "name": "Comum",
+      "parent": "",
+      "script": "",
+      "note": "Usado na abordagem Simples: idioma único falado por todos os personagens e PNJs."
+    },
+    {
+      "name": "Valoriano",
+      "parent": "Va-Noxiano",
+      "script": "",
+      "note": "Usado na abordagem Fantástica (o 'Comum' não existe): língua franca falada em Demacia, Noxus, Piltover, Zaun, Águas de Sentina e na encosta de Ionia; variante do Va-Noxiano usada como língua mercantil e em documentos."
+    },
+    {
+      "name": "Buhru",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Águas de Sentina por humanos Buhrus."
+    },
+    {
+      "name": "Demaciano",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Demacia por humanos, com dialetos regionais."
+    },
+    {
+      "name": "Freljordiano",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado no Freljord por humanos, com dialetos tribais; inclui Avarosiano, Praeglacius, Garras do Inverno e Lokhfar (um por tribo/região), que se comunicam entre si."
+    },
+    {
+      "name": "Ioniano",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Ionia por humanos e Vastayas, com dialetos regionais."
+    },
+    {
+      "name": "Ixtali",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Ixtal por humanos."
+    },
+    {
+      "name": "Minotáurico",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em toda Runeterra por Minotauros."
+    },
+    {
+      "name": "Nazumita",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Nazumah por humanos."
+    },
+    {
+      "name": "Noxiano",
+      "parent": "Va-Noxiano",
+      "script": "",
+      "note": "Idioma comum. Falado em Noxus por humanos e Minotauros; idioma oficial de Noxus, com o dialeto Va-Noxiano sendo a base do Valoriano."
+    },
+    {
+      "name": "Sentinense",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Águas de Sentina por humanos."
+    },
+    {
+      "name": "Shurimane",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Shurima por humanos."
+    },
+    {
+      "name": "Targonense",
+      "parent": "Rakkor",
+      "script": "",
+      "note": "Idioma comum. Falado no Monte Targon por humanos; dialeto Rakkor."
+    },
+    {
+      "name": "Vastayês",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Ionia por Vastayas, com dialetos tribais."
+    },
+    {
+      "name": "Yordle",
+      "parent": "",
+      "script": "",
+      "note": "Idioma comum. Falado em Bandópolis por Yordles."
+    },
+    {
+      "name": "Zaunita",
+      "parent": "Piltovense",
+      "script": "",
+      "note": "Idioma comum. Falado em Piltover e Zaun por humanos e Construtos; herança de Oshra Va'Zaun/Kha'Zhun. Em Piltover, o dialeto é chamado de Piltovense (forma de elitizar e se diferenciar dos zaunitas)."
+    },
+    {
+      "name": "Celestial",
+      "parent": "",
+      "script": "",
+      "note": "Idioma exótico. Falado por Celestes."
+    },
+    {
+      "name": "Dracônico",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita. Falado por Dragões."
+    },
+    {
+      "name": "Demoníaco",
+      "parent": "",
+      "script": "",
+      "note": "Idioma exótico. Falado por Ínferos e Akana."
+    },
+    {
+      "name": "Espiritual",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita. Falado por Espíritos e Kanmei."
+    },
+    {
+      "name": "Elemental",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita. Falado por Elementais."
+    },
+    {
+      "name": "Feérico",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita. Falado por Fadas."
+    },
+    {
+      "name": "Heliano",
+      "parent": "",
+      "script": "",
+      "note": "Idioma exótico. Falado por Tocados pela Névoa."
+    },
+    {
+      "name": "Icathiano",
+      "parent": "",
+      "script": "",
+      "note": "Idioma exótico. Falado por Humanos."
+    },
+    {
+      "name": "Ochnun",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita. Falado por Mortos-vivos."
+    },
+    {
+      "name": "Primordial",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita; falantes não informados na tabela."
+    },
+    {
+      "name": "Rúnico",
+      "parent": "",
+      "script": "",
+      "note": "Idioma exótico; falantes não informados na tabela."
+    },
+    {
+      "name": "Shurimane Antigo",
+      "parent": "",
+      "script": "",
+      "note": "Idioma exótico. Falado por Humanos."
+    },
+    {
+      "name": "Silvestre",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita. Falado por Bestas e Antroplantæ."
+    },
+    {
+      "name": "Troll",
+      "parent": "",
+      "script": "Sem escrita",
+      "note": "Idioma exótico sem escrita. Falado por Trolls."
+    },
+    {
+      "name": "Demaciano Antigo",
+      "parent": "",
+      "script": "",
+      "note": "Idioma morto (quase nenhuma criatura viva o usa). Falado por Demacianos."
+    },
+    {
+      "name": "Vorrijaardiano",
+      "parent": "",
+      "script": "",
+      "note": "Idioma morto. Falado por Celestiais."
+    },
+    {
+      "name": "Freljordiano Antigo",
+      "parent": "",
+      "script": "",
+      "note": "Idioma morto. Falado por Humanos e Observadores."
+    },
+    {
+      "name": "Ioniano Antigo",
+      "parent": "",
+      "script": "",
+      "note": "Idioma morto. Falado por Humanos, Vastayashai'rei e Gigantes."
+    },
+    {
+      "name": "Ur'Nox",
+      "parent": "",
+      "script": "",
+      "note": "Idioma morto. Falado por Humanos."
+    },
+    {
+      "name": "Vasthayshai'rei",
+      "parent": "",
+      "script": "",
+      "note": "Idioma morto. Falado por Vastayas."
+    },
+    {
+      "name": "Yeti",
+      "parent": "",
+      "script": "",
+      "note": "Idioma morto. Falado por Yetis."
+    }
+  ],
+  "detalhesPersonagem": {
+    "notes": "Detalhes fixos do personagem: Nome (pode incluir apelidos e títulos; exemplos por origem no capítulo Origens), Sexo/Gênero (padrão binário nas espécies humanoides, mas gênero e orientação são livres, sem bônus ou desvantagens), Altura e Peso (base na origem ou tabela de Altura e Peso Aleatórios; valores não mudam com facilidade) e outras características físicas (idade, cabelo, olhos, pele, tatuagens, cicatrizes, traços mágicos).",
+    "alturaPesoAleatorios": [
+      { "origin": "Humano", "alturaBase": "142 cm", "pesoBase": "55 kg", "modAltura": "+6d10 cm", "modPeso": "x (2d4/5) kg" },
+      { "origin": "Antroplantæ - Arbóreo", "alturaBase": "182 cm", "pesoBase": "112 kg", "modAltura": "+7d10 cm", "modPeso": "x (2d10/5) kg" },
+      { "origin": "Antroplantæ - Floral", "alturaBase": "132 cm", "pesoBase": "48 kg", "modAltura": "+6d6 cm", "modPeso": "x (1d6/5) kg" },
+      { "origin": "Construto - Brutal", "alturaBase": "182 cm", "pesoBase": "98 kg", "modAltura": "+6d8 cm", "modPeso": "x (2d8/5) kg" },
+      { "origin": "Construto - Emissário", "alturaBase": "150 cm", "pesoBase": "57 kg", "modAltura": "+6d6 cm", "modPeso": "x (2d6/5) kg" },
+      { "origin": "Construto - Ligeiro", "alturaBase": "135 cm", "pesoBase": "45 kg", "modAltura": "+6d6 cm", "modPeso": "x (2d6/5) kg" },
+      { "origin": "Meio-Dragão", "alturaBase": "142 cm", "pesoBase": "87 kg", "modAltura": "+6d8 cm", "modPeso": "x (2d6/5) kg" },
+      { "origin": "Minotauro", "alturaBase": "176 cm", "pesoBase": "92 kg", "modAltura": "+6d6 cm", "modPeso": "x (2d8/5) kg" },
+      { "origin": "Troll", "alturaBase": "282 cm", "pesoBase": "142 kg", "modAltura": "+6d12 cm", "modPeso": "x (2d10/5) kg" },
+      { "origin": "Vastaya - Fauhwoon", "alturaBase": "145 cm", "pesoBase": "55 kg", "modAltura": "+6d8 cm", "modPeso": "x (2d4/5) kg" },
+      { "origin": "Vastaya - Kiilash", "alturaBase": "147 cm", "pesoBase": "70 kg", "modAltura": "+6d10 cm", "modPeso": "x (2d6/5) kg" },
+      { "origin": "Vastaya - Lhotlan", "alturaBase": "145 cm", "pesoBase": "55 kg", "modAltura": "+6d8 cm", "modPeso": "x (2d4/5) kg" },
+      { "origin": "Vastaya - Marai", "alturaBase": "137 cm", "pesoBase": "62 kg", "modAltura": "+6d8 cm", "modPeso": "x (2d6/5) kg" },
+      { "origin": "Vastaya - Oovi-kat", "alturaBase": "142 cm", "pesoBase": "45 kg", "modAltura": "+6d6 cm", "modPeso": "x (2d4/5) kg" },
+      { "origin": "Vastaya - Otrrani", "alturaBase": "145 cm", "pesoBase": "53 kg", "modAltura": "+6d10 cm", "modPeso": "x (2d4/5) kg" },
+      { "origin": "Vastaya - Shimon", "alturaBase": "145 cm", "pesoBase": "57 kg", "modAltura": "+6d8 cm", "modPeso": "x (2d4/5) kg" },
+      { "origin": "Yordle", "alturaBase": "48 cm", "pesoBase": "18 kg", "modAltura": "+6d4 cm", "modPeso": "x (1d4/5) kg" }
+    ],
+    "exemploCalculo": "Exemplo do livro: Jorden, humano, altura base de 1,42 m; 6d10 rolou 31 → 1,73 m. Peso base 55 kg; 31 x (2d4 → 3) ÷ 5 = 18,6 kg → 73,6 kg."
+  }
+}
