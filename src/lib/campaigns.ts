@@ -10,8 +10,8 @@ import {
   orderBy,
   onSnapshot,
   setDoc,
-  arrayUnion,
   serverTimestamp,
+  runTransaction,
   type Unsubscribe,
 } from "firebase/firestore";
 import { db } from "./firebase";
@@ -54,19 +54,30 @@ export async function joinCampaign(
   campaignId: string,
   userId: string,
 ): Promise<void> {
-  const snap = await getDoc(doc(db, "campaignMembers", campaignId));
-  if (snap.exists() && snap.data().members?.[userId]) return;
+  const ref = doc(db, "campaignMembers", campaignId);
 
-  await setDoc(
-    doc(db, "campaignMembers", campaignId),
-    {
-      campaignId,
-      members: { [userId]: "pc" },
-      memberUids: arrayUnion(userId),
-      updatedAt: serverTimestamp(),
-    },
-    { merge: true },
-  );
+  await runTransaction(db, async (tx) => {
+    const snap = await tx.get(ref);
+    const current = snap.exists() ? snap.data() : {};
+
+    const members = (current.members ?? {}) as Record<string, string>;
+    const memberUids = Array.isArray(current.memberUids)
+      ? (current.memberUids as string[])
+      : [];
+
+    if (members[userId] || memberUids.includes(userId)) return;
+
+    tx.set(
+      ref,
+      {
+        // Preserva os membros existentes (GM + PCs) e apenas acrescenta o novo.
+        // setDoc+merge NÃO faz deep-merge de mapas, então mesclamos aqui.
+        members: { ...members, [userId]: "pc" },
+        memberUids: [...memberUids, userId],
+      },
+      { merge: true },
+    );
+  });
 }
 
 export async function deleteCampaign(campaignId: string): Promise<void> {
@@ -94,9 +105,17 @@ export async function getUserCampaignIds(userId: string): Promise<string[]> {
 export async function getUserCampaigns(
   userId: string,
 ): Promise<Campaign[]> {
-  const ids = await getUserCampaignIds(userId);
+  let ids: string[] | null = null;
+  try {
+    ids = await getUserCampaignIds(userId);
+  } catch {
+    // Se as rules antigas ainda estiverem publicadas, a query em
+    // campaignMembers é negada. Degrada para campanhas que o usuário
+    // criou (ownerId), que a regra antiga também permitia ler.
+    ids = null;
+  }
 
-  if (ids.length === 0) {
+  if (!ids || ids.length === 0) {
     const owned = await getDocs(
       query(collection(db, "campaigns"), where("ownerId", "==", userId)),
     );
@@ -105,8 +124,13 @@ export async function getUserCampaigns(
 
   const campaigns: Campaign[] = [];
   for (const id of ids) {
-    const c = await getCampaign(id);
-    if (c) campaigns.push(c);
+    try {
+      const c = await getCampaign(id);
+      if (c) campaigns.push(c);
+    } catch {
+      // Campanha inacessível (ex.: rules ainda não publicadas) — pula sem
+      // derrubar a lista inteira.
+    }
   }
   return campaigns;
 }
@@ -191,6 +215,7 @@ export async function saveNotes(
   userId: string,
 ): Promise<void> {
   await setDoc(doc(db, "notes", campaignId), {
+    campaignId,
     content,
     updatedAt: serverTimestamp(),
     updatedBy: userId,

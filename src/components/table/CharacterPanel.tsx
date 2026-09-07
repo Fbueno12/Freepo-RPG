@@ -136,7 +136,7 @@ export function CharacterPanel({ campaignId, isGM }: CharacterPanelProps) {
                   className="icon-btn !w-7 !h-7 text-sm"
                   title="Remover da mesa"
                   onClick={async () => {
-                    await deleteCharacter(character.id);
+                    await deleteCharacter(campaignId, character.id);
                     flash(`"${character.name}" removida.`);
                   }}
                 >
@@ -354,6 +354,7 @@ function SheetModal({
                       title="Remover item"
                       onClick={() =>
                         void removeItemFromCharacter(
+                          campaignId,
                           character.id,
                           character.items ?? [],
                           item,
@@ -375,6 +376,7 @@ function SheetModal({
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && newItem.trim()) {
                       void addItemToCharacter(
+                        campaignId,
                         character.id,
                         character.items ?? [],
                         newItem,
@@ -390,6 +392,7 @@ function SheetModal({
                   disabled={!newItem.trim()}
                   onClick={() => {
                     void addItemToCharacter(
+                      campaignId,
                       character.id,
                       character.items ?? [],
                       newItem,

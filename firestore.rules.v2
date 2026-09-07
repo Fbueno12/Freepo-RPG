@@ -7,9 +7,15 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Filiação vive no doc campaignMembers/{campaignId} com o mapa
-    // members: { uid: "gm" | "pc" } e o array memberUids.
-    // Usado tanto com resource.data (get/list) quanto com get(...).data.
+    // ---------------------------------------------------------------
+    // Filiação (NOTA DE PRODUÇÃO):
+    // get()/exists() só podem ser usados em leituras de DOC ÚNICO (get)
+    // ou em queries cujo caminho é estático por request (path de
+    // subcollection ex.: /chats/{campaignId}/messages). Em queries de
+    // coleção top-level (list) o caminho do get() variaria por documento
+    // ("security rules are not filters") -> a query inteira é negada.
+    // Por isso campaignMembers e characters usam field-check em list.
+    // ---------------------------------------------------------------
     function isMemberRoles(roles) {
       return roles is map && roles.keys().hasAny([request.auth.uid]);
     }
@@ -60,17 +66,13 @@ service cloud.firestore {
       allow delete: if isCampaignOwner(campaignId);
     }
 
-    // Filiação: doc único por campanha. Cada usuário só se insere a si mesmo
-    // (members + memberUids); o dono controla o resto.
-    // get/list usam resource.data (campo-check) porque get()/exists() não
-    // podem ser avaliados em queries (list) pelo Firestore.
+    // Filiação: doc único por campanha (members: {uid: 'gm'|'pc'} + memberUids).
+    // get usa resource.data/campo; list usa o MESMO campo da query
+    // (memberUids) via campo-check, pois get()/exists() quebram queries.
     match /campaignMembers/{campaignId} {
       allow get: if isSignedIn()
         && (isMemberRoles(resource.data.get('members', {}))
           || resource.data.get('memberUids', []).hasAny([request.auth.uid]));
-      // list usa o MESMO campo da query (memberUids). Rules não são filtros:
-      // se a regra checasse o mapa members e um doc tivesse memberUids com o
-      // usuário mas members sem (dado corrompido), a query inteira seria negada.
       allow list: if isSignedIn()
         && resource.data.get('memberUids', []).hasAny([request.auth.uid]);
       allow create: if isSignedIn()
@@ -89,7 +91,8 @@ service cloud.firestore {
     }
 
     // Chat da campanha: membros leem; autor cria/edita/remove a própria
-    // mensagem; mestre/dono pode moderar.
+    // mensagem; mestre/dono pode moderar. Read via isCampaignMember(campaignId)
+    // é válido aqui: campaignId vem do path da subcollection (estático).
     match /chats/{campaignId}/messages/{messageId} {
       allow read: if isCampaignMember(campaignId);
       allow create: if isCampaignMember(campaignId)
@@ -103,34 +106,42 @@ service cloud.firestore {
     // autoria em updatedBy; apenas mestre/dono remove.
     match /notes/{campaignId} {
       allow read: if isCampaignMember(campaignId);
-      allow create, update: if isCampaignMember(campaignId)
+      // create: doc completo (setDoc sem merge) — exige campaignId e autoria.
+      allow create: if isCampaignMember(campaignId)
         && request.resource.data.campaignId == campaignId
         && request.resource.data.updatedBy == request.auth.uid;
+      // update: use diff() (funciona igual no emulador e na produção, onde
+      // request.resource pode vir "hidratado" ou só com o delta). Bloqueia
+      // mudança de campaignId; autoria obrigatória via get() com default.
+      allow update: if isCampaignMember(campaignId)
+        && request.resource.data.get('updatedBy', '') == request.auth.uid
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['campaignId']);
       allow delete: if isTableOwner(campaignId);
     }
 
-    // Fichas: membros leem; autor (ou GM) edita. Em fichas existentes,
-    // campaignId e userId são imutáveis. delete não usa request.resource
-    // porque ele não existe nessa operação.
-    match /characters/{characterId} {
-      allow read: if isCampaignMember(resource.data.campaignId);
-      allow create: if isSignedIn()
-        && request.resource.data.userId == request.auth.uid
-        && request.resource.data.campaignId is string;
-      allow update: if isSignedIn()
-        && request.resource.data.campaignId == resource.data.campaignId
-        && request.resource.data.userId == resource.data.userId
-        && isCampaignMember(resource.data.campaignId)
+// Fichas: SUBCOLEÇÃO de campaigns (campaigns/{campaignId}/characters/...).
+    // campaignId vem do path — ESTÁTICO por request → isCampaignMember() é
+    // válido em get E list (queries). A prova de filiação funciona no emulador
+    // e na produção, ao contrário do modelo top-level (get()/exists() ou
+    // request.query.where quebram/queries).
+    match /campaigns/{campaignId}/characters/{characterId} {
+      allow read: if isCampaignMember(campaignId);
+      allow create: if isCampaignMember(campaignId)
+        && request.resource.data.campaignId == campaignId
+        && request.resource.data.userId == request.auth.uid;
+      // update via diff(): idêntico no emulador (delta) e na produção
+      // (request.resource "hidratado"); bloqueia troca de dono/campanha.
+      allow update: if isCampaignMember(campaignId)
         && (resource.data.userId == request.auth.uid
-          || isTableOwner(resource.data.campaignId));
-      allow delete: if isSignedIn()
-        && isCampaignMember(resource.data.campaignId)
+          || isTableOwner(campaignId))
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['campaignId', 'userId']);
+      allow delete: if isCampaignMember(campaignId)
         && (resource.data.userId == request.auth.uid
-          || isTableOwner(resource.data.campaignId));
+          || isTableOwner(campaignId));
     }
 
-    // Estado da mesa (combate, mapa, música, NPCs): membros leem,
-    // somente o mestre/dono altera.
+    // Estado da mesa (combate, mapa, música, NPCs): doc único por campanha;
+    // membros leem, somente o mestre/dono altera.
     match /combat/{campaignId} {
       allow read: if isCampaignMember(campaignId);
       allow write: if isTableOwner(campaignId);

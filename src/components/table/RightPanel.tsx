@@ -366,7 +366,7 @@ function MusicPanel({
                 </div>
               </div>
             )}
-            {ready && currentTrack && (
+            {isGM && ready && currentTrack && (
               <button
                 className="absolute bottom-2 left-2 z-10 w-9 h-9 rounded-full bg-[rgba(17,15,12,.85)] border border-border-light text-glow text-sm flex items-center justify-center hover:bg-bg"
                 onClick={() => togglePlay(campaignId, music)}
