@@ -42,6 +42,7 @@ export async function initMusic(
     currentTrackId: "",
     playing: false,
     seekTo: 0,
+    startedAt: 0,
     tracks: [],
     updatedAt: serverTimestamp(),
   });
@@ -87,12 +88,37 @@ export async function playTrack(
     currentTrackId: trackId,
     playing: true,
     seekTo: 0,
+    startedAt: Date.now(),
   });
 }
 
 export async function togglePlay(
   campaignId: string,
   music: MusicState,
+  currentTime: number,
 ): Promise<void> {
-  await setMusic(campaignId, { playing: !music.playing });
+  if (music.playing) {
+    await setMusic(campaignId, {
+      playing: false,
+      seekTo: currentTime,
+      startedAt: 0,
+    });
+  } else {
+    await setMusic(campaignId, {
+      playing: true,
+      seekTo: music.seekTo,
+      startedAt: Date.now(),
+    });
+  }
+}
+
+export async function stopMusic(
+  campaignId: string,
+): Promise<void> {
+  await setMusic(campaignId, {
+    currentTrackId: "",
+    playing: false,
+    seekTo: 0,
+    startedAt: 0,
+  });
 }

@@ -83,133 +83,93 @@ export function LoginScreen({ onSuccess }: LoginScreenProps) {
   };
 
   return (
-    <div className="relative flex flex-col flex-1">
-      <main className="flex flex-1 relative items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(900px 500px at 50% -5%, rgba(95,212,208,.08), transparent 55%), radial-gradient(700px 400px at 20% 80%, rgba(122,140,82,.06), transparent 50%), var(--bg)",
-          }}
-        />
-        <div className="relative w-full max-w-md mx-auto px-6 py-24">
-          <form
-            onSubmit={handleSubmit}
-            className="bg-panel border border-border rounded-2xl p-9 shadow-[0_24px_70px_rgba(0,0,0,.55)]"
+    <div className="login">
+      <main className="login-main">
+        <div className="login-bg" />
+        <form onSubmit={handleSubmit} className="login-card">
+          <div className="login-ava">
+            <Image src="/Freepo.jpeg" alt="Freepo" width={80} height={80} />
+          </div>
+          <h1 className="login-title">Freepo</h1>
+          <p className="login-sub">
+            {mode === "login"
+              ? "onde nossa campanha ganha vida"
+              : "monte seu personagem, vamos começar"}
+          </p>
+
+          {error && <div className="alert alert-error">{error}</div>}
+
+          <div className="field">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="voce@exemplo.com"
+              required
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="password">Senha</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <button type="submit" className="btn btn-glow btn-block" disabled={loading}>
+            {loading
+              ? "Carregando…"
+              : mode === "login"
+                ? "Entrar"
+                : "Criar conta"}
+          </button>
+
+          <div className="login-hr">ou</div>
+
+          <button
+            type="button"
+            className="btn btn-ghost btn-block"
+            onClick={() => {
+              setMode(mode === "login" ? "register" : "login");
+              setError(null);
+            }}
           >
-            <div className="w-20 h-20 rounded-full mx-auto mb-4.5 overflow-hidden border-3 border-accent-dark shadow-[0_0_20px_rgba(95,212,208,.25),0_0_50px_rgba(95,212,208,.08)]">
-              <Image
-                src="/Freepo.jpeg"
-                alt="Freepo"
-                width={80}
-                height={80}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h1 className="text-center text-2xl text-glow tracking-widest">
-              Freepo
-            </h1>
-            <p className="text-center text-muted text-xs mt-1.5 mb-6">
-              {mode === "login"
-                ? "onde nossa campanha ganha vida"
-                : "monte seu personagem, vamos começar"}
-            </p>
-
-            {error && (
-              <div className="mb-4 p-3 text-xs rounded-lg border border-red/40 bg-red/10 text-red">
-                {error}
-              </div>
-            )}
-
-            <div className="field">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="voce@exemplo.com"
-                required
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="password">Senha</label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-glow w-full mt-2"
-              disabled={loading}
-            >
-              {loading
-                ? "Carregando…"
-                : mode === "login"
-                  ? "Entrar"
-                  : "Criar conta"}
+            {mode === "login" ? "Criar conta" : "Já tenho conta"}
+          </button>
+          <p className="login-foot">
+            Esqueceu a senha?{" "}
+            <button type="button" className="link" onClick={openResetModal}>
+              recuperar
             </button>
-
-            <div className="flex items-center gap-3 text-[#5c5044] text-xs my-5">
-              <span className="flex-1 h-px bg-border" />
-              ou
-              <span className="flex-1 h-px bg-border" />
-            </div>
-
-            <button
-              type="button"
-              className="btn btn-ghost w-full"
-              onClick={() => {
-                setMode(mode === "login" ? "register" : "login");
-                setError(null);
-              }}
-            >
-              {mode === "login" ? "Criar conta" : "Já tenho conta"}
-            </button>
-            <p className="text-center mt-4 text-muted text-xs">
-              Esqueceu a senha?{" "}
-              <button
-                type="button"
-                className="text-glow cursor-pointer no-underline bg-transparent"
-                onClick={openResetModal}
-              >
-                recuperar
-              </button>
-            </p>
-          </form>
-        </div>
+          </p>
+        </form>
       </main>
 
       {resetOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-[rgba(10,8,5,.75)] backdrop-blur-[3px] flex items-center justify-center p-6"
-          onClick={() => setResetOpen(false)}
-        >
+        <div className="modal" onClick={() => setResetOpen(false)}>
           <form
             onSubmit={submitReset}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-sm bg-panel border border-border-light rounded-2xl p-8 shadow-[0_30px_80px_rgba(0,0,0,.6)]"
+            className="dialog"
           >
-            <h2 className="font-cinzel text-xl text-glow mb-1">Recuperar senha</h2>
-            <p className="text-muted text-xs mb-5">
+            <h2 className="dialog-title">Recuperar senha</h2>
+            <p className="dialog-sub">
               Informe seu email e enviaremos as instruções.
             </p>
 
             {resetSuccess && (
-              <div className="mb-4 p-3 text-xs rounded-lg border border-glow-dark/40 bg-glow/10 text-glow">
+              <div className="alert alert-info">
                 Instruções enviadas! Cheque sua caixa de entrada.
               </div>
             )}
             {resetError && (
-              <div className="mb-4 p-3 text-xs rounded-lg border border-red/40 bg-red/10 text-red">
-                {resetError}
-              </div>
+              <div className="alert alert-error">{resetError}</div>
             )}
 
             <div className="field">
@@ -225,19 +185,11 @@ export function LoginScreen({ onSuccess }: LoginScreenProps) {
               />
             </div>
 
-            <div className="flex justify-end gap-2.5 mt-5">
-              <button
-                type="button"
-                className="btn btn-ghost"
-                onClick={() => setResetOpen(false)}
-              >
+            <div className="dialog-actions">
+              <button type="button" className="btn btn-ghost" onClick={() => setResetOpen(false)}>
                 Cancelar
               </button>
-              <button
-                type="submit"
-                className="btn btn-glow"
-                disabled={resetLoading}
-              >
+              <button type="submit" className="btn btn-glow" disabled={resetLoading}>
                 {resetLoading ? "Enviando…" : "Enviar instruções"}
               </button>
             </div>

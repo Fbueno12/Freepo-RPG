@@ -1,41 +1,38 @@
 import Image from "next/image";
 
+export type AppScreen = "login" | "lobby" | "game";
+
 interface HeaderProps {
-  onNavigate?: (screen: string) => void;
-  activeScreen?: string;
+  onNavigate?: (screen: AppScreen) => void;
+  activeScreen?: AppScreen;
 }
 
 export function Header({ onNavigate, activeScreen = "login" }: HeaderProps) {
-  const screens = [
+  const screens: { id: AppScreen; label: string }[] = [
     { id: "login", label: "Login" },
     { id: "lobby", label: "Lobby" },
     { id: "game", label: "Mesa de Jogo" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 h-12 flex items-center gap-4 px-5 bg-gradient-to-b from-[#1a1714] to-[#141210] border-b border-border">
-      <div className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-accent-dark shadow-[0_0_12px_rgba(95,212,208,.25)]">
+    <header className="site-header">
+      <div className="site-header__logo">
+        <div className="site-header__mark">
           <Image
             src="/Freepo.jpeg"
             alt="Freepo"
             width={32}
             height={32}
-            className="w-full h-full object-cover"
           />
         </div>
-        <b className="font-cinzel tracking-widest text-base text-glow">FREEPO</b>
+        <b className="site-header__name">FREEPO</b>
       </div>
-      <nav className="flex gap-1.5 ml-auto">
+      <nav className="site-header__nav">
         {screens.map((screen) => (
           <button
             key={screen.id}
             onClick={() => onNavigate?.(screen.id)}
-            className={`px-3.5 py-1.5 rounded-lg border transition-colors ${
-              activeScreen === screen.id
-                ? "bg-panel2 text-glow border-border-light"
-                : "bg-transparent text-muted border-transparent hover:text-text"
-            }`}
+            className={activeScreen === screen.id ? "on" : ""}
           >
             {screen.label}
           </button>

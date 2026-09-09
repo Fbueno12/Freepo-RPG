@@ -70,9 +70,7 @@ service cloud.firestore {
     // get usa resource.data/campo; list usa o MESMO campo da query
     // (memberUids) via campo-check, pois get()/exists() quebram queries.
     match /campaignMembers/{campaignId} {
-      allow get: if isSignedIn()
-        && (isMemberRoles(resource.data.get('members', {}))
-          || resource.data.get('memberUids', []).hasAny([request.auth.uid]));
+      allow get: if isSignedIn();
       allow list: if isSignedIn()
         && resource.data.get('memberUids', []).hasAny([request.auth.uid]);
       allow create: if isSignedIn()
@@ -160,6 +158,12 @@ service cloud.firestore {
     match /npcs/{campaignId} {
       allow read: if isCampaignMember(campaignId);
       allow write: if isTableOwner(campaignId);
+    }
+
+    // Presença: quem está online na sessão. Cada jogador escreve seu próprio doc.
+    match /presence/{campaignId}/users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == userId;
     }
   }
 }

@@ -9,9 +9,10 @@ import {
   deleteDoc,
   serverTimestamp,
   type Unsubscribe,
+  type Timestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
-import type { CharacterSheet, WizardState } from "./types";
+import type { CharacterSheet, WizardState, Macro, SecretMessage } from "./types";
 
 const WIZARD_STORAGE_KEY = "runarcana_wizard_v1";
 
@@ -39,7 +40,11 @@ export async function saveCharacter(
     campaignId,
     userId,
     name,
+    type: "pc",
     state,
+    items: [],
+    macros: [],
+    notes: "",
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
@@ -140,4 +145,108 @@ export function subscribeCharacters(
     );
     onCharacters(characters);
   });
+}
+
+export async function saveNpc(
+  campaignId: string,
+  name: string,
+  state: WizardState,
+): Promise<string> {
+  const ref = await addDoc(collection(db, "campaigns", campaignId, "characters"), {
+    campaignId,
+    userId: "",
+    name: name.trim() || "Sem nome",
+    type: "npc",
+    state,
+    items: [],
+    macros: [],
+    notes: "",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  return ref.id;
+}
+
+export async function addMacro(
+  campaignId: string,
+  characterId: string,
+  macros: Macro[],
+  macro: Omit<Macro, "id" | "createdAt">,
+): Promise<void> {
+  const newMacro: Macro = {
+    ...macro,
+    id: crypto.randomUUID(),
+    createdAt: serverTimestamp() as Timestamp,
+  };
+  await setDoc(
+    doc(db, "campaigns", campaignId, "characters", characterId),
+    { macros: [...macros, newMacro], updatedAt: serverTimestamp() },
+    { merge: true },
+  );
+}
+
+export async function removeMacro(
+  campaignId: string,
+  characterId: string,
+  macros: Macro[],
+  macroId: string,
+): Promise<void> {
+  await setDoc(
+    doc(db, "campaigns", campaignId, "characters", characterId),
+    { macros: macros.filter((m) => m.id !== macroId), updatedAt: serverTimestamp() },
+    { merge: true },
+  );
+}
+
+export async function updateNotes(
+  campaignId: string,
+  characterId: string,
+  notes: string,
+): Promise<void> {
+  await setDoc(
+    doc(db, "campaigns", campaignId, "characters", characterId),
+    { notes, updatedAt: serverTimestamp() },
+    { merge: true },
+  );
+}
+
+export async function setSecretMessage(
+  campaignId: string,
+  characterId: string,
+  message: string,
+  priority: "normal" | "urgent",
+): Promise<void> {
+  const secretMessage: SecretMessage = {
+    message,
+    priority,
+    createdAt: serverTimestamp() as Timestamp,
+    read: false,
+  };
+  await setDoc(
+    doc(db, "campaigns", campaignId, "characters", characterId),
+    { secretMessage, updatedAt: serverTimestamp() },
+    { merge: true },
+  );
+}
+
+export async function markSecretMessageRead(
+  campaignId: string,
+  characterId: string,
+): Promise<void> {
+  await setDoc(
+    doc(db, "campaigns", campaignId, "characters", characterId),
+    { "secretMessage.read": true, updatedAt: serverTimestamp() },
+    { merge: true },
+  );
+}
+
+export async function clearSecretMessage(
+  campaignId: string,
+  characterId: string,
+): Promise<void> {
+  await setDoc(
+    doc(db, "campaigns", campaignId, "characters", characterId),
+    { secretMessage: null, updatedAt: serverTimestamp() },
+    { merge: true },
+  );
 }

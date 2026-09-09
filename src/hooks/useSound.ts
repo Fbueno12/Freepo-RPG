@@ -16,9 +16,9 @@ export function useSound() {
 
   const clamp = useCallback(
     (play: () => void) => {
-      if (readPref()) play();
+      if (enabled) play();
     },
-    [],
+    [enabled],
   );
 
   const dice = useCallback(() => clamp(playDiceSound), [clamp]);

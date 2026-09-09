@@ -41,15 +41,34 @@ export interface CampaignNotes {
   updatedBy: string;
 }
 
+export interface Macro {
+  id: string;
+  name: string;
+  formula: string;
+  description?: string;
+  createdAt: Timestamp;
+}
+
+export interface SecretMessage {
+  message: string;
+  priority: "normal" | "urgent";
+  createdAt: Timestamp;
+  read: boolean;
+}
+
 export interface CharacterSheet {
   id: string;
   campaignId: string;
   userId: string;
   name: string;
+  type: "pc" | "npc";
   createdAt: Timestamp;
   updatedAt: Timestamp;
   state: WizardState;
   items?: string[];
+  macros?: Macro[];
+  notes?: string;
+  secretMessage?: SecretMessage;
 }
 
 export interface Combatant {
@@ -95,6 +114,7 @@ export interface MusicState {
   currentTrackId: string;
   playing: boolean;
   seekTo: number;
+  startedAt: number;
   tracks: MusicTrack[];
   updatedAt: Timestamp;
 }

@@ -2,19 +2,17 @@
 
 import { useState } from "react";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
-import { Header } from "@/components/layout/Header";
+import { Header, type AppScreen } from "@/components/layout/Header";
 import { LoginScreen } from "@/components/screens/LoginScreen";
 import { LobbyScreen } from "@/components/screens/LobbyScreen";
 import { GameScreen } from "@/components/screens/GameScreen";
 
-type Screen = "login" | "lobby" | "game";
-
 function AppContent() {
   const { user, loading } = useAuth();
-  const [screen, setScreen] = useState<Screen>("login");
+  const [screen, setScreen] = useState<AppScreen>("login");
   const [campaignId, setCampaignId] = useState<string | null>(null);
 
-  const activeScreen: Screen = !user
+  const activeScreen: AppScreen = !user
     ? "login"
     : screen === "login"
       ? "lobby"
@@ -26,22 +24,12 @@ function AppContent() {
   };
 
   if (loading) {
-    return (
-      <div className="flex flex-1 items-center justify-center">
-        <div className="text-muted">Carregando…</div>
-      </div>
-    );
+    return <div className="loading">Carregando…</div>;
   }
 
   return (
-    <div className="flex flex-col flex-1">
-      <Header
-        activeScreen={activeScreen}
-        onNavigate={(s) => {
-          const target = s as Screen;
-          setScreen(target);
-        }}
-      />
+    <div className="app">
+      <Header activeScreen={activeScreen} onNavigate={setScreen} />
       {!user && (
         <LoginScreen onSuccess={() => setScreen("lobby")} />
       )}

@@ -7,12 +7,17 @@ export interface DiceResult {
 export function rollFormula(formula: string): DiceResult {
   const normalized = formula.replace(/\s/g, "").toLowerCase();
 
-  const m = normalized.match(/^(\d*)d(\d+)([+-](\d+))?$/);
-  if (m) {
-    const count = m[1] ? Number(m[1]) : 1;
-    const sides = Number(m[2]);
-    const sign = m[3]?.startsWith("-") ? -1 : 1;
-    const modifier = m[4] ? sign * Number(m[4]) : 0;
+  const diceMatch = normalized.match(/^(\d*)d(\d+)(.*)/);
+  if (diceMatch) {
+    const count = diceMatch[1] ? Number(diceMatch[1]) : 1;
+    const sides = Number(diceMatch[2]);
+    const modifierStr = diceMatch[3];
+
+    let modifier = 0;
+    const modMatches = modifierStr.matchAll(/([+-]?\d+)/g);
+    for (const mm of modMatches) {
+      modifier += Number(mm[1]);
+    }
 
     const dice: number[] = [];
     for (let i = 0; i < count; i++) {
@@ -22,7 +27,7 @@ export function rollFormula(formula: string): DiceResult {
     return { dice, modifier, total: diceTotal + modifier };
   }
 
-  if (/^\d+$/.test(normalized)) {
+  if (/^[+-]?\d+$/.test(normalized)) {
     const value = Number(normalized);
     return { dice: [], modifier: value, total: value };
   }

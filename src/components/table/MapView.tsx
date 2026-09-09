@@ -31,11 +31,9 @@ export function MapView({ campaignId, isGM }: MapViewProps) {
     token: MapToken,
   ) => {
     if (!isGM || !map) return;
-    const bounds = e.currentTarget.closest(".g-main") as HTMLDivElement | null;
     const container = e.currentTarget.parentElement;
     if (!container) return;
     const rect = container.getBoundingClientRect();
-    void bounds;
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     void moveToken(campaignId, map, token.id, x, y);
@@ -57,9 +55,7 @@ export function MapView({ campaignId, isGM }: MapViewProps) {
     const url = bgUrl.trim();
     try {
       await setMapBackground(campaignId, url || DEFAULT_MAP_BACKGROUND);
-      setNotice(
-        `Fundo ${url ? "aplicado" : "padrão restaurado"} ✓`,
-      );
+      setNotice(`Fundo ${url ? "aplicado" : "padrão restaurado"} ✓`);
       setTimeout(() => setNotice(null), 3000);
     } catch (e) {
       console.error("Erro ao aplicar fundo:", e);
@@ -86,19 +82,18 @@ export function MapView({ campaignId, isGM }: MapViewProps) {
 
   const rawBackground = map?.backgroundImage || DEFAULT_MAP_BACKGROUND;
   const backgroundImage =
-    rawBackground.startsWith("url(") ||
-    rawBackground.includes("gradient")
+    rawBackground.startsWith("url(") || rawBackground.includes("gradient")
       ? rawBackground
       : `url("${rawBackground}")`;
 
   return (
     <div
-      className="relative h-full overflow-hidden"
+      className="map"
       onDragOver={(e) => e.preventDefault()}
       onDrop={onDrop}
     >
       <div
-        className="absolute inset-0"
+        className="map-bg"
         style={{
           backgroundImage:
             "linear-gradient(rgba(122,140,82,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(122,140,82,.04) 1px, transparent 1px), " +
@@ -114,30 +109,20 @@ export function MapView({ campaignId, isGM }: MapViewProps) {
             key={token.id}
             draggable={isGM}
             onDragEnd={(e) => handleDragEnd(e, token)}
-            className="absolute z-10"
+            className="mtoken-wrap"
             style={{ left: `${token.x}%`, top: `${token.y}%` }}
           >
-            <div
-              className={`w-[52px] h-[52px] rounded-full flex items-center justify-center text-[22px] cursor-grab border-3 bg-panel3 shadow-[0_4px_16px_rgba(0,0,0,.55),inset_0_-6px_12px_rgba(0,0,0,.3)] -translate-x-1/2 -translate-y-1/2 ${
-                token.type === "pc"
-                  ? "border-glow shadow-[0_0_14px_rgba(95,212,208,.2)]"
-                  : token.type === "npc"
-                    ? "border-danger shadow-[0_0_10px_rgba(199,91,42,.15)]"
-                    : "border-gold"
-              }`}
-            >
+            <div className={`mtoken ${token.type}`}>
               <div>{hidden ? "❓" : token.icon}</div>
-              <span className="absolute -bottom-[22px] left-1/2 -translate-x-1/2 text-[11px] font-bold whitespace-nowrap bg-[rgba(17,15,12,.9)] px-[7px] py-0.5 rounded-md border border-border-light">
+              <span className="nm">
                 {hidden ? "???" : token.name}
                 {token.type === "npc" && isGM && (
-                  <b className="absolute -top-1.5 -right-1.5 text-[11px] bg-gold text-[#1a1205] rounded-lg px-[5px] font-extrabold">
-                    GM
-                  </b>
+                  <b className="gm-flag">GM</b>
                 )}
               </span>
               {isGM && (
                 <button
-                  className="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-bg border border-border-light text-muted text-[10px] leading-none"
+                  className="token-remove"
                   title="Remover token"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -188,21 +173,17 @@ function MapTools({
   const [bgOpen, setBgOpen] = useState(false);
 
   return (
-    <div className="absolute top-3 right-3 z-20 flex flex-col items-end gap-1.5">
+    <div className="map-tools">
       {(addOpen || bgOpen) && (
         <div
-          className="fixed inset-0 z-10"
+          className="map-backdrop"
           onClick={() => {
             setAddOpen(false);
             setBgOpen(false);
           }}
         />
       )}
-      {notice && (
-        <div className="bg-panel2 border border-border-light rounded-lg px-3 py-2 text-xs text-text shadow-[0_10px_30px_rgba(0,0,0,.5)] max-w-[260px]">
-          {notice}
-        </div>
-      )}
+      {notice && <div className="notice">{notice}</div>}
       {isGM && (
         <>
           <button
@@ -226,13 +207,10 @@ function MapTools({
       </button>
 
       {addOpen && (
-        <div className="absolute right-0 top-0 z-20 w-56 bg-panel2 border border-border-light rounded-xl p-3 flex flex-col gap-2 shadow-[0_12px_36px_rgba(0,0,0,.5)]">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-text">Novo token</span>
-            <button
-              className="text-muted hover:text-text text-xs"
-              onClick={() => setAddOpen(false)}
-            >
+        <div className="pop-menu">
+          <div className="pop-head">
+            <span className="pop-title">Novo token</span>
+            <button className="pop-close" onClick={() => setAddOpen(false)}>
               ✕
             </button>
           </div>
@@ -241,32 +219,26 @@ function MapTools({
             value={tokenName}
             onChange={(e) => setTokenName(e.target.value)}
             placeholder="Nome do token"
-            className="px-2.5 py-1.5 rounded-md bg-bg border border-border-light text-text text-sm focus:outline-none focus:border-glow-dark"
+            className="input"
             autoFocus
           />
-          <div className="flex flex-wrap gap-1">
+          <div className="icon-grid">
             {TOKEN_ICONS.map((i) => (
               <button
                 key={i}
                 onClick={() => setTokenIcon(i)}
-                className={`w-7 h-7 rounded-md flex items-center justify-center text-sm border ${
-                  tokenIcon === i ? "border-glow-dark bg-panel3" : "border-border bg-bg"
-                }`}
+                className={tokenIcon === i ? "icon-cell on" : "icon-cell"}
               >
                 {i}
               </button>
             ))}
           </div>
-          <div className="flex gap-1.5">
+          <div className="seg">
             {(["pc", "npc", "gm"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTokenType(t)}
-                className={`flex-1 text-[10px] font-bold px-1.5 py-1 rounded-md border uppercase ${
-                  tokenType === t
-                    ? "border-glow-dark bg-panel3 text-glow"
-                    : "border-border bg-bg text-muted"
-                }`}
+                className={tokenType === t ? "seg-btn on" : "seg-btn"}
               >
                 {t}
               </button>
@@ -291,15 +263,10 @@ function MapTools({
       )}
 
       {bgOpen && (
-        <div className="absolute right-0 top-0 z-20 w-64 bg-panel2 border border-border-light rounded-xl p-3 flex flex-col gap-2 shadow-[0_12px_36px_rgba(0,0,0,.5)]">
-          <div className="flex items-center justify-between">
-            <label className="text-[11px] text-muted font-semibold">
-              URL da imagem de fundo
-            </label>
-            <button
-              className="text-muted hover:text-text text-xs"
-              onClick={() => setBgOpen(false)}
-            >
+        <div className="pop-menu wide">
+          <div className="pop-head">
+            <label className="pop-title">URL da imagem de fundo</label>
+            <button className="pop-close" onClick={() => setBgOpen(false)}>
               ✕
             </button>
           </div>
@@ -308,7 +275,7 @@ function MapTools({
             value={bgUrl}
             onChange={(e) => setBgUrl(e.target.value)}
             placeholder="https://…"
-            className="px-2.5 py-1.5 rounded-md bg-bg border border-border-light text-text text-sm focus:outline-none focus:border-glow-dark"
+            className="input"
           />
           <button
             className="btn"

@@ -1,19 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   subscribeCharacters,
   saveCharacter,
+  saveNpc,
   deleteCharacter,
   addItemToCharacter,
   removeItemFromCharacter,
-  readWizardStateFromLocalStorage,
+  addMacro,
+  removeMacro,
+  updateNotes,
+  setSecretMessage,
+  markSecretMessageRead,
 } from "@/lib/characters";
+import { addToken } from "@/lib/map";
+import { subscribeMap } from "@/lib/map";
+import { addCombatants } from "@/lib/combat";
 import { rollFormula } from "@/lib/dice";
 import { sendChatMessage } from "@/lib/campaigns";
 import { useSound } from "@/hooks/useSound";
-import type { CharacterSheet } from "@/lib/types";
+import { PdfImport } from "@/components/ui/PdfImport";
+import type { CharacterSheet, Macro, MapState, WizardState } from "@/lib/types";
 
 interface CharacterPanelProps {
   campaignId: string;
@@ -25,34 +34,38 @@ export function CharacterPanel({ campaignId, isGM }: CharacterPanelProps) {
   const [characters, setCharacters] = useState<CharacterSheet[]>([]);
   const [selected, setSelected] = useState<CharacterSheet | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-  const [wizardOpen, setWizardOpen] = useState(false);
+  const [pdfImportOpen, setPdfImportOpen] = useState(false);
+  const [npcFormOpen, setNpcFormOpen] = useState(false);
 
   useEffect(() => {
     const unsub = subscribeCharacters(campaignId, setCharacters);
     return () => unsub();
   }, [campaignId]);
 
-  const importWizard = async () => {
+  const pcCharacters = characters
+    .filter((c) => c.type === "pc")
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const npcCharacters = characters
+    .filter((c) => c.type === "npc")
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const myPcs = pcCharacters.filter((c) => c.userId === user?.uid);
+  const otherPcs = pcCharacters.filter((c) => c.userId !== user?.uid);
+
+  const handlePdfImport = async (state: WizardState) => {
     if (!user?.uid) return;
-    const wizardState = readWizardStateFromLocalStorage();
-    if (!wizardState) {
-      setNotice("Nenhum personagem no criador ainda. Abra o criador e gere um primeiro.");
-      return;
-    }
     const existing = characters.find(
-      (c) => c.userId === user.uid && c.name === wizardState.nome,
+      (c) => c.userId === user.uid && c.name === state.nome,
     );
     if (existing) {
-      setNotice(
-        `"${wizardState.nome ?? "Personagem"}" já está na mesa. Deletando e recriando a partir do criador…`,
-      );
+      await saveCharacter(campaignId, user.uid, state);
+      flash(`Ficha "${state.nome}" atualizada!`);
+    } else {
+      await saveCharacter(campaignId, user.uid, state);
+      flash(`Ficha "${state.nome ?? "Personagem"}" importada!`);
     }
-    await saveCharacter(campaignId, user.uid, wizardState);
-    setNotice(
-      existing
-        ? `Ficha "${wizardState.nome}" atualizada do criador.`
-        : `Ficha "${wizardState.nome ?? "Personagem"}" importada do criador!`,
-    );
+    setPdfImportOpen(false);
   };
 
   const flash = (msg: string) => {
@@ -60,102 +73,274 @@ export function CharacterPanel({ campaignId, isGM }: CharacterPanelProps) {
     setTimeout(() => setNotice(null), 3000);
   };
 
-  return (
-    <div className="h-full p-6 overflow-auto flex flex-col gap-4">
-      <div>
-        <h2 className="text-xl text-glow">Fichas dos personagens</h2>
-        <p className="text-muted text-xs mt-1">
-          Crie personagens no criador embutido e importe as fichas para a mesa.
-        </p>
-      </div>
+  const canDelete = (c: CharacterSheet) => {
+    if (isGM) return true;
+    return c.userId === user?.uid;
+  };
 
-      <div className="flex flex-col gap-2.5">
-        <button className="btn btn-glow" onClick={() => setWizardOpen(!wizardOpen)}>
-          {wizardOpen ? "✕ Fechar criador" : "◆ Abrir criador de personagem"}
+  const renderCharacterCard = (character: CharacterSheet) => (
+    <div key={character.id} className="card row">
+      <div className="ava">{character.type === "npc" ? "👹" : "🎹"}</div>
+      <button className="grow text-left" onClick={() => setSelected(character)}>
+        <div className="text-text" style={{ fontSize: 14, fontWeight: 700 }}>
+          {character.name}
+          {character.secretMessage && !character.secretMessage.read && (
+            <span className="unread-dot" />
+          )}
+        </div>
+        <small className="text-muted text-xs">
+          {character.state.classe ?? ""}
+          {character.state.nivel ? ` · Nv ${character.state.nivel}` : ""}
+          {character.type === "pc" && isGM && character.userId && (
+            <span> · Jogador</span>
+          )}
+        </small>
+      </button>
+      {canDelete(character) && (
+        <button
+          className="icon-btn sm"
+          title="Remover da mesa"
+          onClick={async () => {
+            await deleteCharacter(campaignId, character.id);
+            flash(`"${character.name}" removida.`);
+          }}
+        >
+          🗑
         </button>
-        <button className="btn" onClick={importWizard}>
-          📥 Importar ficha criada na mesa
-        </button>
-        {wizardOpen && (
-          <div className="mt-2 flex flex-col gap-2">
-            <div className="flex items-center gap-2 text-[11px] text-muted">
-              <span className="w-1.5 h-1.5 rounded-full bg-glow animate-pulse" />
-              Criador aberto — monte o personagem e clique em exportar.
-            </div>
-            <iframe
-              src="/wizard/runarcana-wizard.html"
-              title="Criador de Personagem Runarcana"
-              className="w-full h-[560px] border border-border-light rounded-xl bg-white"
-            />
-            <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted">
-              <span>
-                Ficha pronta? Clique abaixo para trazê-la para a mesa.
-              </span>
-              <button className="btn btn-sm btn-glow" onClick={importWizard}>
-                📥 Importar ficha criada na mesa
+      )}
+    </div>
+  );
+
+  return (
+    <div className="init-view">
+      <div className="col">
+        <div>
+          <h2 className="init-title">Fichas dos personagens</h2>
+          <p className="init-sub">
+            Importe fichas em PDF para a mesa ou crie NPCs diretamente.
+          </p>
+        </div>
+
+        <div className="col">
+          <div className="row wrap">
+            <button className="btn btn-glow" onClick={() => setPdfImportOpen(!pdfImportOpen)}>
+              {pdfImportOpen ? "✕ Fechar" : "📄 Importar ficha PDF"}
+            </button>
+            {isGM && (
+              <button className="btn" onClick={() => setNpcFormOpen(!npcFormOpen)}>
+                {npcFormOpen ? "✕ Fechar" : "＋ Criar NPC"}
               </button>
-            </div>
+            )}
+          </div>
+
+          {pdfImportOpen && (
+            <PdfImport
+              onImport={handlePdfImport}
+              onCancel={() => setPdfImportOpen(false)}
+            />
+          )}
+
+          {npcFormOpen && isGM && (
+            <NpcCreateForm
+              campaignId={campaignId}
+              onCreated={() => {
+                setNpcFormOpen(false);
+                flash("NPC criado!");
+              }}
+              onCancel={() => setNpcFormOpen(false)}
+            />
+          )}
+        </div>
+
+        {notice && <div className="alert alert-info">{notice}</div>}
+
+        {characters.length === 0 ? (
+          <div className="text-muted" style={{ fontSize: 14, marginTop: 8 }}>
+            Nenhuma ficha na mesa ainda.
+          </div>
+        ) : (
+          <div className="col">
+            {!isGM && myPcs.length > 0 && (
+              <>
+                <h3 className="sheet-section-title">Suas fichas</h3>
+                {myPcs.map(renderCharacterCard)}
+              </>
+            )}
+
+            {isGM && pcCharacters.length > 0 && (
+              <>
+                <h3 className="sheet-section-title">Fichas de jogadores</h3>
+                {pcCharacters.map(renderCharacterCard)}
+              </>
+            )}
+
+            {isGM && npcCharacters.length > 0 && (
+              <>
+                <h3 className="sheet-section-title">Fichas de NPCs</h3>
+                {npcCharacters.map(renderCharacterCard)}
+              </>
+            )}
+
+            {!isGM && otherPcs.length > 0 && (
+              <>
+                <h3 className="sheet-section-title">Outros jogadores</h3>
+                {otherPcs.map((c) => (
+                  <div key={c.id} className="card row">
+                    <div className="ava">🎹</div>
+                    <div className="grow text-left">
+                      <div className="text-text" style={{ fontSize: 14, fontWeight: 700 }}>
+                        {c.name}
+                      </div>
+                      <small className="text-muted text-xs">
+                        {c.state.classe ?? ""}
+                        {c.state.nivel ? ` · Nv ${c.state.nivel}` : ""}
+                      </small>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         )}
+
+          {selected && (
+            <SheetModal
+              key={`${selected.id}-${selected.updatedAt}`}
+              campaignId={campaignId}
+              character={selected}
+              isGM={isGM}
+              onClose={() => setSelected(null)}
+            />
+          )}
       </div>
+    </div>
+  );
+}
 
-      {notice && (
-        <div className="p-3 text-xs rounded-lg border border-glow-dark/40 bg-glow/10 text-glow">
-          {notice}
-        </div>
-      )}
+function NpcCreateForm({
+  campaignId,
+  onCreated,
+  onCancel,
+}: {
+  campaignId: string;
+  onCreated: () => void;
+  onCancel: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [classe, setClasse] = useState("");
+  const [nivel, setNivel] = useState("");
+  const [hp, setHp] = useState("");
+  const [notes, setNotes] = useState("");
+  const [atributos, setAtributos] = useState<Record<string, string>>({
+    força: "10",
+    destreza: "10",
+    constituição: "10",
+    inteligência: "10",
+    sabedoria: "10",
+    carisma: "10",
+  });
 
-      {characters.length === 0 ? (
-        <div className="text-muted text-sm mt-2">
-          Nenhuma ficha na mesa ainda.
-        </div>
-      ) : (
-        <div className="flex flex-col gap-2">
-          {characters.map((character) => (
-            <div
-              key={character.id}
-              className="flex items-center gap-3 bg-panel border border-border rounded-xl px-3.5 py-2.5"
-            >
-              <div className="w-9 h-9 rounded-full bg-panel3 border border-border-light flex items-center justify-center text-sm">
-                🎹
-              </div>
-              <button
-                className="flex-1 text-left min-w-0"
-                onClick={() => setSelected(character)}
-              >
-                <div className="text-sm font-bold truncate">
-                  {character.name}
-                </div>
-                <small className="text-muted text-[11px]">
-                  {character.state.classe ?? ""}
-                  {character.state.nivel ? ` · Nv ${character.state.nivel}` : ""}
-                </small>
-              </button>
-              {character.userId === user?.uid && (
-                <button
-                  className="icon-btn !w-7 !h-7 text-sm"
-                  title="Remover da mesa"
-                  onClick={async () => {
-                    await deleteCharacter(campaignId, character.id);
-                    flash(`"${character.name}" removida.`);
-                  }}
-                >
-                  🗑
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+  const handleSave = async () => {
+    if (!name.trim()) return;
+    const state: Record<string, unknown> = {
+      nome: name.trim(),
+      classe: classe.trim() || undefined,
+      nivel: nivel ? Number(nivel) : undefined,
+      atributos: Object.fromEntries(
+        Object.entries(atributos).map(([k, v]) => [k, Number(v) || 10]),
+      ),
+      notas: notes.trim() || undefined,
+    };
+    if (hp.trim()) {
+      (state as Record<string, unknown>).detalhes = { hp: hp.trim() };
+    }
+    await saveNpc(campaignId, name, state as Parameters<typeof saveNpc>[2]);
+    onCreated();
+  };
 
-      {selected && (
-        <SheetModal
-          campaignId={campaignId}
-          character={selected}
-          isGM={isGM}
-          onClose={() => setSelected(null)}
+  const nomes = ["força", "destreza", "constituição", "inteligência", "sabedoria", "carisma"];
+
+  return (
+    <div className="npc-form card">
+      <h3 className="col-title">Criar NPC</h3>
+      <div className="field">
+        <label>Nome</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Nome do NPC"
+          className="input"
+          autoFocus
         />
-      )}
+      </div>
+      <div className="row wrap">
+        <div className="field" style={{ flex: 1, minWidth: 120 }}>
+          <label>Classe</label>
+          <input
+            type="text"
+            value={classe}
+            onChange={(e) => setClasse(e.target.value)}
+            placeholder="Guerreiro"
+            className="input"
+          />
+        </div>
+        <div className="field" style={{ width: 80 }}>
+          <label>Nv.</label>
+          <input
+            type="number"
+            value={nivel}
+            onChange={(e) => setNivel(e.target.value)}
+            placeholder="1"
+            className="input"
+            min={1}
+            max={30}
+          />
+        </div>
+        <div className="field" style={{ width: 80 }}>
+          <label>HP</label>
+          <input
+            type="text"
+            value={hp}
+            onChange={(e) => setHp(e.target.value)}
+            placeholder="20"
+            className="input"
+          />
+        </div>
+      </div>
+      <div className="npc-attrs">
+        {nomes.map((n) => (
+          <div key={n} className="field" style={{ width: 80 }}>
+            <label>{n.slice(0, 3)}</label>
+            <input
+              type="number"
+              value={atributos[n] ?? "10"}
+              onChange={(e) => setAtributos({ ...atributos, [n]: e.target.value })}
+              className="input"
+              min={1}
+              max={30}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="field">
+        <label>Notas</label>
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Descrição, história, motivações..."
+          className="input"
+          rows={3}
+        />
+      </div>
+      <div className="row">
+        <button className="btn btn-glow" disabled={!name.trim()} onClick={handleSave}>
+          Criar NPC
+        </button>
+        <button className="btn btn-ghost" onClick={onCancel}>
+          Cancelar
+        </button>
+      </div>
     </div>
   );
 }
@@ -185,7 +370,40 @@ function SheetModal({
     "carisma",
   ];
   const [newItem, setNewItem] = useState("");
-  const canEditItems = !!user && (user.uid === character.userId || isGM);
+  const [macros] = useState<Macro[]>(character.macros ?? []);
+  const [notes, setNotes] = useState(character.notes ?? "");
+  const [macroFormOpen, setMacroFormOpen] = useState(false);
+  const [macroName, setMacroName] = useState("");
+  const [macroFormula, setMacroFormula] = useState("");
+  const [macroDesc, setMacroDesc] = useState("");
+  const [secretMsgOpen, setSecretMsgOpen] = useState(false);
+  const [secretMsg, setSecretMsg] = useState("");
+  const [secretPriority, setSecretPriority] = useState<"normal" | "urgent">("normal");
+  const [mapState, setMapState] = useState<MapState | null>(null);
+  const notesTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
+
+  const canEdit = !!user && (user.uid === character.userId || isGM);
+  const canEditItems = canEdit;
+
+  const sheetExtra = (k: string): string | number | undefined => {
+    const v = state[k];
+    return typeof v === "string" || typeof v === "number" ? v : undefined;
+  };
+  const sheetStats: { label: string; value: string | number }[] = [
+    { label: "PV", value: sheetExtra("pvMaximo") },
+    { label: "CA", value: sheetExtra("classeArmadura") },
+    { label: "Iniciativa", value: sheetExtra("iniciativa") },
+    { label: "Desloc.", value: sheetExtra("deslocamento") },
+    { label: "Mana", value: sheetExtra("mana") },
+  ].filter((s): s is { label: string; value: string | number } => s.value !== undefined);
+  const sheetCombat = Array.isArray(state.combate)
+    ? (state.combate as { arma?: unknown; bonus?: unknown; dano?: unknown }[])
+    : [];
+
+  useEffect(() => {
+    const unsub = subscribeMap(campaignId, setMapState);
+    return () => unsub();
+  }, [campaignId]);
 
   const modAtributo = (valor: number) => Math.floor((valor - 10) / 2);
 
@@ -203,58 +421,218 @@ function SheetModal({
     soundDice();
   };
 
+  const rollMacro = async (macro: Macro) => {
+    if (!user) return;
+    const result = rollFormula(macro.formula);
+    await sendChatMessage(
+      campaignId,
+      user.uid,
+      character.name,
+      `[Ficha: ${character.name}] ${macro.name} → ${result.total}`,
+      {
+        formula: macro.formula,
+        dice: result.dice,
+        modifier: result.modifier,
+        total: result.total,
+        label: `${character.name} · ${macro.name.toLowerCase()}`,
+      },
+    );
+    soundDice();
+  };
+
+  const handleAddMacro = async () => {
+    if (!macroName.trim() || !macroFormula.trim()) return;
+    const newMacro = {
+      name: macroName.trim(),
+      formula: macroFormula.trim(),
+      description: macroDesc.trim() || undefined,
+    };
+    await addMacro(campaignId, character.id, macros, newMacro);
+    setMacroName("");
+    setMacroFormula("");
+    setMacroDesc("");
+    setMacroFormOpen(false);
+  };
+
+  const handleRemoveMacro = async (macroId: string) => {
+    await removeMacro(campaignId, character.id, macros, macroId);
+  };
+
+  const handleNotesChange = (value: string) => {
+    setNotes(value);
+    if (notesTimerRef.current) clearTimeout(notesTimerRef.current);
+    notesTimerRef.current = setTimeout(() => {
+      void updateNotes(campaignId, character.id, value);
+    }, 800);
+  };
+
+  const handleSecretMessage = async () => {
+    if (!secretMsg.trim()) return;
+    await setSecretMessage(campaignId, character.id, secretMsg.trim(), secretPriority);
+    setSecretMsg("");
+    setSecretMsgOpen(false);
+  };
+
+  const handleMarkRead = async () => {
+    await markSecretMessageRead(campaignId, character.id);
+  };
+
+  const handleAddToCombat = async () => {
+    const initiative = rollFormula("1d20");
+    const combatant = {
+      id: character.id,
+      name: character.name,
+      icon: "👹",
+      type: "npc" as const,
+      value: initiative.total,
+    };
+    await addCombatants(campaignId, { active: true, currentIndex: 0, combatants: [], updatedAt: null } as never, [combatant]);
+  };
+
+  const handlePlaceOnMap = async () => {
+    if (!mapState) return;
+    const token = {
+      id: crypto.randomUUID(),
+      icon: "👹",
+      name: character.name,
+      x: 20 + Math.random() * 60,
+      y: 20 + Math.random() * 60,
+      type: "npc" as const,
+    };
+    await addToken(campaignId, mapState, token);
+  };
+
   return (
-    <div
-      className="fixed inset-0 z-50 bg-[rgba(10,8,5,.75)] backdrop-blur-[3px] flex items-start justify-center p-10 overflow-auto"
-      onClick={onClose}
-    >
-      <div
-        className="w-full max-w-[900px] bg-panel border border-border-light rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,.6)]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center gap-4 px-[26px] py-[22px] bg-gradient-to-b from-panel3 to-panel2 border-b border-border">
-          <div className="w-16 h-16 text-3xl overflow-hidden rounded-full border-2 border-accent-dark shadow-[0_0_14px_rgba(95,212,208,.2)] flex items-center justify-center bg-panel3">
-            🎹
+    <div className="modal modal-scroll" onClick={onClose}>
+      <div className="sheet" onClick={(e) => e.stopPropagation()}>
+        {character.type === "pc" && character.secretMessage && !character.secretMessage.read && user?.uid === character.userId && (
+          <div className={`secret-message ${character.secretMessage.priority === "urgent" ? "secret-message--urgent" : ""}`}>
+            <div className="secret-message-head">
+              <span>📜 Comunicado do Mestre</span>
+              {character.secretMessage.priority === "urgent" && <span className="text-danger">URGENTE</span>}
+            </div>
+            <p>{character.secretMessage.message}</p>
+            <button className="btn btn-sm" onClick={handleMarkRead}>
+              Marcar como lido
+            </button>
           </div>
+        )}
+
+        {character.type === "pc" && character.secretMessage && character.secretMessage.read && isGM && (
+          <div className="secret-message secret-message--read">
+            <div className="secret-message-head">
+              <span>📜 Comunicado enviado</span>
+              <span className="text-muted text-xs">lido pelo jogador</span>
+            </div>
+            <p>{character.secretMessage.message}</p>
+          </div>
+        )}
+
+        <div className="sheet-head">
+          <div className="sheet-ava">{character.type === "npc" ? "👹" : "🎹"}</div>
           <div>
-            <h2 className="text-glow text-[22px]">{character.name}</h2>
-            <div className="text-muted text-xs mt-0.5">
+            <h2 className="sheet-title">{character.name}</h2>
+            <div className="sheet-sub">
               {[state.conceito, state.origem, state.regiao, state.classe]
                 .filter(Boolean)
                 .join(" · ")}
             </div>
           </div>
-          <button className="icon-btn ml-auto" onClick={onClose}>
+          <button className="icon-btn sheet-close" onClick={onClose}>
             ✕
           </button>
         </div>
-        <div className="py-[22px] px-[26px] gap-6 max-h-[60vh] overflow-auto grid grid-cols-[1fr_1fr]">
+
+        {isGM && character.type === "pc" && (
+          <div className="sheet-actions">
+            <button className="btn btn-sm" onClick={() => setSecretMsgOpen(!secretMsgOpen)}>
+              📜 Comunicado secreto
+            </button>
+          </div>
+        )}
+
+        {secretMsgOpen && isGM && character.type === "pc" && (
+          <div className="secret-msg-form card">
+            <div className="field">
+              <label>Mensagem</label>
+              <textarea
+                value={secretMsg}
+                onChange={(e) => setSecretMsg(e.target.value)}
+                placeholder="Escreva uma mensagem secreta para o jogador..."
+                className="input"
+                rows={3}
+                autoFocus
+              />
+            </div>
+            <div className="row">
+              <label className="row" style={{ gap: 6 }}>
+                <input
+                  type="radio"
+                  name="priority"
+                  checked={secretPriority === "normal"}
+                  onChange={() => setSecretPriority("normal")}
+                />
+                Normal
+              </label>
+              <label className="row" style={{ gap: 6 }}>
+                <input
+                  type="radio"
+                  name="priority"
+                  checked={secretPriority === "urgent"}
+                  onChange={() => setSecretPriority("urgent")}
+                />
+                Urgente
+              </label>
+            </div>
+            <div className="row">
+              <button className="btn btn-glow btn-sm" disabled={!secretMsg.trim()} onClick={handleSecretMessage}>
+                Enviar
+              </button>
+              <button className="btn btn-ghost btn-sm" onClick={() => setSecretMsgOpen(false)}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="sheet-body">
+          {sheetStats.length > 0 && (
+            <div className="sheet-col-wide">
+              <div className="chip-row">
+                {sheetStats.map((s) => (
+                  <span key={s.label} className="chip">
+                    {s.label} <b>{typeof s.value === "number" && s.label === "Iniciativa" && s.value >= 0 ? `+${s.value}` : s.value}</b>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          {(typeof state.essencia === "string" || typeof state.personalidade === "string") && (
+            <div className="sheet-col-wide text-muted text-sm">
+              {typeof state.essencia === "string" && (
+                <span><b>Essência:</b> {state.essencia}</span>
+              )}
+              {typeof state.essencia === "string" && typeof state.personalidade === "string" && " · "}
+              {typeof state.personalidade === "string" && (
+                <span><b>Personalidade:</b> {state.personalidade}</span>
+              )}
+            </div>
+          )}
           {Object.keys(atributos).length > 0 && (
             <div>
-              <h3 className="text-xs text-accent tracking-wider mb-2">
-                Atributos
-              </h3>
+              <h3 className="col-title">Atributos</h3>
               {nomes
                 .filter((n) => atributos[n] !== undefined)
                 .map((n) => {
                   const valor = Number(atributos[n]);
                   const mod = modAtributo(valor);
                   return (
-                    <div
-                      key={n}
-                      className="flex items-center gap-2 py-[5px] border-b border-dashed border-border"
-                    >
-                      <span className="flex-1 text-xs text-muted capitalize">
-                        {n}
-                      </span>
-                      <span className="text-sm font-bold text-glow">
-                        {mod >= 0 ? `+${mod}` : mod}
-                      </span>
-                      <span className="w-11 text-center bg-panel3 border border-border-light rounded-md p-0.5 text-[13px] text-text">
-                        {valor}
-                      </span>
+                    <div key={n} className="attr-row">
+                      <span className="attr-name">{n}</span>
+                      <span className="attr-mod">{mod >= 0 ? `+${mod}` : mod}</span>
+                      <span className="attr-val">{valor}</span>
                       <button
-                        className="icon-btn !w-7 !h-7 text-xs"
+                        className="icon-btn sm"
                         title={`Rolar ${n}`}
                         onClick={() => rollSkill(n, mod)}
                       >
@@ -265,27 +643,21 @@ function SheetModal({
                 })}
             </div>
           )}
+
           {Object.keys(pericias).length > 0 && (
             <div>
-              <h3 className="text-xs text-accent tracking-wider mb-2">
-                Perícias
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
+              <h3 className="col-title">Perícias</h3>
+              <div className="chip-row">
                 {Object.entries(pericias)
                   .filter(([, v]) => v !== undefined && Number(v) !== 0)
                   .map(([pericia, valor]) => {
                     const mod = Number(valor);
                     return (
-                      <span
-                        key={pericia}
-                        className="text-[11px] bg-panel3 border border-border-light rounded-lg px-2 py-1 text-text flex items-center gap-1.5"
-                      >
+                      <span key={pericia} className="chip">
                         {pericia}
-                        <b className="text-glow">
-                          {mod >= 0 ? `+${mod}` : mod}
-                        </b>
+                        <b>{mod >= 0 ? `+${mod}` : mod}</b>
                         <button
-                          className="w-5 h-5 rounded-full hover:bg-bg text-[10px] text-muted hover:text-glow transition-colors"
+                          className="chip-roll"
                           title={`Rolar ${pericia}`}
                           onClick={() => rollSkill(pericia, mod)}
                         >
@@ -297,60 +669,59 @@ function SheetModal({
               </div>
             </div>
           )}
-          <div className={Object.keys(pericias).length > 0 ? "" : "col-span-2"}>
+
+          {sheetCombat.length > 0 && (
+            <div className="sheet-col-wide">
+              <h3 className="col-title">Combate</h3>
+              {sheetCombat.map((w, i) => (
+                <div key={i} className="macro-item">
+                  <div className="grow">
+                    <div className="text-text" style={{ fontWeight: 600 }}>{String(w.arma ?? "—")}</div>
+                    <small className="text-muted text-xs">
+                      {String(w.bonus ?? "")} · {String(w.dano ?? "")}
+                    </small>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className={Object.keys(pericias).length > 0 ? "" : "sheet-col-wide"}>
             {state.runas && Object.keys(state.runas).length > 0 && (
               <>
-                <h3 className="text-xs text-accent tracking-wider mb-2">
-                  Runas
-                </h3>
-                <div className="flex flex-wrap gap-1.5 mb-4">
+                <h3 className="col-title">Runas</h3>
+                <div className="chip-row" style={{ marginBottom: 16 }}>
                   {Object.keys(state.runas).map((runa) => (
-                    <span
-                      key={runa}
-                      className="text-[11px] bg-panel3 border border-border-light rounded-lg px-2 py-0.5 text-text"
-                    >
-                      {runa}
-                    </span>
+                    <span key={runa} className="chip">{runa}</span>
                   ))}
                 </div>
               </>
             )}
-            <h3 className="text-xs text-accent tracking-wider mb-2">
-              Equipamento
-            </h3>
-            <div className="flex flex-wrap gap-1.5">
+            <h3 className="col-title">Equipamento</h3>
+            <div className="chip-row">
               {state.equip &&
                 Object.values(state.equip)
                   .filter(Boolean)
                   .map((item, i) => (
-                    <span
-                      key={i}
-                      className="text-[11px] bg-panel3 border border-border-light rounded-lg px-2 py-0.5 text-text"
-                    >
-                      {String(item)}
-                    </span>
+                    <span key={i} className="chip">{String(item)}</span>
                   ))}
             </div>
           </div>
-          <div className="col-span-2 border-t border-dashed border-border mt-4 pt-4">
-            <h3 className="text-xs text-accent tracking-wider mb-2">
-              Inventário
-            </h3>
-            <div className="flex flex-wrap gap-1.5 mb-3">
+
+          <div className="inv-section">
+            <h3 className="col-title">Inventário</h3>
+            <div className="chip-row">
               {(character.items ?? []).length === 0 && (
-                <span className="text-muted text-xs">
+                <span className="text-muted text-sm">
                   Bolsa vazia{canEditItems ? " — adicione itens abaixo" : ""}.
                 </span>
               )}
               {(character.items ?? []).map((item) => (
-                <span
-                  key={item}
-                  className="text-[11px] bg-panel3 border border-border-light rounded-lg px-2 py-1 text-text flex items-center gap-1.5"
-                >
+                <span key={item} className="chip">
                   {item}
                   {canEditItems && (
                     <button
-                      className="text-muted hover:text-danger text-[10px]"
+                      className="chip-remove"
                       title="Remover item"
                       onClick={() =>
                         void removeItemFromCharacter(
@@ -368,7 +739,7 @@ function SheetModal({
               ))}
             </div>
             {canEditItems && (
-              <div className="flex gap-2">
+              <div className="inv-add">
                 <input
                   type="text"
                   value={newItem}
@@ -385,7 +756,7 @@ function SheetModal({
                     }
                   }}
                   placeholder="Novo item (enter para adicionar)"
-                  className="flex-1 px-3 py-2 rounded-lg bg-bg border border-border-light text-text text-sm focus:outline-none focus:border-glow-dark"
+                  className="input"
                 />
                 <button
                   className="btn"
@@ -404,19 +775,133 @@ function SheetModal({
                 </button>
               </div>
             )}
-            {canEditItems && (
-              <p className="text-muted text-[10px] mt-1.5">
-                Marcas no inventário ficam salvas na ficha e sincronizam com a
-                mesa.
+          </div>
+
+          <div className="macro-section">
+            <div className="row between" style={{ alignItems: "center" }}>
+              <h3 className="col-title" style={{ margin: 0 }}>Macros</h3>
+              {canEdit && (
+                <button className="btn btn-sm" onClick={() => setMacroFormOpen(!macroFormOpen)}>
+                  {macroFormOpen ? "✕" : "＋ Criar macro"}
+                </button>
+              )}
+            </div>
+
+            {macroFormOpen && canEdit && (
+              <div className="macro-form card">
+                <div className="field">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    value={macroName}
+                    onChange={(e) => setMacroName(e.target.value)}
+                    placeholder="Ataque com Adaga"
+                    className="input"
+                    autoFocus
+                  />
+                </div>
+                <div className="field">
+                  <label>Fórmula</label>
+                  <input
+                    type="text"
+                    value={macroFormula}
+                    onChange={(e) => setMacroFormula(e.target.value)}
+                    placeholder="1d4+2"
+                    className="input"
+                  />
+                </div>
+                <div className="field">
+                  <label>Descrição (opcional)</label>
+                  <input
+                    type="text"
+                    value={macroDesc}
+                    onChange={(e) => setMacroDesc(e.target.value)}
+                    placeholder="Dano cortante"
+                    className="input"
+                  />
+                </div>
+                <div className="row">
+                  <button
+                    className="btn btn-glow btn-sm"
+                    disabled={!macroName.trim() || !macroFormula.trim()}
+                    onClick={handleAddMacro}
+                  >
+                    Salvar
+                  </button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => setMacroFormOpen(false)}>
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {macros.length === 0 && (
+              <span className="text-muted text-sm">Nenhuma macro criada.</span>
+            )}
+            {macros.map((macro) => (
+              <div key={macro.id} className="macro-item">
+                <div className="grow">
+                  <div className="text-text" style={{ fontWeight: 600 }}>{macro.name}</div>
+                  <small className="text-muted text-xs">{macro.formula}</small>
+                  {macro.description && (
+                    <small className="text-muted text-xs" style={{ display: "block" }}>
+                      {macro.description}
+                    </small>
+                  )}
+                </div>
+                <button
+                  className="icon-btn sm"
+                  title="Rolar"
+                  onClick={() => rollMacro(macro)}
+                >
+                  ▶
+                </button>
+                {canEdit && (
+                  <button
+                    className="icon-btn sm"
+                    title="Remover macro"
+                    onClick={() => handleRemoveMacro(macro.id)}
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="inv-section">
+            <h3 className="col-title">Anotações</h3>
+            {canEdit ? (
+              <textarea
+                value={notes}
+                onChange={(e) => handleNotesChange(e.target.value)}
+                placeholder="Suas anotações pessoais..."
+                className="input sheet-notes"
+                rows={4}
+              />
+            ) : (
+              <p className="text-muted text-sm">
+                {notes || "Sem anotações."}
               </p>
             )}
           </div>
+
+          {isGM && character.type === "npc" && (
+            <div className="sheet-actions">
+              <button className="btn btn-sm" onClick={handleAddToCombat}>
+                ⚔️ Adicionar ao combate
+              </button>
+              <button className="btn btn-sm" onClick={handlePlaceOnMap}>
+                📍 Posicionar no mapa
+              </button>
+            </div>
+          )}
         </div>
-        <div className="px-[26px] py-4 border-t border-border flex justify-end gap-2.5">
+
+        <div className="sheet-foot">
           {state.pulsoRunico && (
-            <span className="text-xs text-muted self-center mr-auto">
-              Pulso:{" "}
-              <b className="text-gold-light">{String(state.pulsoRunico)}</b>
+            <span className="sheet-pulso">
+              Pulso: <b>{String(state.pulsoRunico)}</b>
             </span>
           )}
           <button className="btn" onClick={onClose}>

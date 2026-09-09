@@ -111,19 +111,17 @@ export function InitiativeView({ campaignId, isGM }: InitiativeViewProps) {
   };
 
   return (
-    <div className="h-full p-[26px] overflow-auto">
-      <h2 className="text-xl text-glow mb-1.5">Ordem de iniciativa</h2>
-      <div className="text-muted text-xs mb-[18px]">
+    <div className="init-view">
+      <h2 className="init-title">Ordem de iniciativa</h2>
+      <div className="init-sub">
         {isGM
           ? "Avance os turnos e a mesa acompanha em tempo real."
           : "Acompanhe a ordem de combate em tempo real."}
       </div>
 
       {!combat?.active ? (
-        <div className="flex flex-col items-center gap-3 bg-panel border border-border rounded-xl p-6 text-center">
-          <p className="text-muted text-sm">
-            Nenhum combate em andamento nesta mesa.
-          </p>
+        <div className="init-empty">
+          <p>Nenhum combate em andamento nesta mesa.</p>
           {isGM && (
             <button className="btn btn-glow" onClick={startCombat}>
               ⚔️ Iniciar combate
@@ -132,47 +130,38 @@ export function InitiativeView({ campaignId, isGM }: InitiativeViewProps) {
         </div>
       ) : (
         <>
-          <div className="flex flex-col gap-2">
+          <div className="init-list">
             {combat.combatants.map((combatant, index) => (
               <div
                 key={combatant.id}
-                className={`flex items-center gap-3 bg-panel border rounded-[11px] px-3 py-2.5 ${
-                  index === combat.currentIndex
-                    ? "border-glow-dark shadow-[0_0_0_1px_var(--glow2)] bg-panel2"
-                    : "border-border"
-                }`}
+                className={index === combat.currentIndex ? "init-row current" : "init-row"}
               >
-                <div className="w-[52px] text-center font-cinzel text-[18px] text-gold-light">
-                  {combatant.value}
-                </div>
+                <div className="val">{combatant.value}</div>
                 {index === combat.currentIndex ? (
-                  <span className="text-[10px] font-extrabold text-glow bg-[rgba(95,212,208,.1)] border border-[rgba(95,212,208,.35)] px-2 py-0.5 rounded-full">
-                    ATUAL
-                  </span>
+                  <span className="init-now">ATUAL</span>
                 ) : null}
-                <div className="flex-1">
-                  <div className="flex items-center gap-1.5">
+                <div className="nm">
+                  <div className="row">
                     <span>{combatant.icon}</span>
                     <span>{combatant.name}</span>
                   </div>
-                  <small className="block text-muted text-[11px]">
+                  <small>
                     {combatant.type === "pc" ? "Jogador" : "NPC · GM"}
                   </small>
                 </div>
                 {combatant.avatar ? (
-                  <span className="w-[28px] h-[28px] rounded-full border border-border-light overflow-hidden">
+                  <span className="init-ava">
                     <Image
                       src={combatant.avatar}
                       alt={combatant.name}
                       width={28}
                       height={28}
-                      className="w-full h-full object-cover"
                     />
                   </span>
                 ) : null}
                 {isGM && combatant.type === "npc" && (
                   <button
-                    className="icon-btn !w-6 !h-6 text-xs"
+                    className="icon-btn sm"
                     title="Remover do combate"
                     onClick={() => void removeCombatant(campaignId, combat, combatant.id)}
                   >
@@ -184,21 +173,18 @@ export function InitiativeView({ campaignId, isGM }: InitiativeViewProps) {
           </div>
 
           {isGM && (
-            <div className="flex flex-col gap-2 mt-[18px]">
-              <div className="flex gap-2.5">
-                <button className="btn btn-glow flex-1" onClick={handleNextTurn}>
+            <div className="init-actions">
+              <div className="row">
+                <button className="btn btn-glow" onClick={handleNextTurn}>
                   Próximo turno
                 </button>
-                <button
-                  className="btn btn-ghost flex-1"
-                  onClick={rollInitiative}
-                >
+                <button className="btn btn-ghost" onClick={rollInitiative}>
                   Rolar iniciativa
                 </button>
               </div>
-              <div className="flex gap-2.5">
+              <div className="row">
                 <button
-                  className="btn btn-ghost flex-1"
+                  className="btn btn-ghost"
                   onClick={() => void endCombat(campaignId)}
                 >
                   Encerrar combate
@@ -241,33 +227,30 @@ function NpcRoster({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mt-5 pt-4 border-t border-border">
-      <div className="flex items-center gap-2 mb-2">
-        <h3 className="text-xs text-accent tracking-wider">NPCs da campanha</h3>
+    <div className="npc-section">
+      <div className="npc-head">
+        <h3>NPCs da campanha</h3>
         {isGM && (
-          <button className="icon-btn !w-7 !h-7 text-xs" onClick={() => setOpen(true)}>
+          <button className="icon-btn sm" onClick={() => setOpen(true)}>
             ＋
           </button>
         )}
       </div>
-      <div className="flex flex-col gap-1.5">
+      <div className="npc-list">
         {npcs.length === 0 && (
-          <span className="text-muted text-xs">
+          <span className="npc-tag">
             {isGM
               ? "Sem NPCs registrados. Crie os aliados/vilões da campanha."
               : "Ainda não há NPCs registrados."}
           </span>
         )}
         {npcs.map((npc) => (
-          <div
-            key={npc.id}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-panel border border-border"
-          >
-            <span className="text-lg">{npc.icon}</span>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm truncate">{npc.name}</div>
+          <div key={npc.id} className="npc-item">
+            <span className="npc-ico">{npc.icon}</span>
+            <div className="npc-info">
+              <div className="npc-name">{npc.name}</div>
               {(npc.hp || npc.notes) && (
-                <small className="text-muted text-[10px] block truncate">
+                <small className="npc-sub">
                   {npc.hp ? `PV ${npc.hp}` : ""}
                   {npc.hp && npc.notes ? " · " : ""}
                   {npc.notes}
@@ -275,23 +258,23 @@ function NpcRoster({
               )}
             </div>
             {isGM ? (
-              <div className="flex gap-1">
+              <div className="npc-actions">
                 <button
-                  className="icon-btn !w-7 !h-7 text-xs"
+                  className="icon-btn sm"
                   title={combatActive ? "Adicionar ao combate" : "Iniciar combate com este NPC"}
                   onClick={() => void onToCombat(npc)}
                 >
                   ⚔️
                 </button>
                 <button
-                  className="icon-btn !w-7 !h-7 text-xs"
+                  className="icon-btn sm"
                   title="Colocar no mapa"
                   onClick={() => void onToMap(npc)}
                 >
                   🗺
                 </button>
                 <button
-                  className="icon-btn !w-7 !h-7 text-xs"
+                  className="icon-btn sm"
                   title="Remover NPC"
                   onClick={() => void removeNpc(campaignId, npcs, npc.id)}
                 >
@@ -299,7 +282,7 @@ function NpcRoster({
                 </button>
               </div>
             ) : (
-              <span className="text-[10px] text-muted">NPC</span>
+              <span className="npc-tag">NPC</span>
             )}
           </div>
         ))}
@@ -347,62 +330,59 @@ function AddNpcModal({
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-[rgba(10,8,5,.75)] backdrop-blur-[3px] flex items-center justify-center p-6"
-      onClick={onClose}
-    >
-      <div
-        className="w-full max-w-sm bg-panel border border-border-light rounded-2xl p-5 shadow-[0_30px_80px_rgba(0,0,0,.6)] flex flex-col gap-3"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-text">Novo NPC</h3>
-          <button className="text-muted hover:text-text text-sm" onClick={onClose}>
+    <div className="modal" onClick={onClose}>
+      <div className="dialog" onClick={(e) => e.stopPropagation()}>
+        <div className="pop-head">
+          <h3 className="pop-title">Novo NPC</h3>
+          <button className="pop-close" onClick={onClose}>
             ✕
           </button>
         </div>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Nome do NPC"
-          className="px-2.5 py-1.5 rounded-md bg-bg border border-border-light text-text text-sm focus:outline-none focus:border-glow-dark"
-          autoFocus
-        />
-        <div className="flex gap-1.5">
+        <div className="field">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Nome do NPC"
+            autoFocus
+          />
+        </div>
+        <div className="icon-grid">
           {NPC_ICONS.map((i) => (
             <button
               key={i}
               onClick={() => setIcon(i)}
-              className={`w-8 h-8 rounded-lg flex items-center justify-center border ${
-                icon === i ? "border-glow-dark bg-panel3" : "border-border bg-bg"
-              }`}
+              className={icon === i ? "icon-cell on" : "icon-cell"}
             >
               {i}
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="row">
           <input
             type="text"
             value={hp}
             onChange={(e) => setHp(e.target.value)}
             placeholder="PV (ex.: 34/34)"
-            className="px-2.5 py-1.5 rounded-md bg-bg border border-border-light text-text text-sm focus:outline-none focus:border-glow-dark"
+            className="input grow"
           />
           <input
             type="text"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Nota rápida"
-            className="px-2.5 py-1.5 rounded-md bg-bg border border-border-light text-text text-sm focus:outline-none focus:border-glow-dark"
+            className="input grow"
           />
         </div>
-        <div className="flex gap-2.5">
-          <button className="btn flex-1" onClick={save} disabled={!name.trim() || saving}>
+        <div className="dialog-actions">
+          <button
+            className="btn"
+            onClick={save}
+            disabled={!name.trim() || saving}
+          >
             {saving ? "Salvando…" : "Salvar NPC"}
           </button>
-          <button className="btn btn-ghost flex-1" onClick={onClose}>
+          <button className="btn btn-ghost" onClick={onClose}>
             Cancelar
           </button>
         </div>

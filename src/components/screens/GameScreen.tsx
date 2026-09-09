@@ -4,11 +4,16 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Sidebar, type SidebarTab } from "@/components/table/Sidebar";
 import { MapView } from "@/components/table/MapView";
-import { DiceView } from "@/components/table/DiceView";
 import { InitiativeView } from "@/components/table/InitiativeView";
 import { RightPanel } from "@/components/table/RightPanel";
 import { CharacterPanel } from "@/components/table/CharacterPanel";
 import { getCampaign, getMemberRole } from "@/lib/campaigns";
+import {
+  subscribePresence,
+  setOnline,
+  setOffline,
+  type OnlineUser,
+} from "@/lib/presence";
 import type { Campaign } from "@/lib/types";
 
 interface GameScreenProps {
@@ -21,6 +26,7 @@ export function GameScreen({ campaignId, onLeave }: GameScreenProps) {
   const [activeTab, setActiveTab] = useState<SidebarTab>("map");
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [isGM, setIsGM] = useState(false);
+  const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
 
   useEffect(() => {
     let active = true;
@@ -39,50 +45,71 @@ export function GameScreen({ campaignId, onLeave }: GameScreenProps) {
     };
   }, [campaignId, user?.uid]);
 
+  useEffect(() => {
+    const uid = user?.uid;
+    if (!uid) return;
+    const name = user.email?.split("@")[0] ?? "jogador";
+    void setOnline(campaignId, uid, name);
+
+    const handleBeforeUnload = () => {
+      void setOffline(campaignId, uid);
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      void setOffline(campaignId, uid);
+    };
+  }, [campaignId, user?.uid, user?.email]);
+
+  useEffect(() => {
+    return subscribePresence(campaignId, setOnlineUsers);
+  }, [campaignId]);
+
   return (
-    <div className="grid h-[calc(100vh-48px)] grid-cols-[66px_1fr_330px] grid-rows-[44px_1fr]">
-      <div className="col-span-3 flex items-center gap-3 px-4 bg-bg2 border-b border-border">
+    <div className="game">
+      <div className="game-top">
         <button className="icon-btn" onClick={onLeave} title="Voltar">
           ←
         </button>
-        <div className="font-cinzel font-bold text-accent">
-          {campaign?.name ?? "Carregando…"}
-        </div>
-        <div className="w-px h-[22px] bg-border-light" />
-        <span className="text-muted text-xs">
+        <div className="cm">{campaign?.name ?? "Carregando…"}</div>
+        <div className="game-sep" />
+        <span className="game-meta">
           {campaign ? `${campaign.system} · Nível ${campaign.level}` : ""}
         </span>
-        <div className="w-px h-[22px] bg-border-light" />
-        <span className="text-[11px] px-2 py-0.5 rounded-full bg-[rgba(199,91,42,.12)] text-danger border border-[rgba(199,91,42,.35)]">
-          {isGM ? "MESTRE" : "JOGADOR"}
-        </span>
-        <div className="w-px h-[22px] bg-border-light" />
+        <div className="game-sep" />
+        <span className="gm-badge">{isGM ? "MESTRE" : "JOGADOR"}</span>
+        <div className="game-sep" />
+        <div className="game-online">
+          {onlineUsers.map((u) => (
+            <span key={u.uid} className="online-user">
+              <span className="dot" />
+              {u.name}
+            </span>
+          ))}
+          {onlineUsers.length === 0 && <span className="text-muted">Nenhum online</span>}
+        </div>
+        <div className="game-sep" />
         <button
-          className="flex items-center gap-1.5 text-[11px] text-muted hover:text-glow transition-colors"
+          className="game-code"
           onClick={() => void navigator.clipboard?.writeText(campaignId)}
           title="Código da campanha — envie para os jogadores entrarem (clique para copiar)"
         >
           <span>Código:</span>
-          <span className="font-mono text-glow">
-            #{campaignId.slice(0, 8)}
-          </span>
+          <span className="code">#{campaignId.slice(0, 8)}</span>
           <span>⧉</span>
         </button>
-        <div className="ml-auto flex items-center gap-2.5">
+        <div className="row right">
           <button className="icon-btn" onClick={onLeave} title="Sair">
             ⏻
           </button>
         </div>
       </div>
 
-      <Sidebar
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
+      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className="bg-bg overflow-hidden relative">
+      <div className="game-main">
         {activeTab === "map" && <MapView campaignId={campaignId} isGM={isGM} />}
-        {activeTab === "dice" && <DiceView campaignId={campaignId} />}
         {activeTab === "init" && (
           <InitiativeView campaignId={campaignId} isGM={isGM} />
         )}

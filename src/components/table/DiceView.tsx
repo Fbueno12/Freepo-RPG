@@ -7,14 +7,7 @@ import { rollFormula } from "@/lib/dice";
 import { useSound } from "@/hooks/useSound";
 import type { DiceRoll } from "@/lib/types";
 
-const DICE = [
-  "d4",
-  "d6",
-  "d8",
-  "d10",
-  "d12",
-  "d20",
-] as const;
+const DICE = ["d4", "d6", "d8", "d10", "d12", "d20"] as const;
 
 const PRESETS: { label: string; expr: string }[] = [
   { label: "d20", expr: "1d20" },
@@ -71,17 +64,17 @@ export function DiceView({ campaignId }: DiceViewProps) {
   };
 
   return (
-    <div className="h-full p-7 overflow-auto flex flex-col gap-[18px]">
-      <div className="flex items-start gap-3">
+    <div className="dice-view">
+      <div className="dice-head">
         <div>
-          <h2 className="text-xl text-glow">Rolagem de dados</h2>
-          <p className="text-muted text-xs mt-1">
+          <h2>Rolagem de dados</h2>
+          <p>
             Clique nos dados ou digite uma rolagem. Os resultados vão para o
             chat da mesa.
           </p>
         </div>
         <button
-          className="icon-btn ml-auto"
+          className="icon-btn right"
           title={enabled ? "Desativar sons" : "Ativar sons"}
           onClick={toggle}
         >
@@ -89,7 +82,7 @@ export function DiceView({ campaignId }: DiceViewProps) {
         </button>
       </div>
 
-      <div className="flex gap-3.5 items-center flex-wrap bg-panel border border-border rounded-xl p-4">
+      <div className="dice-tray">
         {DICE.map((die) => (
           <button
             key={die}
@@ -97,49 +90,43 @@ export function DiceView({ campaignId }: DiceViewProps) {
               void rollToChat(die, die);
               dice();
             }}
-            className="w-[70px] h-[70px] flex flex-col items-center justify-center bg-panel2 border border-border-light rounded-xl gap-0.5 transition-all duration-150 hover:border-glow-dark hover:shadow-[0_0_12px_rgba(95,212,208,.12)]"
+            className="die"
           >
-            <b className="text-xl font-cinzel text-gold">{die}</b>
-            <small className="text-[10px] text-muted">clique</small>
+            <b>{die}</b>
+            <small>clique</small>
           </button>
         ))}
-        <form
-          onSubmit={handleQuickRoll}
-          className="flex items-center gap-2 bg-panel border border-border-light rounded-xl px-2.5 py-1.5 h-full"
-        >
+        <form onSubmit={handleQuickRoll} className="dice-custom">
           <input
             type="text"
             value={formula}
             onChange={(e) => setFormula(e.target.value)}
             placeholder="2d20+3"
-            className="w-[120px] bg-transparent border-none text-text text-sm focus:outline-none"
           />
-          <span className="text-[11px] text-muted">ou digite</span>
+          <span className="hint">ou digite</span>
           <button type="submit" className="btn btn-glow">
             Rolar
           </button>
         </form>
       </div>
 
-      <div className="bg-panel border border-border rounded-xl p-4">
-        <h3 className="text-xs text-accent tracking-wider mb-2.5">
-          Rolagens rápidas
-        </h3>
-        <div className="flex flex-wrap gap-2">
+      <div className="dice-presets">
+        <h3 className="preset-title">Rolagens rápidas</h3>
+        <div className="preset-row">
           {PRESETS.map((preset) => (
             <button
               key={preset.label}
               onClick={() => rollPreset(preset.expr, preset.label)}
-              className="px-3 py-2 rounded-lg bg-panel2 border border-border-light text-sm transition-colors hover:border-glow-dark hover:text-glow"
+              className="preset-btn"
             >
-              <b className="font-cinzel mr-1.5">{preset.label}</b>
-              <span className="text-muted text-xs">{preset.expr}</span>
+              <b>{preset.label}</b>
+              <span>{preset.expr}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <p className="text-muted text-[11px]">
+      <p className="dice-tip">
         Dica: `2d20` já conta como vantagem — pegue o maior resultado no chat.
       </p>
     </div>

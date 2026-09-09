@@ -23,6 +23,7 @@ export function useYouTubePlayer() {
   const playerRef = useRef<any>(null);
   const [apiLoaded, setApiLoaded] = useState(false);
   const [ready, setReady] = useState(false);
+  const [volume, setVolumeState] = useState(100);
 
   useEffect(() => {
     const w = window as WindowWithYT;
@@ -45,10 +46,20 @@ export function useYouTubePlayer() {
     const w = window as WindowWithYT;
     if (!w.YT) return;
     playerRef.current = new w.YT.Player(containerRef.current, {
-      width: "100%",
-      playerVars: { autoplay: 0, controls: 0, modestbranding: 1 },
+      width: 1,
+      height: 1,
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        modestbranding: 1,
+        rel: 0,
+        disablekb: 1,
+      },
       events: {
-        onReady: () => setReady(true),
+        onReady: () => {
+          playerRef.current?.setVolume?.(100);
+          setReady(true);
+        },
       },
     });
   }, [apiLoaded]);
@@ -71,9 +82,15 @@ export function useYouTubePlayer() {
     }
   }, []);
 
-  const seek = useCallback((seconds: number) => {
-    playerRef.current?.seekTo?.(seconds, true);
+  const setVolume = useCallback((vol: number) => {
+    const clamped = Math.max(0, Math.min(100, vol));
+    playerRef.current?.setVolume?.(clamped);
+    setVolumeState(clamped);
   }, []);
 
-  return { containerRef, apiLoaded, ready, play, pause, load, seek };
+  const getCurrentTime = useCallback((): number => {
+    return playerRef.current?.getCurrentTime?.() ?? 0;
+  }, []);
+
+  return { containerRef, ready, play, pause, load, volume, setVolume, getCurrentTime };
 }
