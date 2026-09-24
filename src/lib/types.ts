@@ -94,11 +94,23 @@ export interface MapToken {
   x: number;
   y: number;
   type: "pc" | "npc" | "gm";
+  // ── Tokens V2 ──
+  /** visível para jogadores? NPC nasce false, PC nasce true. */
+  visible?: boolean;
+  /** downloadURL (Storage) ou URL externa; sem valor = emoji `icon`. */
+  imageUrl?: string;
+  /** uid do dono — único jogador (além do GM) que pode mover. */
+  ownerId?: string;
+  /** vínculo com ficha (characters) ou roster (npcs). */
+  characterId?: string;
+  /** tamanho em células (futuro grid-snap). */
+  size?: number;
 }
 
 export interface MapState {
   backgroundImage: string;
-  tokens: MapToken[];
+  /** legado V1 (array no doc). V2 usa a subcoleção `map/{id}/tokens`. */
+  tokens?: MapToken[];
   updatedAt: Timestamp;
 }
 

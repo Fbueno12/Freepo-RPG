@@ -20,7 +20,7 @@ import {
   removeNpc,
   type CampaignNpc,
 } from "@/lib/npcs";
-import { addToken } from "@/lib/map";
+import { placeTokenOnMap } from "@/lib/tokens";
 import { playSignalSound } from "@/lib/sound";
 import type { CombatState, Combatant } from "@/lib/types";
 
@@ -101,10 +101,13 @@ export function InitiativeView({ campaignId, isGM }: InitiativeViewProps) {
   };
 
   const npcToMap = async (npc: CampaignNpc) => {
-    await addToken(campaignId, null, {
+    await placeTokenOnMap(campaignId, {
       icon: npc.icon || "👹",
       name: npc.name,
       type: "npc",
+      // NPC nasce escondido até o mestre revelar.
+      visible: false,
+      characterId: npc.id,
       x: 45 + Math.random() * 10,
       y: 40 + Math.random() * 10,
     });

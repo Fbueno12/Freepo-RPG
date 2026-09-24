@@ -65,6 +65,18 @@ await env.withSecurityRulesDisabled(async (ctx) => {
     .doc("c1")
     .update({ members: { "uid-aaaa-0000": "gm", "uid-bbbb-0000": "pc" }, memberUids: ["uid-aaaa-0000", "uid-bbbb-0000"] });
   await fs.doc("notes/c1").set({ campaignId: "c1", content: "v0", updatedBy: "uid-aaaa-0000" });
+  await fs.doc("map/c1").set({ backgroundImage: "", tokens: [] });
+  await fs.doc("map/c1/tokens/t-visible").set({
+    name: "Herói", icon: "⚔️", type: "pc", x: 10, y: 10,
+    visible: true, ownerId: "uid-bbbb-0000",
+  });
+  await fs.doc("map/c1/tokens/t-hidden").set({
+    name: "Chefe", icon: "👹", type: "npc", x: 80, y: 80, visible: false,
+  });
+  await fs.doc("map/c1/tokens/t-owned-hidden").set({
+    name: "Familiar", icon: "🐺", type: "pc", x: 20, y: 20,
+    visible: false, ownerId: "uid-bbbb-0000",
+  });
 });
 
 console.log("== campaigns ==");
@@ -174,6 +186,54 @@ for (const col of ["combat", "map", "music", "npcs"]) {
   );
   await expect(`${B} lê ${col}/c1`, "allow", () => fsB.doc(`${col}/c1`).get());
 }
+
+console.log("\n== tokens V2 (map/{id}/tokens) ==");
+await expect("A (GM) cria token npc escondido", "allow", () =>
+  fsA.doc("map/c1/tokens/t-new").set({
+    name: "Goblin", icon: "👹", type: "npc", x: 50, y: 50, visible: false,
+  }),
+);
+await expect("B (pc) cria token", "deny", () =>
+  fsB.doc("map/c1/tokens/t-hack").set({
+    name: "Hack", icon: "👹", type: "npc", x: 1, y: 1, visible: true,
+  }),
+);
+await expect("B lê token visível", "allow", () =>
+  fsB.doc("map/c1/tokens/t-visible").get(),
+);
+await expect("B lê token escondido de outro", "deny", () =>
+  fsB.doc("map/c1/tokens/t-hidden").get(),
+);
+await expect("B (dono) lê próprio escondido", "allow", () =>
+  fsB.doc("map/c1/tokens/t-owned-hidden").get(),
+);
+await expect("C (fora) lê token visível", "deny", () =>
+  fsC.doc("map/c1/tokens/t-visible").get(),
+);
+await expect("B move o próprio token (x/y)", "allow", () =>
+  fsB.doc("map/c1/tokens/t-visible").update({ x: 11, y: 12 }),
+);
+await expect("B tenta revelar o próprio (visible)", "deny", () =>
+  fsB.doc("map/c1/tokens/t-owned-hidden").update({ visible: true }),
+);
+await expect("B move token de outro", "deny", () =>
+  fsB.doc("map/c1/tokens/t-hidden").update({ x: 1, y: 1 }),
+);
+await expect("A (GM) revela token escondido", "allow", () =>
+  fsA.doc("map/c1/tokens/t-hidden").update({ visible: true }),
+);
+await expect("A (GM) move qualquer token", "allow", () =>
+  fsA.doc("map/c1/tokens/t-visible").update({ x: 30, y: 30 }),
+);
+await expect("B lista tokens visíveis (query filtrada)", "allow", () =>
+  fsB.collection("map/c1/tokens").where("visible", "==", true).get(),
+);
+await expect("B deleta token", "deny", () =>
+  fsB.doc("map/c1/tokens/t-visible").delete(),
+);
+await expect("A (GM) deleta token", "allow", () =>
+  fsA.doc("map/c1/tokens/t-new").delete(),
+);
 
 console.log("\n== users ==");
 await expect("A escreve em users/<próprio>", "allow", () =>

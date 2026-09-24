@@ -9,7 +9,7 @@
       { "name": "Névoa Sombria", "description": "Anualmente a névoa das Ilhas das Sombras alcança as praias, trazendo mortos-vivos e terrores." },
       { "name": "Quadro de Recompensas", "description": "O código de leis de facto da cidade; caçadores e capitães disputam poder pelas cabeças dos mais procurados." }
     ],
-    "_note": "Idioma: escolha um (Buhru ou Sentinense). Perícia: escolha uma. Atividade: escolha duas (armas específicas, ofícios menores, guia cartógrafo/navegador, chaveiro, apotecário, jogador ou músico)."
+    "_note": "Idioma: escolha um (Buhru ou Sentinense). Perícia: escolha uma. Atividade. Escolha duas proficiências entre as seguintes opções: Adaga, arpão, cimitarra, espada curta, espada longa, espada grande, tridente, pistola de pederneira, mosquete, canhão de mão, guia: cartógrafo ou navegador, chaveiro, uma disciplina de falsificador, apotecário, um jogo de jogador ou músico de um instrumento."
   },
   "bandopolis": {
     "name": "Bandópolis",

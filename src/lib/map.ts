@@ -7,6 +7,11 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import type { MapState, MapToken } from "./types";
+import {
+  createToken,
+  moveTokenTo,
+  removeTokenDoc,
+} from "./tokens";
 
 export const DEFAULT_MAP_BACKGROUND =
   "radial-gradient(40% 30% at 20% 20%, #1e1a15 0, transparent 70%), radial-gradient(50% 35% at 80% 25%, #1a1613 0, transparent 70%), radial-gradient(35% 30% at 35% 75%, #171410 0, transparent 70%), radial-gradient(45% 30% at 75% 80%, #1e1a15 0, transparent 60%), #110f0c";
@@ -44,35 +49,31 @@ export async function setMapBackground(
 
 export async function addToken(
   campaignId: string,
-  map: MapState | null,
+  _map: MapState | null,
   token: Omit<MapToken, "id">,
 ): Promise<void> {
-  const id = crypto.randomUUID();
-  await setMap(campaignId, {
-    tokens: [...(map?.tokens ?? []), { ...token, id }],
+  // Legado V1 (array) → delega para a subcoleção V2. `_map` ignorado.
+  await createToken(campaignId, {
+    ...token,
+    x: token.x ?? 45 + Math.random() * 10,
+    y: token.y ?? 40 + Math.random() * 10,
   });
 }
 
 export async function moveToken(
   campaignId: string,
-  map: MapState,
+  _map: MapState,
   tokenId: string,
   x: number,
   y: number,
 ): Promise<void> {
-  await setMap(campaignId, {
-    tokens: map.tokens.map((t) =>
-      t.id === tokenId ? { ...t, x, y } : t,
-    ),
-  });
+  await moveTokenTo(campaignId, tokenId, x, y);
 }
 
 export async function removeToken(
   campaignId: string,
-  map: MapState,
+  _map: MapState,
   tokenId: string,
 ): Promise<void> {
-  await setMap(campaignId, {
-    tokens: map.tokens.filter((t) => t.id !== tokenId),
-  });
+  await removeTokenDoc(campaignId, tokenId);
 }

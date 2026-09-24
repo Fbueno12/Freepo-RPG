@@ -150,6 +150,43 @@ service cloud.firestore {
       allow write: if isTableOwner(campaignId);
     }
 
+    // Tokens V2: subcoleção `map/{campaignId}/tokens/{tokenId}`.
+    // GM cria/deleta/revela; dono (ownerId) move o próprio (só x/y).
+    // Leitores só enxergam o escondido se GM ou dono — por isso o
+    // client de jogador consulta com where("visible", "==", true)
+    // ("rules are not filters": query ampla com escondidos é negada).
+    match /map/{campaignId}/tokens/{tokenId} {
+      function tokenIsVisible() {
+        return resource.data.get('visible', true) == true;
+      }
+      function isTokenOwner() {
+        return isSignedIn()
+          && resource.data.get('ownerId', '') == request.auth.uid;
+      }
+      // Dono só altera posição (+ updatedAt); resto imutável.
+      function ownerMovesOnlyPosition() {
+        return request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['x', 'y', 'updatedAt'])
+          && request.resource.data.get('x', 0) is number
+          && request.resource.data.get('y', 0) is number
+          && request.resource.data.get('visible', true)
+            == resource.data.get('visible', true)
+          && request.resource.data.get('ownerId', '')
+            == resource.data.get('ownerId', '');
+      }
+      allow read: if isCampaignMember(campaignId)
+        && (tokenIsVisible() || isTableOwner(campaignId) || isTokenOwner());
+      allow create: if isTableOwner(campaignId)
+        && request.resource.data.name is string
+        && request.resource.data.x is number
+        && request.resource.data.y is number;
+      allow update: if isTableOwner(campaignId)
+        || (isCampaignMember(campaignId)
+          && isTokenOwner()
+          && ownerMovesOnlyPosition());
+      allow delete: if isTableOwner(campaignId);
+    }
+
     match /music/{campaignId} {
       allow read: if isCampaignMember(campaignId);
       allow write: if isTableOwner(campaignId);

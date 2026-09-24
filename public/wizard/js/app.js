@@ -33,7 +33,7 @@ const DEFAULT_STATE = {
   origem: '', origemVariante: '',
   regiao: '', regiaoSkill: '', regiaoLang: '', regiaoNotas: '',
   classe: '', subclasse: '', classeSkills: [], tecnicasNota: '',
-  atributos: { rolls: null, assign: { 'Força': null, 'Destreza': null, 'Constituição': null, 'Inteligência': null, 'Sabedoria': null, 'Carisma': null }, plus2: 'Força', plus1: 'Destreza', improvs: {} },
+  atributos: { rolls: null, assign: { 'Força': null, 'Destreza': null, 'Constituição': null, 'Inteligência': null, 'Sabedoria': null, 'Carisma': null },   plus2: 'Força', plus1: 'Destreza', improvs: {}, override: null },
   pericias: {}, salvaguardas: {},
   herancas: [],
   pulsoRunico: '', runas: [], runaCategoria: 'runas',
@@ -88,11 +88,25 @@ function classData(slug) {
 let state = load();
 
 function load() {
+  let s = null;
   try {
     const raw = localStorage.getItem('runarcana_wizard_v1');
-    if (raw) return Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), JSON.parse(raw));
+    if (raw) s = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), JSON.parse(raw));
   } catch (e) { /* ignora */ }
-  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+  if (!s) s = JSON.parse(JSON.stringify(DEFAULT_STATE));
+  // Normaliza rascunhos legados: campos que eram string viram array
+  // (preserva a escolha antiga e destrava a multi-seleção).
+  ['classeSkills', 'herancas', 'runas', 'idiomasExtras'].forEach(k => {
+    if (typeof s[k] === 'string') s[k] = s[k] ? [s[k]] : [];
+    else if (!Array.isArray(s[k])) s[k] = [];
+  });
+  if (s.equip && typeof s.equip === 'object') {
+    ['armas', 'conjuntos', 'outros'].forEach(k => {
+      if (typeof s.equip[k] === 'string') s.equip[k] = s.equip[k] ? [s.equip[k]] : [];
+      else if (!Array.isArray(s.equip[k])) s.equip[k] = [];
+    });
+  }
+  return s;
 }
 function save() {
   try { localStorage.setItem('runarcana_wizard_v1', JSON.stringify(state)); } catch (e) { /* ignora */ }
@@ -206,6 +220,12 @@ function getAttrs() {
     if (im.mode === '+2' && im.a) r[im.a] += 2;
     if (im.mode === '+1+1' && im.a) r[im.a] += 1;
     if (im.mode === '+1+1' && im.b) r[im.b] += 1;
+  });
+  // Ajuste livre da Revisão: valor digitado prevalece sobre o método.
+  const ov = (state.atributos && state.atributos.override) || {};
+  ABILITIES.forEach(a => {
+    const v = ov[a];
+    if (v != null && v !== '' && Number.isFinite(Number(v))) r[a] = Number(v);
   });
   return r;
 }
@@ -527,7 +547,7 @@ function multiSelect(name, options, selected, max, placeholder) {
     ${options.map(o => `<label class="pick ${selected.includes(o) ? 'on' : ''}">
       <input type="checkbox" data-ms-opt="${esc(name)}" data-ms-max="${max}" value="${esc(o)}" ${selected.includes(o) ? 'checked' : ''}>${esc(o)}</label>`).join('')}
   </div>
-  <p class="hint">Escolha até ${max} ${max > 1 ? 'perícias' : 'perícia'} clicando nelas.</p>`;
+  <p class="hint">${max > 20 ? 'Marque livremente, sem limite.' : `Escolha até ${max} ${max > 1 ? 'perícias' : 'perícia'} clicando nelas.`}</p>`;
 }
 
 /* ---- 5 · Atributos ---- */
@@ -665,18 +685,20 @@ STEPS[6].render = function () {
     });
   });
 };
-function herancaLinha(h, full) {
+function herancaLinha(h, full, free) {
   const sel = state.herancas.includes(h.name);
+  const attr = free ? 'data-add-heranca-free' : 'data-add-heranca';
   return `<div class="heranca-item" data-search="${esc(h.name.toLowerCase())}">
     <details class="desc"><summary>${sel ? '✓ ' : ''}${esc(h.name)} <small>· ${h.cost} pt${h.restrictions ? ' · ' + esc(h.restrictions) : ''}</small></summary>
       <div class="body"><strong>Pré-requisito:</strong> ${esc(h.prerequisite || 'nenhum')}<br>${esc(h.description)}</div>
     </details>
-    <button class="btn btn-sm ${sel ? 'btn-danger' : ''}" data-add-heranca="${esc(h.name)}" ${full && !sel ? 'disabled' : ''}>${sel ? 'Remover' : 'Adicionar'}</button>
+    <button class="btn btn-sm ${sel ? 'btn-danger' : ''}" ${attr}="${esc(h.name)}" ${!free && full && !sel ? 'disabled' : ''}>${sel ? 'Remover' : 'Adicionar'}</button>
   </div>`;
 }
-function herancaCardVariante(v, full) {
+function herancaCardVariante(v, full, free) {
   const sel = state.herancas.includes(v.name);
-  return `<div class="opt-card"><input type="checkbox" id="hv-${esc(v.name)}" ${sel ? 'checked' : ''} ${full && !sel ? 'disabled' : ''} data-toggle-heranca="${esc(v.name)}">
+  const attr = free ? 'data-toggle-heranca-free' : 'data-toggle-heranca';
+  return `<div class="opt-card"><input type="checkbox" id="hv-${esc(v.name)}" ${sel ? 'checked' : ''} ${!free && full && !sel ? 'disabled' : ''} ${attr}="${esc(v.name)}">
     <label for="hv-${esc(v.name)}"><span class="opt-name">${esc(v.name)} <span class="opt-tag">variante</span></span>
     <div class="opt-desc">${esc(v.description)}</div></label></div>`;
 }
@@ -711,24 +733,33 @@ STEPS[7].render = function () {
   renderRunaTable('');
   $('#runa-search').addEventListener('input', e => renderRunaTable(e.target.value.trim().toLowerCase()));
 };
-function renderRunaTable(q) {
-  const body = $('#runa-body');
-  if (!body) return;
-  const full = state.runas.length >= runasMax();
+function runaRows(q, free) {
+  const full = !free && state.runas.length >= runasMax();
+  const btnAttr = free ? 'data-toggle-runa-free' : 'data-toggle-runa';
   const rowsRunas = (D.runas.runas || []).filter(r => !q || r.name.toLowerCase().includes(q));
   const rowsEss = (D.runas.runessencias || []).filter(r => !q || r.name.toLowerCase().includes(q));
-  body.innerHTML = [...rowsRunas.map(r => `<tr>
+  return [...rowsRunas.map(r => `<tr>
       <td><strong>${esc(r.name)}</strong></td><td><small>Runa</small></td>
       <td><small>${esc(r.prerequisite || '—')}</small></td>
       <td><small>${esc(r.effect)}</small></td>
-      <td><button class="btn btn-sm ${state.runas.includes(r.name) ? 'btn-danger' : ''}" data-toggle-runa="${esc(r.name)}" ${full && !state.runas.includes(r.name) ? 'disabled' : ''}>${state.runas.includes(r.name) ? 'Remover' : 'Adicionar'}</button></td>
+      <td><button class="btn btn-sm ${state.runas.includes(r.name) ? 'btn-danger' : ''}" ${btnAttr}="${esc(r.name)}" ${full && !state.runas.includes(r.name) ? 'disabled' : ''}>${state.runas.includes(r.name) ? 'Remover' : 'Adicionar'}</button></td>
     </tr>`),
     ...rowsEss.map(r => `<tr>
       <td><strong>${esc(r.name)}</strong></td><td><small>Runessência</small></td>
       <td><small>${esc(r.prerequisite || '—')}</small></td>
       <td><small>${esc(r.effect)}</small></td>
-      <td><button class="btn btn-sm ${state.runas.includes(r.name) ? 'btn-danger' : ''}" data-toggle-runa="${esc(r.name)}" ${full && !state.runas.includes(r.name) ? 'disabled' : ''}>${state.runas.includes(r.name) ? 'Remover' : 'Adicionar'}</button></td>
+      <td><button class="btn btn-sm ${state.runas.includes(r.name) ? 'btn-danger' : ''}" ${btnAttr}="${esc(r.name)}" ${full && !state.runas.includes(r.name) ? 'disabled' : ''}>${state.runas.includes(r.name) ? 'Remover' : 'Adicionar'}</button></td>
     </tr>`)].join('');
+}
+function renderRunaTable(q) {
+  const body = $('#runa-body');
+  if (!body) return;
+  body.innerHTML = runaRows(q, false);
+}
+function renderRevRunaTable(q) {
+  const body = $('#rev-runa-body');
+  if (!body) return;
+  body.innerHTML = runaRows(q, true);
 }
 
 /* ---- 8 · Personalidade & Passado ---- */
@@ -952,13 +983,159 @@ function collectRiteSpells() {
   return `<p class="note"><strong>Magias de ${esc(rite.name)}:</strong> ${avail.map(s => `${esc(s.name)} (${s.level === 0 ? 'truque' : s.level + 'º'})`).join(', ')}${avail.length < all.length ? ' — próximas em ' + all.filter(s => s.level > state.nivel).map(s => s.level + 'º').join(', ') : ''}.</p>`;
 }
 
+/* ---- Revisão: ajuste livre (corrige tudo, sem restrições) ---- */
+
+function revAjusteLivre() {
+  const c = classeSel(), od = origemData();
+  const attrs = getAttrs();
+  const ov = (state.atributos && state.atributos.override) || {};
+  const ovActive = Object.keys(ov).length > 0;
+  const ro = D.regioes[state.regiao] || null;
+  const skillOptions = ro ? (ro.skills && ro.skills[0] === 'Qualquer perícia' ? SKILLS : ro.skills || []) : [];
+  const langOptions = ro ? (ro.languages || []) : [];
+  const varOpts = (od && od.variants || []).map(v => ({ value: v.name, label: v.name }));
+  const subSrc = c && c.subclass ? c.subclass : (c && c.awakening ? c.awakening : null);
+  const subOpts = ((subSrc && subSrc.options) || []).map(o => ({ value: o.name, label: o.name }));
+  const subName = c && c.subclass ? 'subclasse' : 'awakening';
+  const subLocked = subSrc && subSrc.grantedAt > state.nivel;
+  const essa = D.detalhamento.essencias || [];
+  const pulses = D.runas.pulsosRunicos || [];
+  const allH = D.herancas;
+  const knowLangs = languagesEfetivas();
+  const dexMod = mod(attrs.Destreza);
+  const armor = D.equipamento.armaduras.find(a => a.name === state.equip.armadura) || null;
+  const shield = D.equipamento.escudos.find(s => s.name === state.equip.escudo) || null;
+
+  const armasRows = (['chifres|1d6|Melee|Perfurante', 'mordida|1d6|Melee|Perfurante', 'garras|1d4|Melee|Cortante', 'desarmado|1|Melee|Contundente'].map(w => {
+    const [n, dmg, type, dmgT] = w.split('|');
+    return { name: n + ' (natural)', damage: dmg, type, damageType: dmgT };
+  })).concat(state.equip.armas.map(a => {
+    const parts = a.split('|');
+    return { name: parts[0], damage: parts[1] || '', type: parts[2] || 'Melee', damageType: parts[3] || '' };
+  })).map(a => {
+    const isMelee = /corpo|melee/i.test(a.type);
+    const atk = profBonus(state.nivel) + (isMelee ? mod(attrs.Força) : dexMod);
+    return `<tr>
+      <td>${esc(a.name)}</td>
+      <td>${esc(a.damage)} ${esc(a.damageType)}</td>
+      <td><small>${isMelee ? 'Força' : 'Destreza'}</small></td>
+      <td><span class="mod-badge">${atk > 0 ? '+' : ''}${atk}</span></td>
+      <td>${esc(a.damage)}${isMelee ? ' + ' + mod(attrs.Força) : ' + ' + dexMod} ${esc(a.damageType)}</td>
+      <td><button class="btn btn-sm btn-danger" data-rm-arma="${esc(a.name)}">×</button></td>
+    </tr>`;
+  }).join('');
+
+  return `
+  <div class="card"><h3>Identidade</h3>
+    <div class="field"><label>Nome</label><input type="text" id="c-nome" value="${esc(state.nome)}"></div>
+    <div class="field"><label>Conceito</label><input type="text" id="c-conceito" value="${esc(state.conceito)}"></div>
+    <div class="field"><label>História</label><textarea id="c-historia" rows="3">${esc(state.historia)}</textarea></div>
+  </div>
+  <div class="card"><h3>Origem, região, classe e passado</h3>
+    <div class="grid2">
+      <div class="field"><label>Origem</label>${select('origem', Object.keys(D.origens).map(k => ({ value: k, label: D.origens[k].name })), state.origem, '—')}</div>
+      <div class="field"><label>Variante da origem</label>${varOpts.length ? select('origemVariante', varOpts, state.origemVariante, '— nenhuma —', true) : '<small class="text-muted">—</small>'}</div>
+      <div class="field"><label>Região</label>${select('regiao', Object.keys(D.regioes).map(k => ({ value: k, label: D.regioes[k].name })), state.regiao, '—')}</div>
+      <div class="field"><label>Idioma regional</label>${langOptions.length ? select('regiaoLang', langOptions.map(l => ({ value: l, label: l })), state.regiaoLang, 'Escolha um idioma') : '<small class="text-muted">—</small>'}</div>
+      <div class="field"><label>Perícia regional</label>${skillOptions.length ? select('regiaoSkill', skillOptions.map(s => ({ value: s, label: s })), state.regiaoSkill, 'Escolha uma perícia') : '<small class="text-muted">—</small>'}</div>
+      <div class="field"><label>Classe</label>${select('classe', Object.keys(D.classes).map(k => ({ value: k, label: D.classes[k].name })), state.classe, '—')}</div>
+      <div class="field"><label>Subclasse</label>${!c ? '<small class="text-muted">—</small>' : subLocked ? `<small class="text-muted">disponível no nível ${subSrc.grantedAt}</small>` : select(subName, subOpts, state.subclasse, '— escolha —', true)}</div>
+      <div class="field"><label>Passado</label>${select('passado', D.detalhamento.passados.map(p => ({ value: p.name, label: p.name })), state.passado, '—')}</div>
+      <div class="field"><label>Essência</label>${select('essencia', essa.filter(e => e.type === 'essencia').map(e => ({ value: e.name, label: e.name })), state.essencia, '—')}</div>
+      <div class="field"><label>Personalidade</label>${select('personalidade', essa.filter(e => e.type === 'personalidade').map(e => ({ value: e.name, label: e.name })), state.personalidade, '—')}</div>
+    </div>
+    ${c ? `<div class="field"><label>Técnicas (anote)</label><input type="text" id="tecnicas" value="${esc(state.tecnicasNota)}"></div>` : ''}
+  </div>
+  <div class="card"><h3>Atributos — ajuste livre</h3>
+    <p class="hint">Digite o valor final de cada atributo para corrigir sem restrições. Apague o campo para voltar ao cálculo pelo método da etapa 5.</p>
+    <div class="grid3">${ABILITIES.map(a => `<div class="field"><label>${a}</label>
+      <input type="number" min="1" max="30" data-attr-n="${esc(a)}" value="${ov[a] != null ? ov[a] : ''}" placeholder="${attrs[a]}"></div>`).join('')}</div>
+    ${ovActive ? '<button class="btn btn-sm btn-ghost" data-action="clear-override">Limpar ajuste livre</button>' : ''}
+  </div>
+  ${c && c.skillChoices ? `<div class="card"><h3>Perícias da classe (sem limite)</h3>
+    ${multiSelect('classeSkills', c.skillChoices.options, state.classeSkills, 99)}</div>` : ''}
+  ${renderSalvaguardasSection()}
+  ${renderPericiasSection()}
+  ${state.origem === 'runinata'
+    ? '<div class="card"><h3>Heranças</h3><p class="hint">Runinatas usam Traços definidos com o Mestre (ver etapa 6).</p></div>'
+    : `<div class="card"><h3>Heranças (sem limite de pontos)</h3>
+      <div class="field"><label>Buscar</label><input type="search" id="rev-heranca-search" placeholder="Filtrar pelo nome..."></div>
+      <div class="chips">${state.herancas.map(h => `<span class="chip chip-accent">${esc(h)}</span>`).join('') || '<span class="chip">nenhuma</span>'}</div>
+      <div class="heranca-list" id="rev-heranca-list" style="margin-top:10px">${allH.herancas.map(h => herancaLinha(h, false, true)).join('')}</div>
+    </div>
+    <div class="card"><h3>Variantes (sem limite)</h3>
+      <div class="grid2">${(allH.variantes || []).map(v => herancaCardVariante(v, false, true)).join('')}</div>
+    </div>`}
+  <div class="card"><h3>Pulso Rúnico</h3>
+    <div class="grid2">${pulses.map(p => `<div class="opt-card">
+      <input type="radio" name="pulsoRev" value="${esc(p.name)}" id="rpulso-${esc(p.name)}" ${state.pulsoRunico === p.name ? 'checked' : ''}>
+      <label for="rpulso-${esc(p.name)}"><span class="opt-name">${esc(p.name)} <span class="opt-tag">${esc(p.damageType)}</span></span>
+      <div class="opt-desc">${esc(p.effect)}</div></label></div>`).join('')}
+    </div>
+  </div>
+  <div class="card"><h3>Runas e Runessências (sem limite)</h3>
+    <div class="chips">${state.runas.map(r => `<span class="chip chip-accent">${esc(r)}</span>`).join('') || '<span class="chip">nenhuma</span>'}</div>
+    <div class="field" style="margin-top:10px"><label>Buscar</label><input type="search" id="rev-runa-search" placeholder="Filtrar..."></div>
+    <table class="tbl"><thead><tr><th>Nome</th><th>Tipo</th><th>Pré-requisito</th><th>Efeito</th><th></th></tr></thead>
+    <tbody id="rev-runa-body"></tbody></table>
+  </div>
+  <div class="card"><h3>Descrição física</h3>
+    <div class="grid3">
+      <div class="field"><label>Sexo / Gênero</label><input type="text" id="d-sexo" class="d-field" value="${esc(state.detalhes.sexo)}"></div>
+      <div class="field"><label>Idade</label><input type="text" id="d-idade" class="d-field" value="${esc(state.detalhes.idade)}"></div>
+      <div class="field"><label>Estilo de vida</label>${select('d-estilo', D.equipamento.estiloDeVida.map(e => ({ value: e.name, label: e.name + ' — ' + e.cost })), state.detalhes.estiloVida, '—', true)}</div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label>Altura</label><input type="text" id="d-altura" class="d-field" value="${esc(state.detalhes.altura)}"></div>
+      <div class="field"><label>Peso</label><input type="text" id="d-peso" class="d-field" value="${esc(state.detalhes.peso)}"></div>
+    </div>
+    <div class="grid3">
+      <div class="field"><label>Pele</label><input type="text" id="d-pele" class="d-field" value="${esc(state.detalhes.pele)}"></div>
+      <div class="field"><label>Cabelo</label><input type="text" id="d-cabelo" class="d-field" value="${esc(state.detalhes.cabelo)}"></div>
+      <div class="field"><label>Olhos</label><input type="text" id="d-olhos" class="d-field" value="${esc(state.detalhes.olhos)}"></div>
+    </div>
+    <div class="field"><label>Outras marcas</label><input type="text" id="d-marcas" class="d-field" value="${esc(state.detalhes.marcas)}"></div>
+  </div>
+  <div class="card"><h3>Idiomas</h3>
+    <div class="chips">${knowLangs.map(l => `<span class="chip chip-accent">${esc(l)}</span>`).join('') || '<span class="chip">nenhum</span>'}</div>
+    <div class="field" style="margin-top:10px"><label>Idioma extra</label><select id="add-idioma"><option value="">— escolha —</option>
+      ${(D.detalhamento.idiomas || []).map(l => `<option value="${esc(l.name)}">${esc(l.name)}${l.script ? ' · ' + esc(l.script) : ''}</option>`).join('')}
+    </select></div>
+    <div class="chips">${state.idiomasExtras.map(l => `<span class="chip">${esc(l)} <span class="x" data-rm-idioma="${esc(l)}">×</span></span>`).join('')}</div>
+  </div>
+  <div class="card"><h3>Armadura e escudo</h3>
+    <div class="grid2">
+      <div class="field"><label>Armadura</label>${select('armadura', D.equipamento.armaduras.map(a => ({ value: a.name, label: `${a.name} (CA ${a.baseAC} · RD ${a.rd})` })), state.equip.armadura, 'Sem armadura', true)}</div>
+      <div class="field"><label>Escudo</label>${select('escudo', D.equipamento.escudos.map(s => ({ value: s.name, label: `${s.name} (+${s.acBonus} CA)` })), state.equip.escudo, 'Sem escudo', true)}</div>
+    </div>
+  </div>
+  <div class="card"><h3>Armas</h3>
+    <div class="field"><label>Adicionar arma</label>
+      ${select('add-arma', D.equipamento.armas.map(a => ({ value: `${a.name}|${a.damage}|${a.type}|${a.damageType}`, label: `${a.name} — ${a.damage} ${a.damageType} (${a.type})` })), '', '— escolha —', true)}</div>
+    <table class="tbl"><thead><tr><th>Arma</th><th>Dano</th><th>Atributo</th><th>Ataque</th><th>Dano final</th><th></th></tr></thead>
+    <tbody>${armasRows}</tbody></table>
+  </div>
+  <div class="card"><h3>Itens, magias e notas</h3>
+    <div class="grid2">
+      <div class="field"><label>Conjunto de aventureiro</label>${select('add-conjunto', D.equipamento.conjuntos.map(a => ({ value: a.name, label: `${a.name} — ${a.cost}` })), state.equip.conjuntos[0] || '', '— nenhum —', true)}</div>
+      <div class="field"><label>Outros itens (texto livre)</label><input type="text" id="add-outros" placeholder="Ex.: 8 PO, tochas..."></div>
+    </div>
+    ${state.equip.conjuntos.length ? `<div class="chips">${state.equip.conjuntos.map(cn => `<span class="chip chip-accent">${esc(cn)} <span class="x" data-rm-conjunto="${esc(cn)}">×</span></span>`).join('')}</div>` : ''}
+    ${state.equip.outros.filter(Boolean).length ? `<div class="chips">${state.equip.outros.map(o => `<span class="chip">${esc(o)} <span class="x" data-rm-outro="${esc(o)}">×</span></span>`).join('')}</div>` : ''}
+    ${c && c.spellcasting ? `
+      <div class="field"><label>Truques conhecidos</label><input type="text" id="m-truques" value="${esc(state.magias.truques)}"></div>
+      <div class="field"><label>Magias conhecidas / preparadas</label><textarea id="m-magias" rows="3">${esc(state.magias.conhecidas)}</textarea></div>` : ''}
+    <div class="field"><label>Notas / traços adicionais</label><textarea id="ficha-notas" rows="3">${esc(state.notas)}</textarea></div>
+  </div>`;
+}
+
 /* ---- 11 · Revisão ---- */
 STEPS[11].render = function () {
   const c = classeSel(), od = origemData(), rd = D.regioes[state.regiao], pd = passadoData();
   const attrs = getAttrs();
   const spells = collectSpellSummary();
   const html = `
-    ${blockCard('Revisão', 'Etapa 11 · Conferência final', 'Confira o resumo completo do personagem antes de gerar a ficha.')}
+    ${blockCard('Revisão', 'Etapa 11 · Conferência final', 'Confira o resumo e corrija qualquer ponto abaixo, sem restrições, antes de gerar a ficha. Para refazer um método do zero (ex.: rolar os atributos de novo), use a barra lateral de etapas.')}
     <div class="stats-strip">
       <div class="stat"><div class="v">${maxHp()}</div><div class="l">PV</div></div>
       <div class="stat"><div class="v">+${profBonus(state.nivel)}</div><div class="l">Proficiência</div></div>
@@ -980,6 +1157,8 @@ STEPS[11].render = function () {
       </ul>
       <p class="hint">${spells ? spells : ''}</p>
     </div>
+    <div class="alert alert-info">Ajuste livre — corrija qualquer ponto acima sem restrições; os totais (PV, CA, ataques) são recalculados na hora.</div>
+    ${revAjusteLivre()}
     <div class="alert alert-info">Pronto para gerar a ficha? Clique em <strong>Gerar Ficha</strong> — depois use "Imprimir / Salvar PDF" para exportar.</div>
     <div class="nav-row">
       <button class="btn" data-nav="prev">← Anterior</button>
@@ -989,6 +1168,20 @@ STEPS[11].render = function () {
       </div>
     </div>`;
   $('#content').innerHTML = html;
+
+  const rhl = $('#rev-heranca-list');
+  if (rhl) {
+    const rhi = $('#rev-heranca-search');
+    if (rhi) rhi.addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      $$('.heranca-item', rhl).forEach(el => {
+        el.style.display = el.dataset.search.includes(q) ? '' : 'none';
+      });
+    });
+  }
+  renderRevRunaTable('');
+  const rri = $('#rev-runa-search');
+  if (rri) rri.addEventListener('input', e => renderRevRunaTable(e.target.value.trim().toLowerCase()));
 };
 
 function collectSpellSummary() {
@@ -1201,6 +1394,7 @@ function bindNav() {
     const action = e.target.closest('[data-action]');
     if (action) {
       if (action.dataset.action === 'reset') { resetAll(); return; }
+      if (action.dataset.action === 'clear-override') { state.atributos.override = null; save(); rerenderStep(); return; }
       if (action.dataset.action === 'sheet') { showSheet(); return; }
       if (action.dataset.action === 'back-to-wizard') { hideSheet(); return; }
       if (action.dataset.action === 'print-sheet') { window.print(); return; }
@@ -1209,26 +1403,32 @@ function bindNav() {
     /* heranças */
     const addH = e.target.closest('[data-add-heranca]');
     if (addH) { toggleHeranca(addH.dataset.addHeranca); STEPS[6].render(); return; }
+    const addHf = e.target.closest('[data-add-heranca-free]');
+    if (addHf) { toggleHeranca(addHf.dataset.addHerancaFree, false, true); rerenderStep(); return; }
     const rmH = e.target.closest('[data-rm-heranca]');
-    if (rmH) { toggleHeranca(rmH.dataset.rmHeranca); STEPS[6].render(); return; }
+    if (rmH) { toggleHeranca(rmH.dataset.rmHeranca); rerenderStep(); return; }
     const tgH = e.target.closest('[data-toggle-heranca]');
     if (tgH) { toggleHeranca(tgH.dataset.toggleHeranca, true); STEPS[6].render(); return; }
+    const tgHf = e.target.closest('[data-toggle-heranca-free]');
+    if (tgHf) { toggleHeranca(tgHf.dataset.toggleHerancaFree, true, true); rerenderStep(); return; }
 
     /* runas */
     const tgR = e.target.closest('[data-toggle-runa]');
     if (tgR) { toggleRuna(tgR.dataset.toggleRuna); renderRunaTable($('#runa-search') ? $('#runa-search').value.trim().toLowerCase() : ''); return; }
+    const tgRf = e.target.closest('[data-toggle-runa-free]');
+    if (tgRf) { toggleRuna(tgRf.dataset.toggleRunaFree, true); rerenderStep(); return; }
     const rmR = e.target.closest('[data-rm-runa]');
     if (rmR) { toggleRuna(rmR.dataset.rmRuna); renderRunaTable($('#runa-search') ? $('#runa-search').value.trim().toLowerCase() : ''); return; }
 
     /* equipamento */
     const rmArma = e.target.closest('[data-rm-arma]');
-    if (rmArma) { state.equip.armas = state.equip.armas.filter(a => !a.startsWith(rmArma.dataset.rmArma + '|')); save(); STEPS[10].render(); return; }
+    if (rmArma) { state.equip.armas = state.equip.armas.filter(a => !a.startsWith(rmArma.dataset.rmArma + '|')); save(); rerenderStep(); return; }
     const rmCj = e.target.closest('[data-rm-conjunto]');
-    if (rmCj) { state.equip.conjuntos = state.equip.conjuntos.filter(x => x !== rmCj.dataset.rmConjunto); save(); STEPS[10].render(); return; }
+    if (rmCj) { state.equip.conjuntos = state.equip.conjuntos.filter(x => x !== rmCj.dataset.rmConjunto); save(); rerenderStep(); return; }
     const rmOutro = e.target.closest('[data-rm-outro]');
-    if (rmOutro) { const v = rmOutro.dataset.rmOutro; state.equip.outros = state.equip.outros.filter(o => o !== v); save(); STEPS[10].render(); return; }
+    if (rmOutro) { const v = rmOutro.dataset.rmOutro; state.equip.outros = state.equip.outros.filter(o => o !== v); save(); rerenderStep(); return; }
     const rmIdioma = e.target.closest('[data-rm-idioma]');
-    if (rmIdioma) { state.idiomasExtras = state.idiomasExtras.filter(l => l !== rmIdioma.dataset.rmIdioma); save(); STEPS[9].render(); return; }
+    if (rmIdioma) { state.idiomasExtras = state.idiomasExtras.filter(l => l !== rmIdioma.dataset.rmIdioma); save(); rerenderStep(); return; }
   });
 
   document.addEventListener('input', e => {
@@ -1243,6 +1443,15 @@ function bindNav() {
     if (el.id === 'm-truques') { state.magias.truques = el.value; save(); }
     if (el.id === 'm-magias') { state.magias.conhecidas = el.value; save(); }
     if (el.id === 'ficha-notas') { state.notas = el.value; save(); }
+
+    /* revisão: ajuste livre de atributos (sem restrições) */
+    const attrN = el.dataset.attrN;
+    if (attrN) {
+      state.atributos.override = state.atributos.override || {};
+      if (el.value === '' || el.value == null) delete state.atributos.override[attrN];
+      else state.atributos.override[attrN] = Number(el.value);
+      save();
+    }
 
     /* atributos */
     const setAttr = el.dataset.setAttr;
@@ -1271,8 +1480,8 @@ function bindNav() {
     }
 
     /* região */
-    if (el.name === 'regiaoSkill') { state.regiaoSkill = el.value; save(); }
-    if (el.name === 'regiaoLang') { state.regiaoLang = el.value; save(); }
+    if (el.name === 'regiaoSkill') { state.regiaoSkill = el.value; save(); rerenderStep(); }
+    if (el.name === 'regiaoLang') { state.regiaoLang = el.value; save(); rerenderStep(); }
 
     /* nivel */
     if (el.id === 'input-nivel') {
@@ -1291,8 +1500,8 @@ function bindNav() {
     if (el.name === 'regiao') { state.regiao = el.value; state.regiaoSkill = ''; state.regiaoLang = ''; save(); rerenderStep(); }
     if (el.name === 'subclasse') { state.subclasse = el.value; save(); rerenderStep(); }
     if (el.name === 'awakening') { state.subclasse = el.value; save(); rerenderStep(); }
-    if (el.name === 'essencia') { state.essencia = el.value; save(); }
-    if (el.name === 'personalidade') { state.personalidade = el.value; save(); }
+    if (el.name === 'essencia') { state.essencia = el.value; save(); rerenderStep(); }
+    if (el.name === 'personalidade') { state.personalidade = el.value; save(); rerenderStep(); }
     if (el.name === 'passado') { state.passado = el.value; save(); rerenderStep(); }
 
     /* multi-seleção de perícias / opções (chips) */
@@ -1300,6 +1509,7 @@ function bindNav() {
       const max = Number(el.dataset.msMax || 99);
       const field = el.dataset.msOpt;
       const val = el.value;
+      if (!Array.isArray(state[field])) state[field] = state[field] ? [state[field]] : [];
       if (el.checked) {
         if (state[field].length >= max) { el.checked = false; return; }
         if (state[field].indexOf(val) === -1) state[field].push(val);
@@ -1309,6 +1519,10 @@ function bindNav() {
       }
       save(); rerenderStep();
     }
+
+    /* revisão: confirma edição de texto/atributo e atualiza o resumo */
+    if (el.dataset.attrN) { rerenderStep(); }
+    if (el.id && ['c-nome', 'c-conceito', 'c-historia', 'regiao-notas', 'tecnicas', 'm-truques', 'm-magias', 'ficha-notas'].includes(el.id)) { rerenderStep(); }
 
     /* detalhes */
     const dField = el.classList.contains('d-field');
@@ -1355,6 +1569,7 @@ function bindNav() {
 
   document.addEventListener('change', e => {
     if (e.target.name === 'pulso') { state.pulsoRunico = e.target.value; save(); }
+    if (e.target.name === 'pulsoRev') { state.pulsoRunico = e.target.value; save(); rerenderStep(); }
   });
 }
 
@@ -1369,17 +1584,19 @@ function resetAll() {
   renderNav(); STEPS[0].render();
 }
 
-function toggleHeranca(name, silent) {
+function toggleHeranca(name, silent, unlimited) {
+  if (!Array.isArray(state.herancas)) state.herancas = [];
   const idx = state.herancas.indexOf(name);
   const max = origemData() ? origemData().herancaPoints : 2;
   if (idx >= 0) state.herancas.splice(idx, 1);
-  else if (state.herancas.length < max) state.herancas.push(name);
+  else if (unlimited || state.herancas.length < max) state.herancas.push(name);
   save();
 }
-function toggleRuna(name) {
+function toggleRuna(name, unlimited) {
+  if (!Array.isArray(state.runas)) state.runas = [];
   const idx = state.runas.indexOf(name);
   if (idx >= 0) state.runas.splice(idx, 1);
-  else if (state.runas.length < runasMax()) state.runas.push(name);
+  else if (unlimited || state.runas.length < runasMax()) state.runas.push(name);
   save();
 }
 

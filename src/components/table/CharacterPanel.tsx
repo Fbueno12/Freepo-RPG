@@ -6,6 +6,7 @@ import {
   subscribeCharacters,
   saveCharacter,
   saveNpc,
+  readWizardStateFromLocalStorage,
   deleteCharacter,
   addItemToCharacter,
   removeItemFromCharacter,
@@ -15,14 +16,13 @@ import {
   setSecretMessage,
   markSecretMessageRead,
 } from "@/lib/characters";
-import { addToken } from "@/lib/map";
-import { subscribeMap } from "@/lib/map";
+import { placeTokenOnMap } from "@/lib/tokens";
 import { addCombatants } from "@/lib/combat";
 import { rollFormula } from "@/lib/dice";
 import { sendChatMessage } from "@/lib/campaigns";
 import { useSound } from "@/hooks/useSound";
 import { PdfImport } from "@/components/ui/PdfImport";
-import type { CharacterSheet, Macro, MapState, WizardState } from "@/lib/types";
+import type { CharacterSheet, Macro, WizardState } from "@/lib/types";
 
 interface CharacterPanelProps {
   campaignId: string;
@@ -66,6 +66,15 @@ export function CharacterPanel({ campaignId, isGM }: CharacterPanelProps) {
       flash(`Ficha "${state.nome ?? "Personagem"}" importada!`);
     }
     setPdfImportOpen(false);
+  };
+
+  const handleWizardDraft = async () => {
+    const draft = readWizardStateFromLocalStorage();
+    if (!draft) {
+      flash("Nenhum rascunho do wizard — crie sua ficha primeiro.");
+      return;
+    }
+    await handlePdfImport(draft);
   };
 
   const flash = (msg: string) => {
@@ -117,13 +126,26 @@ export function CharacterPanel({ campaignId, isGM }: CharacterPanelProps) {
         <div>
           <h2 className="init-title">Fichas dos personagens</h2>
           <p className="init-sub">
-            Importe fichas em PDF para a mesa ou crie NPCs diretamente.
+            Crie sua ficha no wizard e traga para a mesa, importe um PDF
+            ou — se for o mestre — crie NPCs diretamente.
           </p>
         </div>
 
         <div className="col">
           <div className="row wrap">
-            <button className="btn btn-glow" onClick={() => setPdfImportOpen(!pdfImportOpen)}>
+            <a
+              className="btn btn-glow"
+              href="/wizard"
+              target="_blank"
+              rel="noreferrer"
+              title="Abre o criador de personagem em nova aba"
+            >
+              ✨ Criar ficha
+            </a>
+            <button className="btn" onClick={handleWizardDraft}>
+              ⬇ Trazer ficha do wizard
+            </button>
+            <button className="btn btn-ghost" onClick={() => setPdfImportOpen(!pdfImportOpen)}>
               {pdfImportOpen ? "✕ Fechar" : "📄 Importar ficha PDF"}
             </button>
             {isGM && (
@@ -379,7 +401,6 @@ function SheetModal({
   const [secretMsgOpen, setSecretMsgOpen] = useState(false);
   const [secretMsg, setSecretMsg] = useState("");
   const [secretPriority, setSecretPriority] = useState<"normal" | "urgent">("normal");
-  const [mapState, setMapState] = useState<MapState | null>(null);
   const notesTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
   const canEdit = !!user && (user.uid === character.userId || isGM);
@@ -399,11 +420,6 @@ function SheetModal({
   const sheetCombat = Array.isArray(state.combate)
     ? (state.combate as { arma?: unknown; bonus?: unknown; dano?: unknown }[])
     : [];
-
-  useEffect(() => {
-    const unsub = subscribeMap(campaignId, setMapState);
-    return () => unsub();
-  }, [campaignId]);
 
   const modAtributo = (valor: number) => Math.floor((valor - 10) / 2);
 
@@ -490,16 +506,18 @@ function SheetModal({
   };
 
   const handlePlaceOnMap = async () => {
-    if (!mapState) return;
-    const token = {
-      id: crypto.randomUUID(),
-      icon: "👹",
+    const isNpc = character.type === "npc";
+    await placeTokenOnMap(campaignId, {
+      icon: isNpc ? "👹" : "🎹",
       name: character.name,
       x: 20 + Math.random() * 60,
       y: 20 + Math.random() * 60,
-      type: "npc" as const,
-    };
-    await addToken(campaignId, mapState, token);
+      type: isNpc ? "npc" : "pc",
+      // NPC nasce escondido; ficha de jogador já vincula o dono.
+      visible: !isNpc,
+      ownerId: isNpc ? undefined : character.userId || undefined,
+      characterId: character.id,
+    });
   };
 
   return (

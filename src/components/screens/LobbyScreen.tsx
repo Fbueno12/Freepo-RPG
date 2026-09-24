@@ -11,6 +11,10 @@ import {
   joinCampaign,
   getCampaign,
 } from "@/lib/campaigns";
+import {
+  saveCharacter,
+  readWizardStateFromLocalStorage,
+} from "@/lib/characters";
 import type { Campaign } from "@/lib/types";
 
 interface CampaignCard extends Campaign {
@@ -29,6 +33,8 @@ export function LobbyScreen({ onOpenCampaign }: LobbyScreenProps) {
   const [error, setError] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [showJoin, setShowJoin] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [importingId, setImportingId] = useState<string | null>(null);
 
   const loadCampaigns = useCallback(async (): Promise<CampaignCard[]> => {
     if (!user) return [];
@@ -87,6 +93,32 @@ export function LobbyScreen({ onOpenCampaign }: LobbyScreenProps) {
     await refresh();
   };
 
+  const handleImportDraft = async (campaignId: string) => {
+    if (!user || importingId) return;
+    const draft = readWizardStateFromLocalStorage();
+    if (!draft) {
+      setNotice(
+        "Nenhum rascunho do wizard — crie sua ficha primeiro.",
+      );
+      return;
+    }
+    setImportingId(campaignId);
+    try {
+      await saveCharacter(campaignId, user.uid, draft);
+      const name =
+        typeof draft.nome === "string" && draft.nome.trim()
+          ? draft.nome.trim()
+          : "Personagem";
+      setNotice(`Ficha "${name}" criada na campanha ✓`);
+      onOpenCampaign(campaignId);
+    } catch (e) {
+      console.error("Erro ao importar ficha:", e);
+      setError("Não foi possível criar a ficha. Tente novamente.");
+    } finally {
+      setImportingId(null);
+    }
+  };
+
   return (
     <div className="lobby">
       <div className="lobby-head">
@@ -100,6 +132,15 @@ export function LobbyScreen({ onOpenCampaign }: LobbyScreenProps) {
           <button className="btn btn-ghost" onClick={() => setShowJoin(true)}>
             + Entrar por código
           </button>
+          <a
+            className="btn btn-glow"
+            href="/wizard"
+            target="_blank"
+            rel="noreferrer"
+            title="Abre o criador de personagem em nova aba"
+          >
+            ✨ Criar ficha
+          </a>
           <button className="btn" onClick={() => setShowCreate(true)}>
             Nova campanha
           </button>
@@ -110,6 +151,7 @@ export function LobbyScreen({ onOpenCampaign }: LobbyScreenProps) {
       </div>
 
       {error && <div className="alert alert-error lobby-note">{error}</div>}
+      {notice && <div className="alert alert-info lobby-note">{notice}</div>}
 
       {loading ? (
         <div className="lobby-empty">Carregando…</div>
@@ -155,6 +197,21 @@ export function LobbyScreen({ onOpenCampaign }: LobbyScreenProps) {
                     height={34}
                   />
                 </div>
+                {campaign.role === "pc" && (
+                  <button
+                    className="btn btn-sm"
+                    disabled={importingId === campaign.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      void handleImportDraft(campaign.id);
+                    }}
+                    title="Cria sua ficha nesta campanha a partir do rascunho do wizard"
+                  >
+                    {importingId === campaign.id
+                      ? "Criando…"
+                      : "⬇ Ficha do wizard"}
+                  </button>
+                )}
               </div>
             </div>
           ))}
