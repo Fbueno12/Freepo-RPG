@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freepo · Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#110f0c;
+  --bg2:#191613;
+  --panel:#1e1a15;
+  --panel2:#27221a;
+  --panel3:#302a20;
+  --line:#3a3225;
+  --line2:#4d4232;
+  --text:#e8e0d4;
+  --muted:#8a7c6e;
+  --accent:#7a8c52;
+  --accent2:#5f7038;
+  --glow:#5fd4d0;
+  --glow2:#3fb8b3;
+  --red:#c75b2a;
+  --red2:#a04820;
+  --gold:#a07838;
+  --gold2:#c4983e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:14px;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:'Cinzel',serif;font-weight:700}
+button{font-family:inherit;cursor:pointer;border:none}
+input,textarea,select{font-family:inherit}
+
+.mkbar{
+  position:sticky;top:0;z-index:100;
+  height:48px;
+  display:flex;align-items:center;gap:16px;
+  padding:0 20px;
+  background:linear-gradient(180deg,#1a1714,#141210);
+  border-bottom:1px solid var(--line);
+}
+.mkbar .logo{display:flex;align-items:center;gap:10px}
+.mkbar .logo .mark{
+  width:32px;height:32px;border-radius:50%;
+  overflow:hidden;
+  border:2px solid var(--accent2);
+  box-shadow:0 0 12px rgba(95,212,208,.25);
+}
+.mkbar .logo img{width:100%;height:100%;object-fit:cover}
+.mkbar .logo b{font-family:'Cinzel',serif;letter-spacing:2px;font-size:16px;color:var(--glow)}
+.mkbar nav{display:flex;gap:6px;margin-left:auto}
+.mkbar nav button{
+  padding:6px 14px;border-radius:8px;
+  background:transparent;color:var(--muted);
+  border:1px solid transparent;
+}
+.mkbar nav button.on{background:var(--panel2);color:var(--glow);border-color:var(--line2)}
+.mkbar .hint{color:#5c5044;font-size:11px;white-space:nowrap}
+
+.screen{display:none}
+.screen.on{display:block}
+
+.btn{
+  padding:9px 16px;border-radius:10px;font-weight:600;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  color:#f0f5e8;border:1px solid var(--accent);
+  box-shadow:0 2px 10px rgba(122,140,82,.2);
+  transition:.15s;
+}
+.btn:hover{filter:brightness(1.12)}
+.btn.glow{background:linear-gradient(180deg,var(--glow),var(--glow2));border-color:var(--glow);color:#0d1a19;box-shadow:0 2px 14px rgba(95,212,208,.3)}
+.btn.glow:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line2)}
+.btn.ghost:hover{color:var(--text);border-color:var(--accent)}
+.btn.red{background:linear-gradient(180deg,var(--red),var(--red2));border-color:var(--red)}
+
+.login-wrap{
+  min-height:calc(100vh - 48px);
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(900px 500px at 50% -5%, rgba(95,212,208,.08), transparent 55%),
+    radial-gradient(700px 400px at 20% 80%, rgba(122,140,82,.06), transparent 50%),
+    var(--bg);
+  padding:30px;
+}
+.login-card{
+  width:100%;max-width:420px;
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:18px;padding:36px 30px;
+  box-shadow:0 24px 70px rgba(0,0,0,.55);
+}
+.login-card .ava{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 18px;
+  overflow:hidden;
+  border:3px solid var(--accent2);
+  box-shadow:0 0 20px rgba(95,212,208,.25), 0 0 50px rgba(95,212,208,.08);
+}
+.login-card .ava img{width:100%;height:100%;object-fit:cover}
+.login-card h1{text-align:center;font-size:26px;color:var(--glow);letter-spacing:2px}
+.login-card .sub{text-align:center;color:var(--muted);font-size:12px;margin:6px 0 26px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600}
+.field input{
+  width:100%;padding:11px 13px;border-radius:10px;
+  background:var(--bg);border:1px solid var(--line2);color:var(--text);
+}
+.field input:focus{outline:none;border-color:var(--glow2);box-shadow:0 0 0 2px rgba(95,212,208,.12)}
+.login-card .btn{width:100%;margin-top:8px}
+.login-card .foot{text-align:center;margin-top:16px;color:var(--muted);font-size:12px}
+.login-card .foot a{color:var(--glow);cursor:pointer;text-decoration:none}
+.hr{display:flex;align-items:center;gap:12px;color:#5c5044;font-size:11px;margin:22px 0 4px}
+.hr:before,.hr:after{content:'';flex:1;height:1px;background:var(--line)}
+
+
+.lobby-wrap{padding:36px 40px;max-width:1100px;margin:0 auto}
+.lobby-head{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.lobby-head h1{font-size:26px;color:var(--text)}
+.lobby-head .who{color:var(--muted);font-size:13px}
+.lobby-head .actions{margin-left:auto;display:flex;gap:10px}
+.lobby-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;margin-top:26px}
+.camp{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:20px;position:relative;transition:.2s;cursor:pointer;
+}
+.camp:hover{border-color:var(--accent2);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.4)}
+.camp .cname{font-size:18px;color:var(--accent)}
+.camp .cmeta{color:var(--muted);font-size:12px;margin:6px 0 14px}
+.camp .stamp{
+  position:absolute;top:16px;right:16px;font-size:11px;
+  padding:3px 9px;border-radius:20px;font-weight:700;
+}
+.camp .stamp.gm{background:rgba(199,91,42,.12);color:var(--red);border:1px solid rgba(199,91,42,.35)}
+.camp .stamp.pc{background:rgba(95,212,208,.1);color:var(--glow);border:1px solid rgba(95,212,208,.3)}
+.camp .crew{display:flex;gap:8px}
+.ava{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--panel3);border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.ava.more{background:transparent;color:var(--muted);border-style:dashed}
+
+
+.game{display:none}
+.game.on{
+  display:grid;
+  height:calc(100vh - 48px);
+  grid-template-columns:66px 1fr 330px;
+  grid-template-rows:44px 1fr 66px;
+}
+.g-actions{grid-column:1/4;display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--bg2);border-bottom:1px solid var(--line)}
+.g-actions .cm{font-family:'Cinzel',serif;font-weight:700;color:var(--accent)}
+.g-actions .sep{width:1px;height:22px;background:var(--line2)}
+.g-actions .who{color:var(--muted);font-size:12px}
+.g-actions .gm-badge{font-size:11px;padding:2px 8px;border-radius:12px;background:rgba(199,91,42,.12);color:var(--red);border:1px solid rgba(199,91,42,.35)}
+.g-actions .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.icon-btn{
+  width:34px;height:34px;border-radius:9px;
+  background:var(--panel);border:1px solid var(--line2);
+  color:var(--muted);font-size:15px;display:flex;align-items:center;justify-content:center;
+}
+.icon-btn:hover{color:var(--glow);border-color:var(--glow2)}
+
+.g-side{background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:6px}
+.g-side .tab{
+  width:46px;height:46px;border-radius:12px;
+  background:transparent;border:1px solid transparent;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--muted);font-size:17px;gap:2px;
+}
+.g-side .tab span{font-size:9px;font-weight:700}
+.g-side .tab.on{background:var(--panel2);color:var(--glow);border-color:var(--line2)}
+.g-side .tab:hover{color:var(--text)}
+.g-side .spacer{flex:1}
+.g-side .mini{
+  width:40px;height:40px;border-radius:50%;overflow:hidden;
+  border:2px solid var(--accent2);
+  box-shadow:0 0 10px rgba(95,212,208,.15);
+}
+.g-side .mini img{width:100%;height:100%;object-fit:cover}
+
+.g-main{background:var(--bg);overflow:hidden;position:relative}
+.g-main .view{display:none;height:100%}
+.g-main .view.on{display:block}
+
+.map-view{position:relative;height:100%;background:
+  radial-gradient(900px 400px at 70% 10%, rgba(122,140,82,.06), transparent 55%),
+  var(--bg);
+}
+.map-tools{
+  position:absolute;top:12px;right:12px;z-index:5;
+  display:flex;flex-direction:column;gap:6px;
+}
+.map-canvas{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(122,140,82,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122,140,82,.04) 1px, transparent 1px),
+    radial-gradient(40% 30% at 20% 20%, #1e1a15 0, transparent 70%),
+    radial-gradient(50% 35% at 80% 25%, #1a161399 0, transparent 70%),
+    radial-gradient(35% 30% at 35% 75%, #17141099 0, transparent 70%),
+    radial-gradient(45% 30% at 75% 80%, #1e1a1599 0, transparent 60%),
+    #110f0c;
+  background-size:44px 44px, 44px 44px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+}
+.map-label{
+  position:absolute;font-size:13px;color:var(--muted);font-style:italic;
+  background:rgba(17,15,12,.8);padding:2px 8px;border-radius:6px;border:1px solid var(--line);
+}
+.mtoken{
+  position:absolute;width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;cursor:grab;
+  border:3px solid;
+  box-shadow:0 4px 16px rgba(0,0,0,.55), inset 0 -6px 12px rgba(0,0,0,.3);
+  transform:translate(-50%,-50%);
+  background:var(--panel3);
+}
+.mtoken .nm{
+  position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);
+  font-size:11px;font-weight:700;white-space:nowrap;
+  background:rgba(17,15,12,.9);padding:1px 7px;border-radius:6px;border:1px solid var(--line2);
+}
+.mtoken.pc{border-color:var(--glow);box-shadow:0 0 14px rgba(95,212,208,.2), 0 4px 16px rgba(0,0,0,.55)}
+.mtoken.npc{border-color:var(--red);box-shadow:0 0 10px rgba(199,91,42,.15), 0 4px 16px rgba(0,0,0,.55)}
+.mtoken.gm{border-color:var(--gold)}
+.mtoken.is-gm{position:absolute;top:-6px;right:-6px;font-size:11px;background:var(--gold);color:#1a1205;border-radius:8px;padding:0 5px;font-weight:800}
+
+.dice-view{padding:28px;height:100%;overflow:auto;display:flex;flex-direction:column;gap:18px}
+.dice-head h2{font-size:20px;color:var(--glow)}
+.dice-head p{color:var(--muted);font-size:12px;margin-top:4px}
+.dice-tray{
+  display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;
+}
+.die{
+  width:70px;height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--panel2);border:1px solid var(--line2);border-radius:12px;gap:2px;
+  transition:.15s;
+}
+.die:hover{border-color:var(--glow2);box-shadow:0 0 12px rgba(95,212,208,.12)}
+.die b{font-size:20px;font-family:'Cinzel',serif;color:var(--gold)}
+.die small{font-size:10px;color:var(--muted)}
+.results{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+.result{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;
+}
+.result .r{font-size:34px;font-family:'Cinzel',serif;color:var(--gold2)}
+.result .rd{color:var(--muted);font-size:11px;margin-top:4px}
+
+.init-view{padding:26px;overflow:auto;height:100%}
+.init-view h2{font-size:20px;color:var(--glow);margin-bottom:6px}
+.init-view .sub{color:var(--muted);font-size:12px;margin-bottom:18px}
+.init-list{display:flex;flex-direction:column;gap:8px}
+.init-row{
+  display:flex;align-items:center;gap:12px;
+  background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px 12px;
+}
+.init-row .val{width:52px;text-align:center;font-family:'Cinzel',serif;font-size:18px;color:var(--gold2)}
+.init-row .nm{flex:1}
+.init-row .nm small{display:block;color:var(--muted);font-size:11px}
+.init-row.current{border-color:var(--glow2);box-shadow:0 0 0 1px var(--glow2);background:var(--panel2)}
+.init-row.current .now{
+  font-size:10px;font-weight:800;color:var(--glow);
+  background:rgba(95,212,208,.1);border:1px solid rgba(95,212,208,.35);
+  padding:2px 8px;border-radius:10px;
+}
+.init-btns{display:flex;gap:10px;margin-top:18px}
+.init-btns .btn,.init-btns .btn.ghost{flex:1}
+
+.g-right{background:var(--bg2);border-left:1px solid var(--line);display:flex;flex-direction:column}
+.r-tabs{display:flex;border-bottom:1px solid var(--line)}
+.r-tabs button{
+  flex:1;padding:11px 0;background:transparent;color:var(--muted);
+  border-bottom:2px solid transparent;font-weight:600;font-size:12px;
+}
+.r-tabs button.on{color:var(--glow);border-color:var(--glow)}
+.r-body{flex:1;overflow:hidden;position:relative;min-height:0}
+.r-panel{display:none;height:100%;flex-direction:column}
+.r-panel.on{display:flex}
+
+.chat-log{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:88%}
+.msg .mhead{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.msg .mhead .who{font-size:12px;font-weight:700}
+.msg .mhead .who.gm{color:var(--red)}
+.msg .mhead .who.pc{color:var(--glow)}
+.msg .mhead time{font-size:10px;color:#5c5044}
+.msg .bub{background:var(--panel);border:1px solid var(--line);border-radius:4px 12px 12px 12px;padding:8px 12px;font-size:13px;line-height:1.55}
+.msg.dice .bub{background:var(--bg);border-color:var(--line2)}
+.msg.dice .roll-line{color:var(--gold2);font-family:'Cinzel',serif;font-size:15px}
+.msg.dice .roll-note{color:var(--muted);font-size:11px;margin-top:3px}
+.chat-input{border-top:1px solid var(--line);padding:12px;display:flex;gap:8px;background:var(--bg2)}
+.chat-input input{
+  flex:1;padding:10px 12px;border-radius:10px;
+  background:var(--bg);border:1px solid var(--line2);color:var(--text);
+}
+.chat-input input:focus{outline:none;border-color:var(--glow2)}
+
+.notes-wrap{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.notes-wrap h3{font-size:14px;color:var(--accent)}
+.notes-wrap textarea{
+  flex:1;resize:none;min-height:300px;padding:12px;
+  background:var(--bg);border:1px solid var(--line2);border-radius:10px;
+  color:var(--text);line-height:1.65;font-size:13px;
+}
+.notes-wrap textarea:focus{outline:none;border-color:var(--glow2)}
+.notes-wrap .tag{display:inline-block;font-size:11px;color:var(--muted);background:var(--panel3);border:1px solid var(--line);padding:2px 8px;border-radius:12px}
+
+.music-wrap{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.yt{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line2);aspect-ratio:16/10;background:var(--bg)}
+.yt .th{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;color:#677;background:linear-gradient(160deg,#1e1a15,#110f0c)}
+.yt .th b{position:absolute;bottom:8px;left:10px;right:10px;font-size:11px;color:var(--muted);text-align:left}
+.yt .play{
+  width:54px;height:38px;border-radius:8px;background:rgba(232,224,212,.9);
+  display:flex;align-items:center;justify-content:center;color:#1a1205;font-size:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
+.controls{display:flex;align-items:center;justify-content:center;gap:12px}
+.ctrl{
+  width:38px;height:38px;border-radius:50%;background:var(--panel2);
+  border:1px solid var(--line2);color:var(--text);font-size:15px;
+}
+.ctrl.big{width:48px;height:48px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-color:var(--accent);color:#f0f5e8}
+.ctrl:hover{color:var(--glow);border-color:var(--glow2)}
+.playlist{display:flex;flex-direction:column;gap:6px}
+.track{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;
+  background:var(--panel);border:1px solid var(--line);cursor:pointer;
+}
+.track.on{border-color:var(--accent2);background:var(--panel2)}
+.track .tin{width:40px;height:40px;border-radius:8px;background:var(--panel3);display:flex;align-items:center;justify-content:center;font-size:16px}
+.track .tinf{flex:1;min-width:0}
+.track .tinf b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.track .tinf small{color:var(--muted);font-size:11px}
+.track .eq{display:flex;align-items:flex-end;gap:2px;height:12px}
+.track.on .eq i{width:3px;background:var(--accent);border-radius:2px;animation:eq 1s infinite ease-in-out}
+.track.on .eq i:nth-child(1){height:6px}
+.track.on .eq i:nth-child(2){height:12px;animation-delay:.2s}
+.track.on .eq i:nth-child(3){height:8px;animation-delay:.4s}
+.track.on .eq i:nth-child(4){height:11px;animation-delay:.1s}
+@keyframes eq{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1.4)}}
+.music-owner{font-size:11px;color:var(--muted);text-align:center}
+.music-owner b{color:var(--red)}
+
+.g-bottom{
+  grid-column:1/4;background:var(--bg2);border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:12px;padding:0 16px;
+}
+.roller{
+  display:flex;align-items:center;gap:8px;
+  background:var(--panel);border:1px solid var(--line2);border-radius:10px;padding:6px 10px;
+}
+.roller input{
+  width:120px;background:transparent;border:none;color:var(--text);font-size:14px;
+}
+.roller input:focus{outline:none}
+.roller .hint{font-size:11px;color:var(--muted)}
+.g-bottom .btn{height:42px}
+
+
+.modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,8,5,.75);backdrop-filter:blur(3px);align-items:flex-start;justify-content:center;padding:40px 20px;overflow:auto}
+.modal.on{display:flex}
+.sheet{
+  width:100%;max-width:900px;
+  background:var(--panel);border:1px solid var(--line2);border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+.sheet-head{
+  display:flex;align-items:center;gap:16px;padding:22px 26px;
+  background:linear-gradient(180deg,var(--panel3),var(--panel2));
+  border-bottom:1px solid var(--line);
+}
+.sheet-head .ava{
+  width:64px;height:64px;font-size:30px;overflow:hidden;border-radius:50%;
+  border:2px solid var(--accent2);
+  box-shadow:0 0 14px rgba(95,212,208,.2);
+}
+.sheet-head .ava img{width:100%;height:100%;object-fit:cover}
+.sheet-head h2{color:var(--glow);font-size:22px}
+.sheet-head .sub{color:var(--muted);font-size:12px;margin-top:2px}
+.sheet-head .close{margin-left:auto}
+.sheet-body{padding:22px 26px;display:grid;grid-template-columns:1fr 1fr;gap:20px;max-height:60vh;overflow:auto}
+.big-stats{grid-column:1/3;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{
+  background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;
+}
+.stat .v{font-family:'Cinzel',serif;font-size:26px;color:var(--gold2)}
+.stat .l{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px}
+.sheet-col h3{font-size:12px;color:var(--accent);letter-spacing:1px;margin-bottom:8px}
+.attr-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.attr-row .an{flex:1;font-size:12px;color:var(--muted)}
+.attr-row .am{font-size:14px;font-weight:700;color:var(--glow)}
+.attr-row .av{width:44px;text-align:center;background:var(--panel3);border:1px solid var(--line2);border-radius:7px;padding:3px;font-size:13px;color:var(--text)}
+.sheet-list{display:flex;flex-wrap:wrap;gap:5px}
+.chipfs{font-size:11px;background:var(--panel3);border:1px solid var(--line2);border-radius:8px;padding:3px 8px;color:var(--text)}
+.sheet-foot{padding:16px 26px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:300;background:var(--panel2);border:1px solid var(--glow2);color:var(--text);padding:10px 18px;border-radius:10px;font-size:13px;display:none;box-shadow:0 4px 20px rgba(95,212,208,.15)}
+.toast.on{display:block;animation:fade 2.4s forwards}
+@keyframes fade{0%{opacity:0;transform:translate(-50%,8px)}12%{opacity:1;transform:translate(-50%,0)}80%{opacity:1}100%{opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="mkbar">
+  <div class="logo"><div class="mark"><img src="Freepo.jpeg" alt="Freepo"></div><b>FREEPO</b></div>
+  <div class="hint">mockup navegável</div>
+  <nav>
+    <button data-s="login" class="on">Login</button>
+    <button data-s="lobby">Lobby</button>
+    <button data-s="game">Mesa de Jogo</button>
+  </nav>
+</div>
+
+<!-- ============ LOGIN ============ -->
+<section id="screen-login" class="screen on">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="ava"><img src="Freepo.jpeg" alt="Freepo"></div>
+      <h1>Freepo</h1>
+      <p class="sub">onde nossa campanha ganha vida</p>
+      <div class="field"><label>Email</label><input type="email" placeholder="voce@exemplo.com"></div>
+      <div class="field"><label>Senha</label><input type="password" placeholder="••••••••"></div>
+      <button class="btn glow" data-screen="lobby">Entrar</button>
+      <div class="hr">ou</div>
+      <button class="btn ghost" data-screen="lobby" style="width:100%">Criar conta</button>
+      <div class="foot">Esqueceu a senha? <a>recuperar</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOBBY ============ -->
+<section id="screen-lobby" class="screen">
+  <div class="lobby-wrap">
+    <div class="lobby-head">
+      <div>
+        <h1>Suas campanhas</h1>
+        <div class="who">Bem-vindo de volta, mestre!</div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="bt-join">+ Entrar por código</button>
+        <button class="btn" id="bt-create">Nova campanha</button>
+      </div>
+    </div>
+    <div class="lobby-grid">
+      <div class="camp" data-join>
+        <div class="cname">Floresta de Verdan</div>
+        <div class="cmeta">Runarcana · Nível 3 · 5 jogadores</div>
+        <span class="stamp gm">MESTRE</span>
+        <div class="crew">
+          <div class="ava"><img src="Freepo.jpeg" alt="Freepo" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+          <div class="ava">⚔️</div>
+          <div class="ava">🧙</div>
+          <div class="ava">🏹</div>
+          <div class="ava more">+1</div>
+        </div>
+      </div>
+      <div class="camp" data-join>
+        <div class="cname">Chá &amp; Tramas</div>
+        <div class="cmeta">Runarcana · Nível 1 · 4 jogadores</div>
+        <span class="stamp pc">JOGADOR</span>
+        <div class="crew">
+          <div class="ava">🥷</div>
+          <div class="ava">🍃</div>
+          <div class="ava">🔥</div>
+          <div class="ava more">+1</div>
+        </div>
+      </div>
+      <div class="camp" data-join>
+        <div class="cname">Ruínas de Nox</div>
+        <div class="cmeta">Runarcana · Nível 5 · 6 jogadores</div>
+        <span class="stamp gm">MESTRE</span>
+        <div class="crew">
+          <div class="ava">🗡️</div>
+          <div class="ava">🛡️</div>
+          <div class="ava">📜</div>
+          <div class="ava more">+3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MESA DE JOGO ============ -->
+<section id="screen-game" class="game">
+  <div class="g-actions">
+    <button class="icon-btn" data-screen="lobby" title="Voltar">←</button>
+    <div class="cm">Floresta de Verdan</div>
+    <div class="sep"></div>
+    <span class="who">Turno 3 · hora dourada</span>
+    <div class="sep"></div>
+    <span class="gm-badge">MESTRE</span>
+    <div class="right">
+      <span class="who" id="players-online">5 na mesa</span>
+      <button class="icon-btn" title="Sair">⏻</button>
+    </div>
+  </div>
+
+  <div class="g-side">
+    <button class="tab on" data-view="map"><div>📍</div><span>Mapa</span></button>
+    <button class="tab" data-view="dice"><div>🎲</div><span>Dados</span></button>
+    <button class="tab" data-view="init"><div>⚔️</div><span>Combate</span></button>
+    <div class="spacer"></div>
+    <button class="tab" data-sheet="ficha-freepo"><div>🎹</div><span>Fichas</span></button>
+    <div class="mini"><img src="Freepo.jpeg" alt="Freepo"></div>
+  </div>
+
+  <div class="g-main">
+    <!-- Mapa -->
+    <div class="view map on">
+      <div class="map-canvas">
+        <div class="map-label" style="top:16%;left:12%">🌲 Floresta de Verdan</div>
+        <div class="map-label" style="top:62%;left:58%">≋ Rio Sussurro</div>
+        <div class="map-label" style="top:78%;left:16%">🏚 Ruínas de Nox</div>
+        <div class="mtoken npc" style="left:30%;top:34%">🐗<span class="nm">Javali Retinto <b class="is-gm">GM</b></span></div>
+        <div class="mtoken npc" style="left:70%;top:46%">🐺<span class="nm">Lobo da Neblina <b class="is-gm">GM</b></span></div>
+        <div class="mtoken pc" style="left:46%;top:40%">🎹<span class="nm">Freepo</span></div>
+        <div class="mtoken pc" style="left:52%;top:33%">⚔️<span class="nm">Karon</span></div>
+        <div class="mtoken pc" style="left:40%;top:46%">🧙<span class="nm">Lunara</span></div>
+      </div>
+      <div class="map-tools">
+        <button class="icon-btn">＋</button>
+        <button class="icon-btn">－</button>
+        <button class="icon-btn">⤢</button>
+      </div>
+    </div>
+
+    <!-- Dados -->
+    <div class="view dice">
+      <div class="dice-view">
+        <div class="dice-head">
+          <h2>Rolagem de dados</h2>
+          <p>Clique nos dados ou digite uma rolagem. Os resultados vão para o chat da mesa.</p>
+        </div>
+        <div class="dice-tray">
+          <div class="die" data-roll="d4"><b>d4</b><small>clique</small></div>
+          <div class="die" data-roll="d6"><b>d6</b><small>clique</small></div>
+          <div class="die" data-roll="d8"><b>d8</b><small>clique</small></div>
+          <div class="die" data-roll="d10"><b>d10</b><small>clique</small></div>
+          <div class="die" data-roll="d12"><b>d12</b><small>clique</small></div>
+          <div class="die" data-roll="d20"><b>d20</b><small>clique</small></div>
+          <div class="roller" style="height:100%">
+            <input type="text" placeholder="2d20+3" id="rolled-input">
+            <span class="hint">ou digite</span>
+            <button class="btn glow" id="rolled-ok">Rolar</button>
+          </div>
+        </div>
+        <div class="results" id="results-pool">
+          <div class="result"><div class="r">17</div><div class="rd">d20 +5 · Percepção</div></div>
+          <div class="result"><div class="r">3</div><div class="rd">2d6 · Dano de runa</div></div>
+          <div class="result"><div class="r">7</div><div class="rd">d12+4 · Machado</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Combate / Iniciativa -->
+    <div class="view init">
+      <div class="init-view">
+        <h2>Ordem de iniciativa</h2>
+        <div class="sub">Avançar turnos avisa todo mundo na mesa em tempo real.</div>
+        <div class="init-list">
+          <div class="init-row current">
+            <div class="val">21</div>
+            <div class="now">ATUAL</div>
+            <div class="nm">Freepo<small>🎹 Jogador</small></div>
+            <span class="ava" style="width:28px;height:28px;font-size:13px"><img src="Freepo.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></span>
+          </div>
+          <div class="init-row"><div class="val">19</div><div class="nm">Karon<small>⚔️ Jogador</small></div><span class="ava" style="width:28px;height:28px;font-size:13px">⚔️</span></div>
+          <div class="init-row"><div class="val">16</div><div class="nm">Lunara<small>🧙 Jogador</small></div><span class="ava" style="width:28px;height:28px;font-size:13px">🧙</span></div>
+          <div class="init-row"><div class="val">12</div><div class="nm">Javali Retinto<small>🐗 NPC · GM</small></div></div>
+          <div class="init-row"><div class="val">8</div><div class="nm">Lobo da Neblina<small>🐺 NPC · GM</small></div></div>
+        </div>
+        <div class="init-btns">
+          <button class="btn glow" id="init-next">Próximo turno</button>
+          <button class="btn ghost" id="init-roll">Rolar iniciativa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g-right">
+    <div class="r-tabs">
+      <button class="on" data-r="chat">💬 Chat</button>
+      <button data-r="notes">📝 Anotações</button>
+      <button data-r="music">🎵 Música</button>
+    </div>
+    <div class="r-body">
+
+      <!-- Chat -->
+      <div class="r-panel on" id="panel-chat">
+        <div class="chat-log">
+          <div class="msg dice">
+            <div class="mhead"><span class="who pc">Freepo</span><time>14:02</time></div>
+            <div class="bub"><div class="roll-line">🎲 1d20+5 → <b>17</b></div><div class="roll-note">Percepção · sucesso</div></div>
+          </div>
+          <div class="msg">
+            <div class="mhead"><span class="who gm">Mestre</span><time>14:03</time></div>
+            <div class="bub">Vocês ouvem um farfalhar entre as árvores. A névoa começa a se fechar ao redor do grupo…</div>
+          </div>
+          <div class="msg">
+            <div class="mhead"><span class="who pc">Karon</span><time>14:04</time></div>
+            <div class="bub">Eu saco o machado e fico na frente, protegendo o Freepo.</div>
+          </div>
+          <div class="msg dice">
+            <div class="mhead"><span class="who pc">Karon</span><time>14:04</time></div>
+            <div class="bub"><div class="roll-line">🎲 2d6+4 → <b>1 + 6 + 4 = 11</b></div><div class="roll-note">Corte devastador</div></div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Fale com a mesa…" id="chat-in">
+          <button class="btn glow" id="chat-send">Enviar</button>
+        </div>
+      </div>
+
+      <!-- Anotações -->
+      <div class="r-panel" id="panel-notes">
+        <div class="notes-wrap">
+          <h3>📝 Notas da campanha</h3>
+          <div>
+            <span class="tag">compartilhado com a mesa</span>
+          </div>
+          <textarea rows="12" placeholder="Anotações da aventura…">Mesa de Verdan — Turno 3
+
+- A névoa fechou depois dos rosnados.
+- Freepo vai tocar a flauta ancestral para acalmar os espíritos (CD 14).
+- Pista: o amuleto de Nox brilha perto do rio Sussurro.
+- Recompensa do vilarejo: selo da Ordem Flautista.</textarea>
+        </div>
+      </div>
+
+      <!-- Música -->
+      <div class="r-panel" id="panel-music">
+        <div class="music-wrap">
+          <h3 style="color:var(--accent);font-size:14px">🎵 Música da mesa</h3>
+          <div class="yt">
+            <div class="th">▶<b>Ambient — Névoa de Verdan (playlists do grupo)</b></div>
+          </div>
+          <div class="controls">
+            <button class="ctrl">⏮</button>
+            <button class="ctrl big" id="mt-play">⏸</button>
+            <button class="ctrl">⏭</button>
+          </div>
+          <div class="music-owner"><b>MESTRE</b> controla o que a mesa ouve</div>
+          <div class="playlist">
+            <div class="track on"><div class="tin">🌫️</div><div class="tinf"><b>Névoa de Verdan</b><small>Ambient florestal · 3:42</small></div><div class="eq"><i></i><i></i><i></i><i></i></div></div>
+            <div class="track"><div class="tin">⚔️</div><div class="tinf"><b>Clash of Runes</b><small>Combate épico · 4:10</small></div></div>
+            <div class="track"><div class="tin">🕯️</div><div class="tinf"><b>Taverneiro</b><small>Vila · 2:58</small></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="g-bottom">
+    <div class="roller">
+      <input type="text" value="1d20+5" id="quick-in">
+      <span class="hint">rolagem rápida → chat público</span>
+    </div>
+    <button class="btn glow" id="quick-roll">🎲 Rolar</button>
+    <span class="who" style="margin-left:auto;color:#5c5044;font-size:11px">aperte Enter para rolar</span>
+  </div>
+</section>
+
+<!-- ============ MODAL FICHA ============ -->
+<div class="modal" id="modal-sheet">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div class="ava"><img src="Freepo.jpeg" alt="Freepo"></div>
+      <div>
+        <h2>Freepo</h2>
+        <div class="sub">Yordle flautista · Pandinha Vermelho · Nível 3</div>
+      </div>
+      <button class="icon-btn close" data-close>✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="big-stats">
+        <div class="stat"><div class="v">26 / 26</div><div class="l">PV</div></div>
+        <div class="stat"><div class="v">14</div><div class="l">CA</div></div>
+        <div class="stat"><div class="v">12</div><div class="l">Mana</div></div>
+        <div class="stat"><div class="v">+2</div><div class="l">Proficiência</div></div>
+      </div>
+      <div class="sheet-col">
+        <h3>Atributos</h3>
+        <div class="attr-row"><span class="an">Força</span><span class="am">+1</span><span class="av">12</span></div>
+        <div class="attr-row"><span class="an">Destreza</span><span class="am">+3</span><span class="av">16</span></div>
+        <div class="attr-row"><span class="an">Constituição</span><span class="am">+1</span><span class="av">12</span></div>
+        <div class="attr-row"><span class="an">Inteligência</span><span class="am">+0</span><span class="av">10</span></div>
+        <div class="attr-row"><span class="an">Sabedoria</span><span class="am">+2</span><span class="av">14</span></div>
+        <div class="attr-row"><span class="an">Carisma</span><span class="am">+3</span><span class="av">17</span></div>
+      </div>
+      <div class="sheet-col">
+        <h3>Perícias</h3>
+        <div class="sheet-list">
+          <span class="chipfs">Acrobacia +5</span><span class="chipfs">Atuação +7</span>
+          <span class="chipfs">Percepção +4</span><span class="chipfs">Furtividade +5</span>
+          <span class="chipfs">Enganação +5</span><span class="chipfs">Intuição +4</span>
+          <span class="chipfs">Sobrevivência +4</span>
+        </div>
+        <h3 style="margin-top:16px">Runas</h3>
+        <div class="sheet-list">
+          <span class="chipfs">Pulso: Chama Dançante</span>
+          <span class="chipfs">Runa do Eco</span>
+          <span class="chipfs">Runessência da Brisa</span>
+        </div>
+        <h3 style="margin-top:16px">Equipamento</h3>
+        <div class="sheet-list">
+          <span class="chipfs">Flauta Ancestral</span><span class="chipfs">Adaga de Prata</span>
+          <span class="chipfs">Amuleto de Nox</span><span class="chipfs">8 PO</span>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-foot">
+      <button class="btn ghost" data-roll-sheet>🎲 Rolar Percepção</button>
+      <button class="btn" data-close>Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const go = s => {
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.game').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.mkbar nav button').forEach(x=>x.classList.remove('on'));
+  if (s==='game'){ document.querySelector('#screen-game').classList.add('on'); }
+  else { document.getElementById('screen-'+s).classList.add('on'); }
+  document.querySelector('.mkbar nav button[data-s="'+s+'"]').classList.add('on');
+};
+document.querySelectorAll('[data-screen]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.screen)));
+document.querySelectorAll('.mkbar nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.s)));
+
+let currentView='map';
+document.querySelectorAll('.g-side .tab[data-view]').forEach(t=>t.addEventListener('click',()=>{
+  currentView=t.dataset.view;
+  document.querySelectorAll('.g-side .tab[data-view]').forEach(x=>x.classList.toggle('on',x===t));
+  document.querySelectorAll('.g-main .view').forEach(v=>v.classList.toggle('on',v.classList.contains(currentView)));
+}));
+
+document.querySelectorAll('.r-tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.r-tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.r-panel').forEach(p=>p.classList.toggle('on',p.id==='panel-'+b.dataset.r));
+}));
+
+document.querySelectorAll('[data-sheet]').forEach(b=>b.addEventListener('click',()=>{ document.getElementById('modal-sheet').classList.add('on'); }));
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{ document.getElementById('modal-sheet').classList.remove('on'); }));
+document.getElementById('modal-sheet').addEventListener('click',e=>{ if(e.target.id==='modal-sheet') document.getElementById('modal-sheet').classList.remove('on'); });
+
+const toast=document.getElementById('toast');
+const say=m=>{ toast.textContent=m; toast.classList.remove('on'); void toast.offsetWidth; toast.classList.add('on'); };
+
+document.querySelectorAll('.camp[data-join]').forEach(c=>c.addEventListener('click',()=>go('game')));
+document.getElementById('bt-create').addEventListener('click',()=>say('Mockup: abriria o assistente de nova campanha'));
+document.getElementById('bt-join').addEventListener('click',()=>say('Mockup: abriria o campo de código de convite'));
+
+document.querySelectorAll('.die[data-roll]').forEach(d=>d.addEventListener('click',()=>say('Resultado fictício de '+d.dataset.roll+' rolado no chat!')));
+
+const addChat=(who,cls,html)=>{
+  const log=document.querySelector('.chat-log');
+  const m=document.createElement('div');
+  m.className='msg '+(cls||'');
+  const t=new Date().toTimeString().slice(0,5);
+  m.innerHTML='<div class="mhead"><span class="who '+cls+'">'+who+'</span><time>'+t+'</time></div><div class="bub">'+html+'</div>';
+  log.appendChild(m); log.scrollTop=log.scrollHeight;
+};
+const sendChat=()=>{
+  const v=document.getElementById('chat-in').value.trim();
+  if(!v) return;
+  addChat('Você','pc',v.replace(/</g,'&lt;'));
+  document.getElementById('chat-in').value='';
+};
+document.getElementById('chat-send').addEventListener('click',sendChat);
+document.getElementById('chat-in').addEventListener('keydown',e=>{ if(e.key==='Enter') sendChat(); });
+
+const quickRoll=()=>{
+  const v=document.getElementById('quick-in').value.trim()||'1d20';
+  const n=String(v).match(/(\d+)d(\d+)/);
+  const total=n?(()=>{let s=0;for(let i=0;i<n[1];i++)s+=1+Math.floor(Math.random()*n[2]);return s})():(()=>{const m=v.match(/(\d+)$/);return m?parseInt(m[1]):1+Math.floor(Math.random()*20)})();
+  addChat('Você','dice','<div class="roll-line">🎲 '+v.replace(/</g,'&lt;')+' → <b>'+total+'</b></div><div class="roll-note">rolagem rápida</div>');
+  say('Rolado: '+v+' → '+total);
+};
+document.getElementById('quick-roll').addEventListener('click',quickRoll);
+document.getElementById('quick-in').addEventListener('keydown',e=>{ if(e.key==='Enter') quickRoll(); });
+document.getElementById('rolled-ok').addEventListener('click',()=>{
+  const v=document.getElementById('rolled-input').value.trim();
+  if(v){
+    const n=String(v).match(/(\d+)d(\d+)/);
+    const total=n?(()=>{let s=0;for(let i=0;i<n[1];i++)s+=1+Math.floor(Math.random()*n[2]);return s})():(()=>{const m=v.match(/(\d+)$/);return m?parseInt(m[1]):1+Math.floor(Math.random()*20)})();
+    addChat('Você','dice','<div class="roll-line">🎲 '+v.replace(/</g,'&lt;')+' → <b>'+total+'</b></div><div class="roll-note">rolagem da mesa</div>');
+  }
+});
+
+let turn=0;
+document.getElementById('init-next').addEventListener('click',()=>{
+  turn=(turn+1)%5; say('Turno '+(turn+1)+' da iniciativa — aviso propagado para todos!');
+});
+
+document.querySelectorAll('.track').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.track').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on'); say('Tocando: '+t.querySelector('b').textContent+' — sincronizando com a mesa…');
+}));
+
+document.getElementById('mt-play').addEventListener('click',function(){
+  this.textContent=this.textContent==='⏸'?'▶':'⏸';
+  say(this.textContent==='⏸'?'Música pausada para todos':'Música retomada para todos');
+});
+
+document.querySelectorAll('[data-roll-sheet]').forEach(b=>b.addEventListener('click',()=>{
+  const total=1+Math.floor(Math.random()*20)+5;
+  say('🎲 Freepo rolou Percepção: 1d20+5 → '+total+(total>=12?' · sucesso!':' · falha'));
+  addChat('Freepo','dice','<div class="roll-line">🎲 1d20+5 → <b>'+total+'</b></div><div class="roll-note">Percepção</div>');
+  document.getElementById('modal-sheet').classList.remove('on');
+}));
+</script>
+</body>
+</html>

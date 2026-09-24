@@ -1,0 +1,776 @@
+{
+  "_notes": [
+    "Fontes: wiki.runarcana.org/pt-br/personagens/personalizacao/runas/index.html, pulsos-runicos/index.html, lista-de-runas/index.html, runessencias/index.html.",
+    "Nenhuma página falhou."
+  ],
+  "niveisMaestria": [
+    { "nivel": 1, "quantidade": 2, "note": "Natureza Rúnica — escolhe um Pulso Rúnico e uma Runa ou Runessência inicial" },
+    { "nivel": 2, "quantidade": 0, "note": "-" },
+    { "nivel": 3, "quantidade": 0, "note": "Maestria" },
+    { "nivel": 4, "quantidade": 0, "note": "-" },
+    { "nivel": 5, "quantidade": 0, "note": "Maestria" },
+    { "nivel": 6, "quantidade": 0, "note": "-" },
+    { "nivel": 7, "quantidade": 0, "note": "-" },
+    { "nivel": 8, "quantidade": 1, "note": "Runa" },
+    { "nivel": 9, "quantidade": 0, "note": "-" },
+    { "nivel": 10, "quantidade": 0, "note": "Maestria" },
+    { "nivel": 11, "quantidade": 0, "note": "-" },
+    { "nivel": 12, "quantidade": 0, "note": "Maestria" },
+    { "nivel": 13, "quantidade": 0, "note": "-" },
+    { "nivel": 14, "quantidade": 0, "note": "-" },
+    { "nivel": 15, "quantidade": 1, "note": "Runa" },
+    { "nivel": 16, "quantidade": 0, "note": "-" },
+    { "nivel": 17, "quantidade": 0, "note": "Maestria" },
+    { "nivel": 18, "quantidade": 0, "note": "-" },
+    { "nivel": 19, "quantidade": 0, "note": "Maestria" },
+    { "nivel": 20, "quantidade": 0, "note": "-" }
+  ],
+  "tiposDeDano": [
+    "Contundente",
+    "Cortante",
+    "Perfurante",
+    "Àcido",
+    "Elétrico",
+    "Energético",
+    "Gélido",
+    "Ígneo",
+    "Radiante",
+    "Sombrio",
+    "Trovejante",
+    "Venenoso",
+    "Necrótico",
+    "Psíquico"
+  ],
+  "pulsosRunicos": [
+    {
+      "name": "Pulso Esmeralda",
+      "damageType": "Redução de dano — 1 dano físico e 1 elemental à escolha",
+      "effect": "Também chamado de Pulso do Sentinela, voltado a preservar. Após um descanso longo você rola seu Dado de Pulso e, até o próximo descanso longo, o resultado é a sua redução de dano dos tipos escolhidos; a partir do 9º nível você escolhe elementos adicionais e, do 11º em diante, a redução passa a valer contra dano mágico.",
+      "synergy": "Sinergiza com runas do Pulso Esmeralda, como Barreira Rúnica e Bênção do Vigia."
+    },
+    {
+      "name": "Pulso Rubi",
+      "damageType": "Um tipo de dano à escolha (amplificação de dano)",
+      "effect": "Também chamado de Pulso do Conquistador, voltado a combater. Após um descanso longo você rola seu Dado de Pulso e, até o próximo descanso longo, uma vez por turno ao causar dano do tipo escolhido você soma o resultado ao dano (o multiplicador de crítico é aplicado em críticos); a partir do 11º nível também vale para dano mágico.",
+      "synergy": "Sinergiza com runas do Pulso Rubi, como Ataque Elemental e Energizar Ataque."
+    },
+    {
+      "name": "Pulso Diamante",
+      "damageType": "Amplificação de cura",
+      "effect": "Também chamado de Pulso do Protetor, voltado a curar. Após um descanso longo você rola seu Dado de Pulso e, até o próximo descanso longo, adiciona o valor às curas que realiza em terceiros ou, uma vez por turno, à cura que você recebe.",
+      "synergy": "Sinergiza com runas do Pulso Diamante, como Cura e Bênção Estelar."
+    },
+    {
+      "name": "Pulso Ametista",
+      "damageType": "Recuperação de recursos",
+      "effect": "Também chamado de Pulso Vampírico, voltado a sustento. Ao abater um alvo com ND até 3 níveis abaixo do seu, você escolhe entre Vida, Mana ou Ki e recupera Dado de Pulso (com bônus de Proficiência) do recurso escolhido.",
+      "synergy": "Sinergiza com runas do Pulso Ametista, como Roubar Vida e Peçonha da Terra."
+    },
+    {
+      "name": "Pulso Safira",
+      "damageType": "Versatilidade (bônus em rolagens)",
+      "effect": "Também chamado de Pulso Crepuscular, voltado a versatilidade. Após um descanso longo você rola seu Dado de Pulso e obtém Pontos de Pulso, que podem ser gastos para somar às suas rolagens, reduzir rolagens ou dano de inimigos, ou amplificar seu dano.",
+      "synergy": "Sinergiza com runas do Pulso Safira, como Cegar e Disparo Energizado."
+    }
+  ],
+  "runas": [
+    {
+      "name": "Armamento Aprimorado",
+      "type": "Runa",
+      "pulso": "Rubi",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Reveste uma arma corpo a corpo com energia elemental por 2 rodadas, concedendo metade do bônus de Proficiência em jogadas de acerto e metade do bônus em Dado Base de Pulso como dano elemental do tipo escolhido. Ataques bem-sucedidos também causam um efeito elemental."
+    },
+    {
+      "name": "Ataque Elemental",
+      "type": "Runa",
+      "pulso": "Rubi",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao escolher, você define um elemento simples. Ao ativar, seu próximo ataque causa seu Dado de Pulso como dano adicional do elemento escolhido e você recebe resistência a esse tipo de dano até o início do seu próximo turno."
+    },
+    {
+      "name": "Atropelar",
+      "type": "Runa",
+      "pulso": "Esmeralda",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao se mover pelo menos metade do deslocamento em linha reta, seu próximo ataque corpo a corpo causa seu Dado de Pulso como dano adicional e, contra criaturas de até uma categoria de tamanho acima, força uma salvaguarda de Força ou a criatura fica Caída."
+    },
+    {
+      "name": "Aura Elemental",
+      "type": "Runa",
+      "pulso": "Rubi",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Para os elementos que você tenha acesso, cria uma aura de 5 pés ao seu redor por 2 rodadas. Criaturas escolhidas na área devem fazer salvaguarda de Constituição ou recebem seu Dado de Pulso em dano do elemento, e você recebe RD ao elemento pela duração."
+    },
+    {
+      "name": "Barreira Rúnica",
+      "type": "Runa",
+      "pulso": "Esmeralda",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao ser alvo de um ataque, você usa sua reação para receber seu Dado de Pulso como pontos de vida temporários por até 1 minuto; enquanto estiverem ativos, você recebe resistência a danos simples."
+    },
+    {
+      "name": "Bênção do Ancião Carmesim",
+      "type": "Runa",
+      "pulso": "Rubi",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma ação bônus, fortalece seus ataques corpo a corpo com armas marciais até o final do seu próximo turno, causando seu Dado de Pulso em dano necrótico adicional e concedendo pontos de vida temporários conforme o dano necrótico causado."
+    },
+    {
+      "name": "Bênção do Vigia",
+      "type": "Runa",
+      "pulso": "Esmeralda",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao tocar um aliado, por 2 rodadas você recebe RD/dano verdadeiro igual ao seu bônus de Proficiência e transfere para você o dano causado ao aliado, recebendo apenas metade como dano verdadeiro."
+    },
+    {
+      "name": "Bênção Estelar",
+      "type": "Runa",
+      "pulso": "Diamante",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Até 5 criaturas em um raio de 10 pés recuperam seu Dado de Pulso vezes metade do bônus de Proficiência em pontos de vida e podem remover pontos de Exaustão."
+    },
+    {
+      "name": "Cegar",
+      "type": "Runa",
+      "pulso": "Safira",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao realizar um ataque à distância, o alvo atingido deve fazer uma salvaguarda de Constituição ou fica Cego até o final do seu próximo turno, recebendo seu Dado de Pulso em dano psíquico."
+    },
+    {
+      "name": "Cura",
+      "type": "Runa",
+      "pulso": "Diamante",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao tocar uma criatura ou usar uma magia de cura, adiciona seu Dado de Pulso aos pontos de vida recuperados pelo alvo."
+    },
+    {
+      "name": "Desidratação",
+      "type": "Runa",
+      "pulso": "Safira",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao realizar um ataque, o alvo deve fazer uma salvaguarda de Constituição ou recebe 1d4 pontos de Exaustão; uma criatura já afetada pela Runa recebe apenas 1 ponto ao ser alvo novamente."
+    },
+    {
+      "name": "Disparo Energizado",
+      "type": "Runa",
+      "pulso": "Safira",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Seu próximo ataque à distância causa seu Dado de Pulso em dano adicional."
+    },
+    {
+      "name": "Disparos Vorazes",
+      "type": "Runa",
+      "pulso": "Safira",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Por 2 rodadas, seus ataques à distância (ou contra um alvo único) recebem metade do bônus de Proficiência em acerto e seu Dado Base de Pulso como dano elemental; acertos criam uma explosão elemental de 5 pés ao redor do alvo."
+    },
+    {
+      "name": "Elegia",
+      "type": "Runa",
+      "pulso": "Ametista",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma reação ao acertar um ataque à distância, cria uma névoa de 10 pés por 3 rodadas que faz criaturas na área fazerem salvaguarda de Constituição ou receberem seu Dado de Pulso em dano necrótico e 1 ponto de Exaustão."
+    },
+    {
+      "name": "Encorajar",
+      "type": "Runa",
+      "pulso": "Diamante",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao realizar uma ação de Ajuda, o aliado auxiliado soma seu Dado Base de Pulso à rolagem na qual recebeu ajuda."
+    },
+    {
+      "name": "Energizar Ataque",
+      "type": "Runa",
+      "pulso": "Rubi",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Seus ataques corpo a corpo causam dano adicional igual ao seu Dado de Pulso até o início do seu próximo turno."
+    },
+    {
+      "name": "Enlace Virente",
+      "type": "Runa",
+      "pulso": "Diamante",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma ação bônus, cria vinhas em uma linha de 30×10 pés que contêm criaturas por 3 rodadas (salvaguarda de Destreza; salvaguarda de Força repete para encerrar); criaturas soltas atacam você com desvantagem por 3 rodadas."
+    },
+    {
+      "name": "Escudo",
+      "type": "Runa",
+      "pulso": "Esmeralda ou Diamante",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma reação ao ser alvo de ataque ou salvaguarda de dano, recebe bônus igual a metade do bônus de Proficiência em sua CA ou salvaguarda, +10 pés de deslocamento e resistência ao tipo de dano do efeito (exceto verdadeiro)."
+    },
+    {
+      "name": "Força Adamantina",
+      "type": "Runa",
+      "pulso": "Diamante",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Por 2 rodadas, suas magias são lançadas um nível acima sem custo extra de mana, com CD e dano/cura aumentados, ao custo de perder o deslocamento; ao término você recebe 2 pontos de Exaustão."
+    },
+    {
+      "name": "Fôlego de Guerra",
+      "type": "Runa",
+      "pulso": "Esmeralda",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Pelo próximo minuto, aumenta seus pontos de vida máximos e atuais em duas vezes seu Dado de Pulso, recebe +4 de CA, RD 5/verdadeiro e um ataque adicional; remove 1d4 de Exaustão."
+    },
+    {
+      "name": "Incitar",
+      "type": "Runa",
+      "pulso": "Esmeralda",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma ação, emite um pulso rúnico em um raio de 10 pés que Provoca inimigos por um número de rodadas igual ao seu bônus de Proficiência (salvaguarda de Carisma; pode repetir em cada turno)."
+    },
+    {
+      "name": "Lança Luminar",
+      "type": "Runa",
+      "pulso": "Rubi",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Dispara a Runa com um ataque à distância que causa três vezes seu Dado de Pulso em dano radiante e, em falha na salvaguarda de Constituição, Cegueira permanente; você recebe 1d8 de dano verdadeiro."
+    },
+    {
+      "name": "Partícula de Medo",
+      "type": "Runa",
+      "pulso": "Ametista",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma ação bônus, um alvo a até 5 vezes seu bônus de Proficiência em pés deve fazer salvaguarda de Sabedoria ou fica Amedrontado por rodadas iguais à Proficiência e recebe seu Dado de Pulso em dano psíquico."
+    },
+    {
+      "name": "Pesadelo Vivo",
+      "type": "Runa",
+      "pulso": "Ametista",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Uma criatura a até 40 pés que possa ver seu rosto deve passar em salvaguarda de Sabedoria ou sofre Adormecer ou Apavorar, à sua escolha, por 2 rodadas, podendo você trocar de alvo a cada turno."
+    },
+    {
+      "name": "Peçonha da Terra",
+      "type": "Runa",
+      "pulso": "Ametista",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Um ataque à distância cria uma área venenosa de 5 pés que cresce 5 pés por rodada e dura 2 rodadas; criaturas na área devem fazer salvaguarda de Constituição ou recebem seu Dado de Pulso em dano venenoso e ficam Intoxicadas."
+    },
+    {
+      "name": "Relâmpago Perfurante",
+      "type": "Runa",
+      "pulso": "Ametista",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao causar dano perfurante em um ataque corpo a corpo, projeta energia elétrica em uma linha de 15 pés (25 pés com armas de Extensão); criaturas na linha devem fazer salvaguarda de Destreza ou sofrem seu Dado de Pulso em dano elétrico e ficam Incapacitadas."
+    },
+    {
+      "name": "Restauração Estelar",
+      "type": "Runa",
+      "pulso": "Diamante",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Um alvo a até 120 pés recupera o dobro de seu Dado de Pulso em pontos de vida, 1d4 de Exaustão e remove uma condição debilitante; por 2 rodadas ganha ataque adicional e pontos de vida temporários por turno."
+    },
+    {
+      "name": "Ribombar Lancinante",
+      "type": "Runa",
+      "pulso": "Esmeralda",
+      "prerequisite": "Nível 8",
+      "usos": "Metade da Proficiência",
+      "effect": "Ao causar dano contundente em um ataque corpo a corpo, projeta força esmagadora em um cone de 10 pés; criaturas na área devem fazer salvaguarda de Constituição ou sofrem seu Dado de Pulso em dano trovejante e ficam Atordoadas."
+    },
+    {
+      "name": "Roubar Vida",
+      "type": "Runa",
+      "pulso": "Ametista",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Em um ataque corpo a corpo, causa seu Dado de Pulso em dano necrótico adicional e recupera metade desse valor em pontos de vida."
+    },
+    {
+      "name": "Sangrar",
+      "type": "Runa",
+      "pulso": "Rubi",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Em um ataque corpo a corpo, o inimigo deve fazer salvaguarda de Constituição; em falha recebe seu Dado Base de Pulso em dano necrótico e metade desse valor em Sangramento."
+    },
+    {
+      "name": "Selo da Lua Minguante",
+      "type": "Runa",
+      "pulso": "Safira",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma ação bônus e toque, o alvo deve fazer salvaguarda de Constituição ou tem todo o dano causado reduzido pela metade, sofre ataques de você e aliados com vantagem e perde 20 pés de deslocamento por 2 rodadas."
+    },
+    {
+      "name": "Temerário",
+      "type": "Runa",
+      "pulso": "Esmeralda",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Com uma ação bônus, até o início do seu próximo turno você fica imune a todos os tipos de dano (exceto verdadeiro), recebe +10 pés de deslocamento e adiciona metade do bônus de Proficiência ao dano de seus ataques; ao final recebe 1 ponto de Exaustão."
+    },
+    {
+      "name": "Trunfo do Crepúsculo",
+      "type": "Runa",
+      "pulso": "Safira",
+      "prerequisite": "Nível 15",
+      "usos": "Metade da Proficiência",
+      "effect": "Cria uma aura de 15 pés por 3 rodadas que concede a até 3 aliados escolhidos bônus em ataques e Invisibilidade; uma criatura afetada pode fazer um ataque causar seu Dado de Pulso em dano rúnico adicional."
+    },
+    {
+      "name": "Vulnerabilizar a Elemento",
+      "type": "Runa",
+      "pulso": "Diamante",
+      "prerequisite": "",
+      "usos": "Metade da Proficiência",
+      "effect": "Escolhe um elemento simples; com uma ação, uma criatura a até 5 vezes seu bônus de Proficiência em pés deve fazer salvaguarda de Constituição ou recebe seu bônus de Proficiência em Exposição ao elemento até o final do seu próximo turno."
+    }
+  ],
+  "runessencias": [
+    {
+      "name": "Técnica do Aquavitista",
+      "type": "Runessência",
+      "runessencia": "Aquavitista",
+      "pulso": "Safira",
+      "prerequisite": "Herança Essência Etílica e Constituição 13 ou maior",
+      "effect": "Aprende o estilo de luta do bêbado: sob efeito de um gole (2 rodadas), seus ataques desarmados causam 1d4 adicional e a Resistência Ébria concede resistência a todos os danos físicos simples."
+    },
+    {
+      "name": "Sabor do Momento",
+      "type": "Runessência",
+      "runessencia": "Aquavitista",
+      "pulso": "Safira",
+      "prerequisite": "Runa Técnica do Aquavitista e Constituição 15 ou maior",
+      "effect": "Ao dar um gole (3 rodadas, ataques desarmados com 2d4), você pode rolar 1d8 na tabela Sabor do Momento para receber um efeito aleatório, ou usar o Bafo de Dragão, soprando um cone de 20 pés de ácido, gélido, ígneo ou venenoso."
+    },
+    {
+      "name": "Baxian",
+      "type": "Runessência",
+      "runessencia": "Aquavitista",
+      "pulso": "Safira",
+      "prerequisite": "Runa Sabor do Momento e Constituição 17 ou maior",
+      "effect": "Sob efeito de um gole, você pode usar Desvio (com reação, redirecionar um ataque corpo a corpo perdido para outra criatura a até 5 pés) ou Golpe Torto (até três ataques desarmados adicionais contra alvos diferentes)."
+    },
+    {
+      "name": "Ancestral Vastayês",
+      "type": "Runessência",
+      "runessencia": "Despertar Vastaya",
+      "pulso": "Esmeralda",
+      "prerequisite": "Origem Vastaya ou Heranças Linhagem Vastaya/Sangue Vastaya",
+      "effect": "Escolhe uma Forma Feral (Terrestre, Aquática ou Alada) e um Aspecto Feral, podendo se transformar na fera por até 20 rodadas em combate, ganhando 10 + metade do nível de personagem em pontos de vida temporários."
+    },
+    {
+      "name": "Olhos do Caçador",
+      "type": "Runessência",
+      "runessencia": "Despertar Vastaya",
+      "pulso": "Esmeralda",
+      "prerequisite": "Runa Ancestral Vastayês",
+      "effect": "Garante 30 pés de visão no escuro, Controle de Forma (fora de combate a forma feral não gasta turnos) e Marcar Presa, que revela a posição de um alvo marcado e faz ataques contra ele causarem seu Dado de Pulso em dano energético."
+    },
+    {
+      "name": "Ascensão Vastaya",
+      "type": "Runessência",
+      "runessencia": "Despertar Vastaya",
+      "pulso": "Esmeralda",
+      "prerequisite": "Runa Olhos do Caçador",
+      "effect": "Permite assumir uma forma Híbrida por 1 minuto: dobra os benefícios do Aspecto, ganha um ataque adicional em sua ação de ataque, mãos funcionais e capacidade de conjurar feitiços."
+    },
+    {
+      "name": "Mipes",
+      "type": "Runessência",
+      "runessencia": "Equilíbrio Cósmico",
+      "pulso": "Diamante",
+      "prerequisite": "Herança Musicista Prodígio",
+      "effect": "Invoca Mipes (espíritos do Bardo) que seguem você até o próximo descanso, dando +1 em testes de Carisma cada; permite Fulgor Espiritual, que aumenta o dano de um ataque com efeito conforme a tabela de Proficiência."
+    },
+    {
+      "name": "Prisão Cósmica",
+      "type": "Runessência",
+      "runessencia": "Equilíbrio Cósmico",
+      "pulso": "Diamante",
+      "prerequisite": "Runa Mipes",
+      "effect": "Conjura uma linha de energia de 15×5 pés que para na primeira criatura atingida, causando dano energético e reduzindo seu deslocamento pela metade; a linha continua e pode atordoar a criatura ao atingir objeto ou causar dano a segunda criatura."
+    },
+    {
+      "name": "Desativar Magia",
+      "type": "Runessência",
+      "runessencia": "Equilíbrio Cósmico",
+      "pulso": "Diamante",
+      "prerequisite": "Runa Prisão Cósmica",
+      "effect": "Desativa a magia de um objeto mágico ou ser vivo que você possa ver por rodadas iguais ao dobro do seu bônus de Proficiência, anulando também itens sencientes, amaldiçoados e os efeitos em seus usuários."
+    },
+    {
+      "name": "Amanhecer",
+      "type": "Runessência",
+      "runessencia": "Essência Dourada",
+      "pulso": "Rubi",
+      "prerequisite": "Herança Bênção Dourada",
+      "effect": "Uma vez por turno, ao acertar um ataque corpo a corpo, a criatura deve fazer salvaguarda de Destreza ou recebe uma categoria acima de seu Dado de Pulso em dano radiante (metade em sucesso)."
+    },
+    {
+      "name": "Eclipse",
+      "type": "Runessência",
+      "runessencia": "Essência Dourada",
+      "pulso": "Rubi",
+      "prerequisite": "Runa Amanhecer",
+      "effect": "Armazena cargas solares (metade da Proficiência; 6 horas de sol por carga) e, ao gastar uma, explode em energia solar em um raio de 30 pés, causando o dobro de seu Dado de Pulso em dano solar e reduzindo o deslocamento das criaturas."
+    },
+    {
+      "name": "Coroa Solar",
+      "type": "Runessência",
+      "runessencia": "Essência Dourada",
+      "pulso": "Rubi",
+      "prerequisite": "Runa Eclipse",
+      "effect": "Conjura uma coroa de pura luz com aura de 30 pés por rodadas iguais à Proficiência; criaturas hostis na luz plena sofrem dano solar ou recebem metade, e você e aliados banhados ganham pontos de vida temporários por turno."
+    },
+    {
+      "name": "Prata Lunar",
+      "type": "Runessência",
+      "runessencia": "Essência Prateada",
+      "pulso": "Ametista",
+      "prerequisite": "Herança Bênção Prateada",
+      "effect": "Abençoa um de seus ataques (exceto armas de fogo) causando seu Dado Base de Pulso em dano adicional e marcando o alvo com Plenilúnio por 1 minuto; a marca pode ser detonada gastando um uso da Runa."
+    },
+    {
+      "name": "Zênite",
+      "type": "Runessência",
+      "runessencia": "Essência Prateada",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Prata Lunar",
+      "effect": "Move-se para ficar adjacente a uma criatura a até 20 pés sem gastar deslocamento nem sofrer ataques de oportunidade, e seu próximo ataque detona automaticamente a marca de Plenilúnio da criatura."
+    },
+    {
+      "name": "Cascata Lívida",
+      "type": "Runessência",
+      "runessencia": "Essência Prateada",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Zênite",
+      "effect": "Cria três esferas lunares orbitantes que explodem ao tocar criaturas hostis, causando seu Dado de Pulso em dano lunar e concedendo pontos de vida temporários por dano causado."
+    },
+    {
+      "name": "Ataques Furiosos",
+      "type": "Runessência",
+      "runessencia": "Fúria Imortal",
+      "pulso": "Rubi",
+      "prerequisite": "Variante Ignata, Constituição 15",
+      "effect": "Acumula 1 de Raiva a cada ataque corpo a corpo bem-sucedido (máximo 10), aumentando o dano; em 10 de Raiva o próximo ataque tem crítico ampliado. Com ação bônus e uso, obtém 5 de Raiva, dano em categoria superior e RD 1/verdadeiro."
+    },
+    {
+      "name": "Essência Imortal",
+      "type": "Runessência",
+      "runessencia": "Fúria Imortal",
+      "pulso": "Rubi",
+      "prerequisite": "Ataques Furiosos, Constituição 17",
+      "effect": "Em combate, recupera 1 ponto de vida no início de cada turno; com ação bônus e um uso, recupera seu Dado de Pulso em pontos de vida no início de cada turno pelas próximas 2 rodadas."
+    },
+    {
+      "name": "Explosão da Fúria",
+      "type": "Runessência",
+      "runessencia": "Fúria Imortal",
+      "pulso": "Rubi",
+      "prerequisite": "Essência Imortal, Constituição 19",
+      "effect": "Com ação bônus e um uso, por 1 turno você fica imune a todos os tipos de dano (exceto verdadeiro), recebe +10 pés de deslocamento e seus ataques têm margem e multiplicador de crítico aumentados em 1; ao término recebe 1 de Exaustão."
+    },
+    {
+      "name": "Benção de Statikk",
+      "type": "Runessência",
+      "runessencia": "Herdeiro de Statikk",
+      "pulso": "Safira",
+      "prerequisite": "Única: apenas uma pessoa viva por vez possui a Runessência",
+      "effect": "Com ação bônus, recebe seu bônus de Proficiência em cargas elétricas; uma carga dispara um ataque de Runa à distância em dano elétrico, e um uso com uma ação conjura um raio em linha de 20 pés que causa 1d6 de dano elétrico e atordoa."
+    },
+    {
+      "name": "Força de Statikk",
+      "type": "Runessência",
+      "runessencia": "Herdeiro de Statikk",
+      "pulso": "Safira",
+      "prerequisite": "Runa Benção de Statikk",
+      "effect": "Concede resistência a dano elétrico e permite refazer dados de dano elétrico ou plásmico com resultado 1 ou 2; com uma ação, conjura Corrente de Relâmpagos como feitiço de 6º nível sem gastar mana."
+    },
+    {
+      "name": "Fúria de Statikk",
+      "type": "Runessência",
+      "runessencia": "Herdeiro de Statikk",
+      "pulso": "Safira",
+      "prerequisite": "Runa Força de Statikk",
+      "effect": "O dano de Benção de Statikk se torna plásmico, você recebe resistência a dano plásmico e não pode ser atingido por feitiços de 3º nível ou inferior de dano elétrico; pode conjurar Velocidade em si mesmo sem mana."
+    },
+    {
+      "name": "Lança Gélida",
+      "type": "Runessência",
+      "runessencia": "Místico Gélido",
+      "pulso": "Safira",
+      "prerequisite": "",
+      "effect": "Com uma ação bônus, atira uma lança de gelo sombrio em linha de 15 pés; a criatura atingida deve passar em salvaguarda de Destreza ou recebe seu Dado de Pulso em dano gélido e perde 20 pés de deslocamento."
+    },
+    {
+      "name": "Garras de Gelo",
+      "type": "Runessência",
+      "runessencia": "Místico Gélido",
+      "pulso": "Safira",
+      "prerequisite": "Runa Lança Gélida",
+      "effect": "Conjura garras de gelo em linha de 30 pés causando seu bônus de Proficiência em Dados Base de Pulso como dano gélido; com uma ação livre você pode se transportar a qualquer ponto da linha até o início do seu próximo turno."
+    },
+    {
+      "name": "Precursor do Gelo Sombrio",
+      "type": "Runessência",
+      "runessencia": "Místico Gélido",
+      "pulso": "Safira",
+      "prerequisite": "Runa Garras de Gelo",
+      "effect": "Torna você feito de Gelo Sombrio: pele azulada, imunidade a dano gélido e ígneo, resistência a glacial, e todos os seus ataques causam 2d6 de dano glacial adicional. A Prisão Gélida prende uma criatura a até 30 pés em gelo."
+    },
+    {
+      "name": "Nascimento da Ninhada",
+      "type": "Runessência",
+      "runessencia": "Místico da Ninhada",
+      "pulso": "Ametista",
+      "prerequisite": "Contato com um Patrono Místico de Ninhada",
+      "effect": "Escolhe a Ninhada Aranha (patas como armas naturais, imunidade a Amedrontado) ou Cobra (visão às cegas, imunidade a veneno); sua forma muda permanentemente e, com uma ação, você pode assumir a forma da Ninhada por 1 minuto ou conjurar uma cria."
+    },
+    {
+      "name": "Essência da Ninhada",
+      "type": "Runessência",
+      "runessencia": "Místico da Ninhada",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Nascimento da Ninhada",
+      "effect": "Concede sentidos sobrenaturais: a Aranha ganha sentido sísmico de 30 pés e Casulo (agarra alvos com teia), e a Cobra ganha mais 15 pés de visão às cegas e Veneno (linha de veneno que envenena)."
+    },
+    {
+      "name": "Líder da Ninhada",
+      "type": "Runessência",
+      "runessencia": "Místico da Ninhada",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Essência da Ninhada",
+      "effect": "Sua forma é permanentemente alterada para uma forma híbrida: +2 de Constituição (máximo 22), proficiência em Intimidação e garras naturais cortantes; também desbloqueia poderes poderosos da Aranha (gravidade invertida) ou Cobra (nuvem venenosa)."
+    },
+    {
+      "name": "Pacto Místico",
+      "type": "Runessência",
+      "runessencia": "Místico de Pacto",
+      "pulso": "Conforme Patrono",
+      "prerequisite": "Contato recebido com uma entidade extraplanar",
+      "effect": "Liga você a uma entidade espiritual/celestial: recebe um Familiar de Pacto, uma Arma Familiar e o Raio Místico, cujo dano e características dependem do tipo de patrono escolhido."
+    },
+    {
+      "name": "Patrono Ínfero",
+      "type": "Runessência",
+      "runessencia": "Místico de Pacto",
+      "pulso": "Ametista",
+      "prerequisite": "Pacto Místico (escolha de patrono írnfero)",
+      "effect": "Pacto com uma essência ínfera: seu Raio Místico causa dano sombrio e você recebe 60 pés de visão no escuro."
+    },
+    {
+      "name": "Mão da Corrupção",
+      "type": "Runessência",
+      "runessencia": "Místico de Pacto",
+      "pulso": "Ametista",
+      "prerequisite": "Pacto Místico - Ínfero",
+      "effect": "Dispara um feixe sombrio em linha de 20 pés que Contém criaturas por 2 rodadas, causando o dobro de seu Dado de Pulso em dano sombrio; também concede Visão Demoníaca e a Marca Ínfera em alvos."
+    },
+    {
+      "name": "Ascensão Ínfera",
+      "type": "Runessência",
+      "runessencia": "Místico de Pacto",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Mão da Corrupção",
+      "effect": "Você se torna o hospedeiro do ínfero, mantendo os poderes mesmo se o familiar morrer; a Transvocação assume uma forma demoníaca que converte todo dano sombrio causado em Pontos Sombrios, explodindo ao final."
+    },
+    {
+      "name": "Patrono Feérico",
+      "type": "Runessência",
+      "runessencia": "Místico de Pacto",
+      "pulso": "Safira",
+      "prerequisite": "Pacto Místico (escolha de patrono feérico)",
+      "effect": "Pacto baseado na empatia com um ser feérico: seu Raio Místico causa dano radiante e você recebe proficiência em Arcanismo, História, Lidar com Animais, Natureza ou Sobrevivência."
+    },
+    {
+      "name": "Escudo das Fadas",
+      "type": "Runessência",
+      "runessencia": "Místico de Pacto",
+      "pulso": "Safira",
+      "prerequisite": "Pacto Místico - Feérico",
+      "effect": "Concede a você ou a um aliado um escudo luminoso por 2 rodadas com PV temporários, deslocamento extra e imunidade a dano necrótico; também permite conjurar Metamorfose e disparar um Raio Místico adicional por rodada."
+    },
+    {
+      "name": "Ascensão Feérica",
+      "type": "Runessência",
+      "runessencia": "Místico de Pacto",
+      "pulso": "Safira",
+      "prerequisite": "Runa Escudo das Fadas",
+      "effect": "Você se torna um com sua fonte feérica: aparência feérica, RD 2/sombrio, voo de 30 pés e 60 pés de Visão Verdadeira; a Transvocação assume uma forma feérica que converte dano radiante em Pontos Luminosos."
+    },
+    {
+      "name": "Predar Azakana",
+      "type": "Runessência",
+      "runessencia": "Perseguidor de Azakanas",
+      "pulso": "Ametista",
+      "prerequisite": "",
+      "effect": "Você recebe +1 em qualquer jogada envolvendo um Azakana (Ínfero) e sua categoria de dados de dano sobe em 1 contra eles; Desferir Mácula é um ataque em linha de 15 pés com dano energético adicional."
+    },
+    {
+      "name": "Selar Azakana",
+      "type": "Runessência",
+      "runessencia": "Perseguidor de Azakanas",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Predar Azakana",
+      "effect": "Permite capturar Azakanas derrotados em um Talismã Azakana (aprendendo o nome dele ao reduzir seus PV) e usar Desatar da Alma, separando seu espírito do corpo em uma cópia espectral por 1 minuto."
+    },
+    {
+      "name": "Domínio Azakana",
+      "type": "Runessência",
+      "runessencia": "Perseguidor de Azakanas",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Selar Azakana",
+      "effect": "Imbue seus ataques com o dano de um Talismã Azakana que você possua; a Ascensão Azakana consome um talismã para conceder +2 em Força e Destreza, RD 2/radiante e dano adicional por Proficiência rodadas."
+    },
+    {
+      "name": "Núcleo Reator",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Conforme Reator",
+      "prerequisite": "Possuir pontos de Energia",
+      "effect": "Permite energizar ferramentas de Ofício com pontos de Energia e define o seu tipo de Reator (Auxiliar, Defensivo ou Ofensivo), que concede uma reação única; também permite gerar Cargas de Reator consumindo Energia."
+    },
+    {
+      "name": "Reator Auxiliar",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Diamante",
+      "prerequisite": "Núcleo Reator (tipo Auxiliar)",
+      "effect": "Ao receber cura de qualquer fonte, você usa sua reação para ativar o reator e receber seu Dado Base de Pulso em pontos de vida temporários por até 1 minuto."
+    },
+    {
+      "name": "Auxílio Aumentado",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Diamante",
+      "prerequisite": "Núcleo Reator - Auxiliar",
+      "effect": "Gasta pontos de Energia com uma reação para aumentar a cura que você gera; a Aura Auxiliar concede Regeneração por rodadas iguais à Proficiência a você ou a um aliado tocado."
+    },
+    {
+      "name": "Auxílio Aperfeiçoado",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Diamante",
+      "prerequisite": "Runa Auxílio Aumentado",
+      "effect": "Ao usar a reação do reator você recupera metade da Proficiência em pontos de vida; o Pulso de Auxílio emite uma onda em 15 pés que dá bônus de ataque e dano a aliados."
+    },
+    {
+      "name": "Reator Defensivo",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Esmeralda",
+      "prerequisite": "Núcleo Reator (tipo Defensivo)",
+      "effect": "Ao ser alvo de um ataque, você usa sua reação para ativar o reator e reduzir o dano recebido em um valor igual ao seu Dado Base de Pulso."
+    },
+    {
+      "name": "Defesa Aumentada",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Esmeralda",
+      "prerequisite": "Núcleo Reator - Defensivo",
+      "effect": "Gasta pontos de Energia com uma reação ao ser alvo de ataque para reduzir o dano recebido; a Aura Protetora danifica inimigos que atacam você corpo a corpo, que devem passar em salvaguarda de Constituição."
+    },
+    {
+      "name": "Defesa Aperfeiçoada",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Esmeralda",
+      "prerequisite": "Runa Defesa Aumentada",
+      "effect": "Ao usar a reação do reator, o próximo ataque do alvo contra você tem desvantagem; o Pulso de Defesa Provoca inimigos em um raio de 30 pés e aplica Exposição a um dano físico escolhido."
+    },
+    {
+      "name": "Reator Ofensivo",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Rubi",
+      "prerequisite": "Núcleo Reator (tipo Ofensivo)",
+      "effect": "Ao acertar um ataque (antes de saber o dano), você usa sua reação para ativar o reator e causar seu Dado de Pulso em dano energético adicional."
+    },
+    {
+      "name": "Ofensiva Aumentada",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Rubi",
+      "prerequisite": "Núcleo Reator - Ofensivo",
+      "effect": "Gasta pontos de Energia com uma reação ao causar dano elétrico ou energético para aumentá-lo; a Aura Ofensiva soma seu bônus de Proficiência como dano energético aos seus ataques por rodadas iguais à Proficiência."
+    },
+    {
+      "name": "Ofensiva Aperfeiçoada",
+      "type": "Runessência",
+      "runessencia": "Reutilizador de Energia",
+      "pulso": "Rubi",
+      "prerequisite": "Runa Ofensiva Aumentada",
+      "effect": "O dano extra do reator se torna rúnico; o Pulso Ofensivo emite uma onda em 15 pés que causa seus Dados Base de Pulso por rodadas iguais à Proficiência e torna mágico todo dano da Runessência."
+    },
+    {
+      "name": "Pulso Antimagia",
+      "type": "Runessência",
+      "runessencia": "Trapaceiro",
+      "pulso": "Safira",
+      "prerequisite": "Herança Caçador de Magos ou Hiperatividade Rúnica",
+      "effect": "Ao ser alvo de um feitiço, você usa sua reação e um uso para forçar o conjurador a uma salvaguarda com seu Atributo de Conjuração; em falha, o recurso é consumido mas o feitiço não é conjurado."
+    },
+    {
+      "name": "Roubo de Feitiço",
+      "type": "Runessência",
+      "runessencia": "Trapaceiro",
+      "pulso": "Safira",
+      "prerequisite": "Runa Pulso Antimagia",
+      "effect": "Ao tocar um alvo, pode roubar um feitiço dele: o mestre monta uma lista de feitiços possíveis e o dado de Pulso decide qual você rouba, junto com a mana necessária, podendo conjurá-lo pela próxima hora."
+    },
+    {
+      "name": "Absorver Feitiço",
+      "type": "Runessência",
+      "runessencia": "Trapaceiro",
+      "pulso": "Safira",
+      "prerequisite": "Runa Roubo de Feitiço",
+      "effect": "Com sua reação, ao ser alvo de um feitiço ou estar em sua área, você nega todos os efeitos; se for um feitiço que possa roubar, pode conjurá-lo seguindo as regras de Roubo de Feitiço."
+    },
+    {
+      "name": "Mergulho Fantasma",
+      "type": "Runessência",
+      "runessencia": "Elusividade Fantasmagórica",
+      "pulso": "Ametista",
+      "prerequisite": "Herança Variante Ressurgido",
+      "effect": "Fica Invisível por turnos iguais à Proficiência com deslocamento extra de 5 pés por bônus de Proficiência; atacar enquanto invisível causa dano necrótico adicional, e atacar ou receber dano encerra a condição."
+    },
+    {
+      "name": "Ressaca Espectral",
+      "type": "Runessência",
+      "runessencia": "Elusividade Fantasmagórica",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Mergulho Fantasma",
+      "effect": "Move-se até 20 pés e criaturas na linha percorrida devem passar em salvaguarda de Constituição ou sofrem seu Dado de Pulso em dano necrótico e ficam Atordoadas até o final do próximo turno."
+    },
+    {
+      "name": "Morte das Profundezas",
+      "type": "Runessência",
+      "runessencia": "Elusividade Fantasmagórica",
+      "pulso": "Ametista",
+      "prerequisite": "Runa Ressaca Espectral",
+      "effect": "Escolhe um ponto a até 60 pés e criaturas num raio de 10 pés sofrem dano necrótico (salvaguarda de Constituição); se um alvo cair a 0 PV, você ocupa o local dele e pode atacar uma nova área sem gastar uso."
+    }
+  ]
+}

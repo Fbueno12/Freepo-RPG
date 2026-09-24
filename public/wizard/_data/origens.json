@@ -1,0 +1,428 @@
+{
+  "humano": {
+    "name": "Humano",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [],
+    "herancaPoints": 3,
+    "proficiencies": [
+      "Perícia à escolha",
+      "Ofício à escolha"
+    ],
+    "traits": [
+      {
+        "name": "Passado",
+        "description": "Escolha um Passado ao criar o personagem."
+      },
+      {
+        "name": "Região",
+        "description": "Recebe 2 pontos de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Inspirado",
+        "description": "Possui metade do bônus de Proficiência em dados de inspiração por descanso longo. Pode usar uma reação para jogar um dado de inspiração e somar o valor a um teste de atributo, salvaguarda ou ataque já rolado."
+      }
+    ],
+    "_note": "Idiomas não são fixos: recebe 1 idioma da Região escolhida (ex.: Demaciano, Noxiano, Ioniano, entre outros), além dos 2 pontos de Herança de Região."
+  },
+  "antroplantae": {
+    "name": "Antroplantae",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [
+      "Silvestre"
+    ],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Idiomas",
+        "description": "Fala Silvestre e pode se comunicar com árvores de seu próprio tipo como se usasse falar com plantas."
+      },
+      {
+        "name": "Vegetação",
+        "description": "Fraqueza a efeitos de fogo e não precisa se alimentar, mas precisa de 4h de sol e 5L de água por dia, além de se enraizar 8h por noite, senão recebe exaustão. Só pode se enraizar em areia, terra, lama ou cascalho."
+      },
+      {
+        "name": "Não-Humanoide",
+        "description": "Não pode ser alvo de magias que afetam humanoides, mas conta como planta para magias que alvejam plantas."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Arbóreo",
+        "description": "Seres robustos com casca grossa. Pele de Árvore: CA 10 + Destreza + Constituição, porém não pode usar armadura. Escolhe uma Fibra (Carvalho, Cedro, Cerejeira, Ébano, Ferrobrasa, Frutífero, Olmo, Petricita, Salgueiro, Sequoia, Seringueira ou Teixo) com efeitos variados."
+      },
+      {
+        "name": "Floral",
+        "description": "Aptidão mágica excepcional, porém mais vulneráveis. Ramo: gera 10x bônus de Proficiência em pés de ramo por descanso e um chicote espinhoso (1d4 + prof, acuidade). Escolhe uma Florescência (Charme Sobrenatural, Espinhos Alucinógenos, Esporos Venenosos, Flor do Imperador, Flor Gélida, Luminescência, Nictinastia, Raízes Detectoras, Sopro de Esporos ou Sopro Polinizador)."
+      }
+    ],
+    "_note": "Também recebe 1 idioma da Região escolhida."
+  },
+  "chireanos": {
+    "name": "Chireanos",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [
+      "Chireano",
+      "Zaunita"
+    ],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região. São nativos de Zaun."
+      },
+      {
+        "name": "Quirosenso",
+        "description": "Ouvidos grandes captam infra e ultrassom. Enxerga na penumbra a até 60 pés como luz plena e no escuro como penumbra, e tem vantagem em jogadas de audição. Sensível a luzes fortes."
+      },
+      {
+        "name": "Energia",
+        "description": "Recebe metade do bônus de Proficiência em pontos de Energia por descanso longo."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Nocti",
+        "description": "Colônia de baixa estatura, adaptada ao escuro. Mudos: não falam línguas humanoides. Sensibilidade: desvantagem contra luz forte/clarões e intoxicação respiratória, mas +60 pés de visão no escuro. Técnicos: proficiência em Tecnologia, em uma perícia (Acrobacia, Prestidigitação ou Furtividade) e em um Ofício. Improvisadores: proficientes com ferramentas comuns como armas improvisadas com dano aumentado."
+      },
+      {
+        "name": "Fulgor",
+        "description": "Colônia próxima à estatura humana, adaptada à superfície. Precisão: metade do bônus de Proficiência em ataques com armas à distância ou de acuidade. Geolocalização: emite som inaudível detectando formas e obstáculos em um raio de 60 pés, mesmo na escuridão total; usos iguais ao bônus de Proficiência por descanso longo."
+      }
+    ],
+    "_note": "Tamanho varia conforme a colônia (Nocti pequeno ou médio; Fulgor médio)."
+  },
+  "construto": {
+    "name": "Construto",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Construto Vivo",
+        "description": "Não recupera pontos de vida em descansos; precisa de 6 horas de conserto. Resistência a venenos e dano venenoso, imunidade a doenças mundanas, não precisa comer, beber ou respirar, não dorme e tem desvantagem em climas hostis sem equipamento. Cura metade do valor com magias de cura (Reparar Dano cura normal)."
+      },
+      {
+        "name": "Proteção Ajustável",
+        "description": "Armadura natural por modos ajustáveis em um descanso longo: Nulo (+1 CA), Leve (CA 13 + Destreza), Médio (CA 16 + Destreza máx 2, RD 1) e Pesado (CA 19, RD 2, apenas Brutal e Emissário)."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Brutal",
+        "description": "Modelo robusto de metal. Ultrapassar os limites: +10 pés de velocidade por 3 turnos (depois superaquece, 15 pés por 2 turnos). Resistente: resistência a um tipo de dano à escolha (ácido, elétrico, energético, ígneo, gélido, necrótico, psíquico ou radiante)."
+      },
+      {
+        "name": "Emissário",
+        "description": "Modelo variado, eficiente em longas mensagens. Geolocalização: 60 pés de sentido sísmico e vantagem para perceber ilusões. Funcional: escolhe uma proficiência em Perícia, Ofício ou Arma Marcial."
+      },
+      {
+        "name": "Ligeiro",
+        "description": "Modelo leve e ágil. Energia Cinética: ao usar Disparada não provoca ataques de oportunidade e pode fazer ataque energizado com dano extra por 5 pés movidos. Duelista: reação com ataque com vantagem contra quem o atingir em corpo a corpo."
+      },
+      {
+        "name": "Nebulon",
+        "description": "Criaturas gasosas integradas a corpos metálicos, descendentes de espécie quase extinta. Requer a Herança Variante Nebulon para ser usado."
+      }
+    ],
+    "_note": "Idiomas não são fixos: recebe 1 idioma da Região escolhida."
+  },
+  "meio-dragao": {
+    "name": "Meio-Dragão",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [
+      "Dracônico"
+    ],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Natureza Elemental",
+        "description": "Resistência e fraqueza a dano elemental definidas pela Essência Dracônica. A partir do nível 15, a resistência também se aplica à versão mágica do dano."
+      },
+      {
+        "name": "Aspectos Dracônicos",
+        "description": "Possui três armas naturais conforme a essência. A partir do nível 2 ganha arma de sopro: usos iguais ao bônus de Proficiência por descanso, salvaguarda de Destreza CD 8 + Constituição + Proficiência, dano de prof d6."
+      },
+      {
+        "name": "Forma Dracônica",
+        "description": "No nível 8, transforma-se em dragão (metade do bônus de Proficiência usos por descanso): tamanho +1 categoria, 60 pés de voo, atributo físico aumentado e sopro mais forte."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Glacial",
+        "description": "Resistência a dano Gélido, fraqueza a Ígneo. Armas: chifres 1d4 perfurante, garras 1d6 cortante, mordida 1d4 perfurante. Sopro gélido em cone de 15 pés. Forma dracônica aumenta Constituição."
+      },
+      {
+        "name": "Infernal",
+        "description": "Resistência a dano Ígneo, fraqueza a Gélido. Armas: chifres 1d6 perfurante, cauda 1d4 contundente, garras 1d4 perfurante. Sopro ígneo em cone de 15 pés. Forma dracônica aumenta Força e o sopro causa +1 dado."
+      },
+      {
+        "name": "Montanha",
+        "description": "Resistência a dano Trovejante, fraqueza a Ácido. Armas: cauda 1d6 contundente, garras 1d4 cortante, mordida 1d4 perfurante. Sopro trovejante em cone de 15 pés. Forma dracônica aumenta Constituição."
+      },
+      {
+        "name": "Nuvens",
+        "description": "Resistência a dano Elétrico, fraqueza a Gélido. Armas: chifres 1d6 contundente, cauda 1d4 contundente, mordida 1d4 perfurante. Sopro elétrico em linha de 20x5 pés. Forma dracônica aumenta Destreza e +10 pés de voo."
+      },
+      {
+        "name": "Oceano",
+        "description": "Resistência a dano Ácido, fraqueza a Elétrico. Armas: cauda 1d4 cortante, garras 1d4 perfurante, mordida 1d6 perfurante. Sopro ácido em linha de 20x5 pés. Forma dracônica aumenta Constituição."
+      }
+    ],
+    "_note": "Tem poderes adquiridos gradualmente conforme sobe de nível. Também recebe 1 idioma da Região escolhida."
+  },
+  "minotauro": {
+    "name": "Minotauro",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [
+      "Minotáurico"
+    ],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Chifres",
+        "description": "Arma natural com a qual é proficiente: 1d6 + Proficiência + Força perfurante, crítico 19-20 x3. Pode ser usada como ação bônus após outro ataque corpo a corpo."
+      },
+      {
+        "name": "Constituição Poderosa",
+        "description": "Soma metade do bônus de Proficiência aos pontos de vida a cada nível (por exemplo, +1 no nível 1 e +12 no nível 10)."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Aelus",
+        "description": "Estatura mais próxima dos humanos. Armadura da Percepção: vantagem em iniciativa e Percepção contra surpresa. Reativos: uma reação adicional por rodada (metade do bônus de Proficiência usos por descanso pleno)."
+      },
+      {
+        "name": "Alnuk",
+        "description": "Tribo de Freljord, pelos longos. Armadura Muscular: vantagem contra frio extremo e metade do bônus de Proficiência como RD. Palavras de Conforto: com uma ação, encerra as condições Amedrontado ou Enfeitiçado em criatura a até 30 pés."
+      },
+      {
+        "name": "Auroque",
+        "description": "Tribo mais numerosa de Valoran. Armadura Natural: +1 de CA quando não usa armadura. Urro Triunfante: ação bônus que dá PV temporários (Proficiência + Constituição) a aliados a 15 pés e Amedronta inimigos a 10 pés em salvaguarda de Sabedoria."
+      }
+    ],
+    "_note": "Também recebe 1 idioma da Região escolhida."
+  },
+  "troll": {
+    "name": "Troll",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [
+      "Troll (somente oral, não sabe ler/escrever)",
+      "1 idioma da Região escolhida (oral apenas)"
+    ],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Mordida",
+        "description": "Arma natural com a qual é proficiente: 1d6 + Proficiência + Força perfurante, como ação de ataque ou bônus. No nível 6 passa a 1d8 e é considerada mágica."
+      },
+      {
+        "name": "Regeneração",
+        "description": "Em batalha, recupera o bônus de Proficiência em pontos de vida a cada 10 rodadas; fora de combate, recupera o modificador de Constituição a cada hora. Dano ácido ou ígneo impede a regeneração. Só morre se iniciar o turno com 0 PV e não puder regenerar."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Troll da Areia",
+        "description": "Mais inteligentes e sorrateiros. Nascido do Deserto: imune a calor extremo e ignora terreno difícil por areia. Mestres Elusivos: proficiência em Furtividade e vantagem em regiões arenosas."
+      },
+      {
+        "name": "Troll do Gelo",
+        "description": "Maiores entre os trolls. Nascido da Tundra: imune a frio extremo, ignora terreno difícil por gelo e pode escolher a Herança Variante Glacinata. Em Caçada: marca um alvo e ganha +15 pés de movimento ao se mover em direção a ele (Proficiência usos por descanso pleno)."
+      },
+      {
+        "name": "Troll da Selva",
+        "description": "Florestas a leste de Shurima. Nascido da Selva: imune a dano venenoso e Envenenamento, ignora terreno difícil por vegetação. Visão no Escuro: enxerga na penumbra a até 120 pés como luz plena e no escuro como penumbra."
+      }
+    ],
+    "_note": "Trolls não sabem ler nem escrever, inclusive idiomas adquiridos da Região."
+  },
+  "vastaya": {
+    "name": "Vastaya",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [
+      "Idioma da própria tribo"
+    ],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Metamorfos",
+        "description": "Pode alterar aspectos visuais de sua forma com uma ação bônus e uma jogada de Transformação CD 15 (Proficiência + Constituição)."
+      },
+      {
+        "name": "Conexão Mágica",
+        "description": "Sente a magia da região, sofrendo efeitos conforme o nível de magia do local: nula (exaustão), fraca (sem inspiração), média (normal), forte (re-rolagem) ou alta (regeneração e vantagem em Transformação)."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Oovi-Kat",
+        "description": "Deslocamento 35 pés, camaleônicos. Mestre de Sho'ma: metamorfose em criatura observada, lendo emoções e memórias recentes. Clone de Sho'ma: cria duplicata por ação bônus. Fala Vastayashai'rei e tem +2 idiomas comuns ou 1 exótico."
+      },
+      {
+        "name": "Marai",
+        "description": "Sirênios do oceano. Natâção 50 pés e caminhada 25 pés em terra. Anfíbios: respiram em terra e água, sem penalidades em combate aquático, visão no escuro de 60 pés. Sonar: cone de 15 pés com dano trovejante (Proficiência usos por descanso)."
+      },
+      {
+        "name": "Shimon",
+        "description": "Macacos de Ionia. Sem Limites: re-rolar falha em Força, Destreza ou Constituição, e proficiência em uma perícia e um ofício. Fúria Símia: dano de ataques desarmados aumentado em uma categoria."
+      },
+      {
+        "name": "Fauhwoon",
+        "description": "Ama música e dança, pernas de corça e chifres grandes. Deslocamento 35 pés. Protetores Naturais: curar/proteger aliado aumenta o dano do próximo ataque. Chifres: 1d8 + Força contundente."
+      },
+      {
+        "name": "Ottrani",
+        "description": "De Targon, cascos e chifres curvos. Deslocamento 30 pés + 20 pés de escalada. Autosacrifício: cura criatura gastando dado de vida, sofrendo metade da cura como dano. Resgate: toque que cura Proficiência + metade da Sabedoria."
+      },
+      {
+        "name": "Kiilash",
+        "description": "Felinos de Shurima. Deslocamento 35 pés. Predador Natural: garras 1d6 cortante e mordida 2d4 perfurante. Caçador Nato: vantagem em Percepção por olfato/audição e visão no escuro de 60 pés."
+      },
+      {
+        "name": "Lhotlan",
+        "description": "Mesclam raposas e aves. Deslocamento 30 pés. Salto Vastaya: saltos longos usando 3x Força. Plumadagas: penas afiadas usadas como adagas com dano extra de Proficiência."
+      },
+      {
+        "name": "Vesani",
+        "description": "Tribo nômade desaparecida. Deslocamento 30 pés. Fogo de Raposa: truque Disparo Arcano especial com orbes espirituais. Devorar Essência: consome a essência de criatura Inconsciente (0 PV), curando e colhendo memórias, com a Dependência Fome de Essência."
+      }
+    ],
+    "_note": "Tamanho e deslocamento variam conforme a tribo. Também recebe 1 idioma da Região escolhida."
+  },
+  "yordle": {
+    "name": "Yordle",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno",
+    "speed": 30,
+    "languages": [
+      "Yordle"
+    ],
+    "herancaPoints": 2,
+    "traits": [
+      {
+        "name": "Região",
+        "description": "Recebe 1 ponto de Herança de Região e 1 idioma da Região escolhida."
+      },
+      {
+        "name": "Visão no Escuro",
+        "description": "Enxerga na penumbra a até 60 pés como luz plena e no escuro como penumbra (tons de cinza)."
+      },
+      {
+        "name": "Máscara da Natureza",
+        "description": "Pode tentar se esconder mesmo quando apenas levemente oculto por fenômenos naturais, ou atrás de criatura ao menos uma categoria de tamanho maior."
+      },
+      {
+        "name": "Idiomas",
+        "description": "Aprende novos idiomas em metade do tempo normal."
+      }
+    ],
+    "variants": [
+      {
+        "name": "Aquáticos",
+        "description": "Sintonizados com a magia dos mares. Maritmos: 35 pés de natâção, sem penalidades aquáticas, visão no escuro dobrada debaixo d'água e vantagem em Persuasão com criaturas marinhas. Escorregadio: soma Proficiência à CA, resistência a dano contundente, mas não pode usar armadura não adaptada."
+      },
+      {
+        "name": "Feérico",
+        "description": "Ligados à magia da Clareira. Ancestralidade Feérica: não dorme (medita 4h), vantagem contra Enfeitiçado e imune a sono mágico. Essência Feérica: ao tocar um alvo entende seu estado emocional e intenções, além de ganhar 30 pés de voo com pequenas asas."
+      },
+      {
+        "name": "Felpudo",
+        "description": "Linhagem mais comum de Bandópolis. Capacidade Extraordinária: usa armas pesadas para criaturas Médias e, sem arma pesada, tem 40 pés de deslocamento. Mestres do Glamour: pontos de Glamour (metade da Proficiência) para reduzir ataques ou melhorar salvaguardas."
+      }
+    ],
+    "_note": "Também recebe 1 idioma da Região escolhida."
+  },
+  "runinata": {
+    "name": "Runinata",
+    "attributeBonus": {
+      "_note": "+2 em um atributo e +1 em um segundo atributo, ambos de sua escolha."
+    },
+    "size": "Pequeno ou Médio",
+    "speed": 30,
+    "languages": [],
+    "herancaPoints": 0,
+    "traits": [
+      {
+        "name": "Pontos de Origem",
+        "description": "Em vez de Heranças, Traços, Região e Passado, um Runinata recebe Traços Menores e Maiores definidos pelo Mestre (equivalente a 6 Menores e 4 Maiores; opções Controlado, Moderado ou Forte)."
+      },
+      {
+        "name": "Traços Menores",
+        "description": "Incluem Perícia, Ofício, Comunicação, Comunicação Telepática, Escalador, Visão Noturna, Salto, entre outros, adquiridos com pontos de Origem."
+      },
+      {
+        "name": "Traços Maiores",
+        "description": "Incluem Alado, Anfíbio, Arma de Sopro, Cauda, Chifres, Garras, Presas, Construído, Conjuração Inata, Resistência Natural, entre outros."
+      },
+      {
+        "name": "Traços Superiores e Conversão",
+        "description": "Traços podem ser convertidos em pontos de Origem, e Traços Superiores (Absorção, Armadura Natural, Conjuração Inata Aprimorada, Consistência Gelatinosa e Resquício) custam 6 pontos."
+      },
+      {
+        "name": "Desvantagens",
+        "description": "Desvantagens (Forma, Deslocamento, Redução de Atributo, Fraqueza, Vulnerabilidade, Magias) concedem pontos de Origem para comprar mais traços."
+      }
+    ],
+    "_note": "Não possui pontos de Herança de Origem: em seu lugar usa o sistema de Traços personalizados. Não fala nenhum idioma inicialmente (pode adquirir via traços Comunicação/Telepática). Região pode ser qualquer uma, mas sem proficiências regionais a menos que escolha o traço Oriundo."
+  }
+}

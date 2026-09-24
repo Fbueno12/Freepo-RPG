@@ -1,0 +1,1158 @@
+{
+  "acolito": {
+    "slug": "acolito",
+    "name": "Acólito",
+    "description": "Canalizador de poder espiritual que serve a divindades, espíritos e conceitos, curando as feridas de Runeterra e restaurando o fluxo natural da vida através de seus Ritos.",
+    "hitDie": 8,
+    "primaryAbility": "Sabedoria",
+    "armorProficiencies": ["Armaduras leves", "Armaduras médias", "Broquéis", "Escudos leves e pesados"],
+    "shieldProficiency": true,
+    "weaponProficiencies": ["Armas simples"],
+    "toolProficiencies": [],
+    "savingThrows": ["Sabedoria", "Carisma"],
+    "skillChoices": {
+      "count": 2,
+      "options": ["História", "Intuição", "Medicina", "Persuasão", "Religião"],
+      "description": "Escolha duas dentre História, Intuição, Medicina, Persuasão e Religião."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Maça", "orAlternative": "Martelo leve" },
+      { "qty": 1, "name": "Lórica de escamas", "orAlternative": "Armadura de couro ou cota de malha (se proficiente)" },
+      { "qty": 1, "name": "Besta leve e 20 virotes", "orAlternative": "Qualquer arma simples" },
+      { "qty": 1, "name": "Conjunto de sacerdote", "orAlternative": "Conjunto de aventureiro" },
+      { "qty": 1, "name": "Um escudo leve, um livro de preces e um símbolo sagrado" }
+    ],
+    "startingGold": null,
+    "features": [
+      {
+        "level": 1,
+        "name": "Conjuração",
+        "description": "Conjura magias de Acólito das listas a que tem acesso. Conhece truques conforme a coluna Truques Conhecidos de \"O Acólito\" e prepara um número de magias igual ao seu modificador de Sabedoria + seu nível de Acólito (mínimo 1), de nível igual ou menor ao seu Nível Máximo de Magia. Para conjurar, gasta pontos de Mana — o custo é igual ao nível da magia (uma magia de 1º nível custa 2 pontos de Mana). Recupera metade do seu nível de Acólito (mínimo 1) + seu modificador de Sabedoria em pontos de Mana ao completar um descanso longo e todos os pontos em um descanso pleno. Sabedoria é seu atributo de conjuração: CD para suas magias = 8 + bônus de proficiência + modificador de Sabedoria; modificador de ataque de magia = bônus de proficiência + modificador de Sabedoria. Ritualista: pode conjurar como ritual qualquer magia de Acólito conhecida e preparada que possua o descritor Ritual. Foco de conjuração: símbolo sagrado."
+      },
+      {
+        "level": 1,
+        "name": "Rito",
+        "description": "No 1º nível você escolhe seguir um dos Ritos de Acólito: Rito Espiritual, Rito das Estrelas, Rito da Forja, Rito das Marés, Rito da Natureza, Rito da Sepultura ou Rito da Tempestade. Sua escolha concede características no 1º nível e novamente no 2º, 5º, 6º, 8º, 11º, 14º, 17º e 20º níveis. Cada Rito concede acesso a suas Magias de Rito — magias adquiridas nos níveis especificados pelo Rito que você sempre tem preparadas e que não contam no número máximo de magias preparadas."
+      },
+      {
+        "level": 2,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      },
+      {
+        "level": 2,
+        "name": "Liturgia",
+        "description": "Você se torna capaz de canalizar a energia espiritual de sua fonte espiritual como combustível para efeitos mágicos. Começa com dois efeitos: Preservar a Vida (ação; cura até 5 × seu nível de Acólito de pontos de vida, divididos entre criaturas à sua escolha a até 30 pés) e um efeito determinado pelo seu Rito. Usos iguais ao seu bônus de proficiência por descanso pleno. A CD desses efeitos é igual à CD de suas magias."
+      },
+      {
+        "level": 2,
+        "name": "Chamado Sagrado",
+        "description": "Escolha entre Protetor (proficiência com armas marciais e armaduras pesadas), Estudioso (proficiência com duas perícias entre Arcanismo, História, Natureza, Persuasão e Religião, e uso de Liturgia para conjurar magias não preparadas com custo de Mana reduzido) e Obreiro (um truque de um Mistério Espiritual à sua escolha e um uso adicional de Liturgia por descanso longo)."
+      },
+      {
+        "level": 4,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 5,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      },
+      {
+        "level": 6,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      },
+      {
+        "level": 8,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      },
+      {
+        "level": 8,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 10,
+        "name": "Intervenção Quintessencial",
+        "description": "Você pode rogar a uma entidade que cultua para intervir em uma tarefa árdua (ação; jogue um dado de porcentagem — a entidade intervém se o resultado for menor ou igual ao seu nível de Acólito). Se intervém, você não pode usar a característica pelos próximos 7 dias. No 20º nível os pedidos funcionam automaticamente."
+      },
+      {
+        "level": 11,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      },
+      {
+        "level": 12,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 14,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      },
+      {
+        "level": 16,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 17,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      },
+      {
+        "level": 19,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 20,
+        "name": "Característica de Rito",
+        "description": "Característica concedida pela sua escolha de Rito."
+      }
+    ],
+    "subclass": {
+      "choiceName": "Rito",
+      "grantedAt": 1,
+      "featureLevels": [1, 2, 5, 6, 8, 11, 14, 17, 20],
+      "options": [
+        {
+          "name": "Rito Espiritual",
+          "description": "Acólitos que combatem a estagnação da vida causada pelos mortos-vivos, canalizando sua Liturgia para devolver essas criaturas ao fluxo de suas existências, devolvendo paz aos amaldiçoados e destruindo os amaldiçoadores. No 1º nível concede um Ídolo Espiritual (uma arma que representa sua fé, serve como foco de conjuração e concede proficiência; escolha entre Culto dos Ancestrais — lança longa, Culto das Máscaras — arco curto, ou Culto de Nagacáburos — ídolo de bronze) e a Bênção do Espírito (percebe mortos-vivos e estagnações de espírito a até 120 pés). No 2º nível concede a Liturgia Expulsar Mortos-Vivos.",
+          "spells": [
+            { "name": "proteção contra o bem e o mal", "level": 1 },
+            { "name": "vitalidade falsa", "level": 1 },
+            { "name": "restauração menor", "level": 3 },
+            { "name": "zona da verdade", "level": 3 },
+            { "name": "círculo mágico", "level": 5 },
+            { "name": "remover maldição", "level": 5 },
+            { "name": "banimento", "level": 7 },
+            { "name": "movimentação livre", "level": 7 },
+            { "name": "consagrar", "level": 9 },
+            { "name": "restauração maior", "level": 9 }
+          ]
+        },
+        {
+          "name": "Rito das Estrelas",
+          "description": "Descendente do cuidado ancestral de Soraka pela cura, o Rito das Estrelas emprega um cuidado especial na cura das mazelas dos vivos, com o poder de canalizar a essência das estrelas quando necessário ferir. No 1º nível concede Proficiência Adicional (Medicina) e Discípulo da Vida (usar ações para curar com o toque 1d6 + bônus de proficiência e magias de cura mais efetivas). No 2º nível concede a Liturgia Imbuir Mana.",
+          "spells": [
+            { "name": "curar ferimentos", "level": 1 },
+            { "name": "palavra curativa", "level": 1 },
+            { "name": "ajuda", "level": 3 },
+            { "name": "oração de cura", "level": 3 },
+            { "name": "palavra curativa em massa", "level": 5 },
+            { "name": "revivificar", "level": 5 },
+            { "name": "cúpula do sonhar", "level": 7 },
+            { "name": "proteção contra morte", "level": 7 },
+            { "name": "curar ferimentos em massa", "level": 9 },
+            { "name": "restauração maior", "level": 9 }
+          ]
+        },
+        {
+          "name": "Rito da Forja",
+          "description": "Rito comum em Freljord no qual ferreiros bélicos restauram e forjam armas, armaduras e ferramentas. No 1º nível concede Proficiência Adicional (armaduras pesadas e os Ofícios de Cuteleiro e Armoreiro) e a Dádiva da Forja. No 2º nível concede a Liturgia Bênção da Forja.",
+          "spells": [
+            { "name": "devastação ígnea", "level": 1 },
+            { "name": "identificar", "level": 1 },
+            { "name": "arma mágica", "level": 3 },
+            { "name": "esquentar metal", "level": 3 },
+            { "name": "érebo", "level": 5 },
+            { "name": "modificar armas", "level": 5 },
+            { "name": "fabricar", "level": 7 },
+            { "name": "égide magmática", "level": 7 },
+            { "name": "animar objetos", "level": 9 },
+            { "name": "dobrar armaduras", "level": 9 }
+          ]
+        },
+        {
+          "name": "Rito das Marés",
+          "description": "Possivelmente originado entre os Marai, busca a cura dos próprios mares, oceanos e da vida neles contida, contrapondo-se a outras formas de vida das profundezas. No 1º nível concede Aptidão Marinha (deslocamento de natação de 30 pés e fôlego adicional de 1 hora) e Maré Oscilante (reação para conceder 10 pés de deslocamento adicional). No 2º nível concede a Liturgia Bênção das Marés.",
+          "spells": [
+            { "name": "criar ou destruir água", "level": 1 },
+            { "name": "proteção contra o bem e o mal", "level": 1 },
+            { "name": "jato d'água", "level": 3 },
+            { "name": "restauração menor", "level": 3 },
+            { "name": "andar sobre as águas", "level": 5 },
+            { "name": "respirar na água", "level": 5 },
+            { "name": "controlar água", "level": 7 },
+            { "name": "movimentação livre", "level": 7 },
+            { "name": "curar ferimentos em massa", "level": 9 },
+            { "name": "restauração maior", "level": 9 }
+          ]
+        },
+        {
+          "name": "Rito da Natureza",
+          "description": "Focado em curar a terra e as plantas, utilizando o próprio solo como artifício para manifestar as Liturgias naturais e restabelecer a harmonia onde há corrupção. No 1º nível concede Proficiência Adicional (Natureza, ou especialidade) e Voz da Natureza (interpretar os sinais da natureza, aprender o idioma Silvestre e falar com animais). No 2º nível concede a Liturgia Ajuda da Natureza (invocar um elemental de pedra ou de vinha).",
+          "spells": [
+            { "name": "bom fruto", "level": 1 },
+            { "name": "purificar alimentos e bebidas", "level": 1 },
+            { "name": "crescer espinhos", "level": 3 },
+            { "name": "localizar animais ou plantas", "level": 3 },
+            { "name": "ampliar plantas", "level": 5 },
+            { "name": "falar com plantas", "level": 5 },
+            { "name": "terreno alucinatório", "level": 7 },
+            { "name": "pântano de raízes", "level": 7 },
+            { "name": "comunhão com a natureza", "level": 9 },
+            { "name": "despertar", "level": 9 }
+          ]
+        },
+        {
+          "name": "Rito da Sepultura",
+          "description": "Rito que procura a cura não apenas dos vivos, mas também daqueles atormentados entre o mundo dos vivos e o dos mortos, interagindo com os que não conseguiram o repouso eterno. No 1º nível concede Conhecimento Oculto (idioma Espiritual e o truque poupar os moribundos) e Toque Sepulcral. No 2º nível concede a Liturgia Pastor de Almas.",
+          "spells": [
+            { "name": "infligir ferimentos", "level": 1 },
+            { "name": "raio pútrido", "level": 1 },
+            { "name": "augúrio", "level": 3 },
+            { "name": "raio do enfraquecimento", "level": 3 },
+            { "name": "animar mortos", "level": 5 },
+            { "name": "toque vampírico", "level": 5 },
+            { "name": "assassino fantasmagórico", "level": 7 },
+            { "name": "proteção contra morte", "level": 7 },
+            { "name": "contato extraplanar", "level": 9 },
+            { "name": "cúpula antivida", "level": 9 }
+          ]
+        },
+        {
+          "name": "Rito da Tempestade",
+          "description": "O mais recente dos Ritos, formado em boa parte graças ao elemental do ar Janna, curando a sociedade através de raios e ventanias e soprando as mazelas para longe. No 1º nível concede Brisa de Impulso (bônus de deslocamento) e Proteção da Tempestade (escudo de pontos de vida temporários). No 2º nível concede a Liturgia Ira Tempestuosa (dobrar o dano elétrico, trovejante, plasmático ou vibracional causado).",
+          "spells": [
+            { "name": "onda de choque", "level": 1 },
+            { "name": "raio crepitante", "level": 1 },
+            { "name": "lufada de vento", "level": 3 },
+            { "name": "levitação", "level": 3 },
+            { "name": "relâmpago", "level": 5 },
+            { "name": "voo", "level": 5 },
+            { "name": "divisor de céus", "level": 7 },
+            { "name": "movimentação livre", "level": 7 },
+            { "name": "controlar os ventos", "level": 9 },
+            { "name": "devorador de tempestade", "level": 9 }
+          ]
+        }
+      ]
+    },
+    "spellcasting": {
+      "attribute": "Sabedoria",
+      "ritualCasting": true,
+      "focusDescription": "Pode usar um símbolo sagrado como foco de conjuração das suas magias de Acólito.",
+      "cantripsKnown": { "1": 3, "2": 3, "3": 3, "4": 4, "5": 4, "6": 4, "7": 4, "8": 4, "9": 4, "10": 5, "11": 5, "12": 5, "13": 5, "14": 5, "15": 5, "16": 5, "17": 5, "18": 5, "19": 5, "20": 5 },
+      "preparedFormula": "modificador de Sabedoria + nível de Acólito",
+      "manaPoints": { "1": 4, "2": 6, "3": 10, "4": 12, "5": 16, "6": 18, "7": 22, "8": 24, "9": 28, "10": 30, "11": 34, "12": 36, "13": 40, "14": 42, "15": 46, "16": 48, "17": 52, "18": 54, "19": 56, "20": 60 },
+      "maxSpellLevel": { "1": 1, "2": null, "3": 2, "4": null, "5": 3, "6": null, "7": 4, "8": null, "9": 5, "10": null, "11": 6, "12": null, "13": 7, "14": null, "15": 8, "16": null, "17": 9, "18": null, "19": null, "20": null },
+      "slotsTable": null
+    },
+    "spellList": null,
+    "levelTable": [
+      { "level": 1, "features": ["Conjuração", "Rito"], "truques": 3, "mana": 4, "maxSpellLevel": 1 },
+      { "level": 2, "features": ["Característica de Rito", "Liturgia", "Chamado Sagrado"], "truques": 3, "mana": 6, "maxSpellLevel": null },
+      { "level": 3, "features": [], "truques": 3, "mana": 10, "maxSpellLevel": 2 },
+      { "level": 4, "features": ["Aprimoramento"], "truques": 4, "mana": 12, "maxSpellLevel": null },
+      { "level": 5, "features": ["Característica de Rito"], "truques": 4, "mana": 16, "maxSpellLevel": 3 },
+      { "level": 6, "features": ["Característica de Rito"], "truques": 4, "mana": 18, "maxSpellLevel": null },
+      { "level": 7, "features": [], "truques": 4, "mana": 22, "maxSpellLevel": 4 },
+      { "level": 8, "features": ["Característica de Rito", "Aprimoramento"], "truques": 4, "mana": 24, "maxSpellLevel": null },
+      { "level": 9, "features": [], "truques": 4, "mana": 28, "maxSpellLevel": 5 },
+      { "level": 10, "features": ["Intervenção Quintessencial"], "truques": 5, "mana": 30, "maxSpellLevel": null },
+      { "level": 11, "features": ["Característica de Rito"], "truques": 5, "mana": 34, "maxSpellLevel": 6 },
+      { "level": 12, "features": ["Aprimoramento"], "truques": 5, "mana": 36, "maxSpellLevel": null },
+      { "level": 13, "features": [], "truques": 5, "mana": 40, "maxSpellLevel": 7 },
+      { "level": 14, "features": ["Característica de Rito"], "truques": 5, "mana": 42, "maxSpellLevel": null },
+      { "level": 15, "features": [], "truques": 5, "mana": 46, "maxSpellLevel": 8 },
+      { "level": 16, "features": ["Aprimoramento"], "truques": 5, "mana": 48, "maxSpellLevel": null },
+      { "level": 17, "features": ["Característica de Rito"], "truques": 5, "mana": 52, "maxSpellLevel": 9 },
+      { "level": 18, "features": [], "truques": 5, "mana": 54, "maxSpellLevel": null },
+      { "level": 19, "features": ["Aprimoramento"], "truques": 5, "mana": 56, "maxSpellLevel": null },
+      { "level": 20, "features": ["Característica de Rito"], "truques": 5, "mana": 60, "maxSpellLevel": null }
+    ],
+    "notes": [
+      "A página da classe refere-se à lista de magias de Acólito, mas não a reproduz; por isso spellList é nulo. As tabelas de Magias de Rito (por subclasse) foram incluídas nas opções de Rito."
+    ]
+  },
+  "arcanista": {
+    "slug": "arcanista",
+    "name": "Arcanista",
+    "description": "Arcano estudioso da manipulação da energia arcana, que compreende a magia de Runeterra através dos Mistérios e a conjura usando pontos de Mana, moldando seu poder por um Glifo e um Despertar Arcano.",
+    "hitDie": 6,
+    "primaryAbility": "Inteligência",
+    "armorProficiencies": [],
+    "shieldProficiency": false,
+    "weaponProficiencies": ["Armas simples"],
+    "toolProficiencies": [],
+    "savingThrows": ["Inteligência", "Sabedoria ou Carisma"],
+    "skillChoices": {
+      "count": 2,
+      "options": ["Enganação", "História", "Intimidação", "Intuição", "Natureza", "Percepção", "Religião"],
+      "description": "Arcanismo e escolha duas dentre Enganação, História, Intimidação, Intuição, Natureza, Percepção e Religião."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Besta leve e estojo de virotes com 20 virotes", "orAlternative": "Qualquer arma simples" },
+      { "qty": 1, "name": "Bolsa de componentes", "orAlternative": "Foco arcano ou grimório" },
+      { "qty": 1, "name": "Conjunto de explorador de masmorras", "orAlternative": "Conjunto de aventureiro" }
+    ],
+    "startingGold": null,
+    "features": [
+      {
+        "level": 1,
+        "name": "Conjuração",
+        "description": "Conjura magias de Arcanista dos Mistérios a que tem acesso. No 1º nível você recebe a lista de magias de um Mistério à sua escolha (novas listas nos 7º, 12º e 17º níveis). Conhece três truques (coluna Truques de \"O Arcanista\") e quatro magias de 1º nível; aprende novas magias conforme a coluna Magias Conhecidas e pode substituir uma magia conhecida ao subir de nível. Gasta pontos de Mana para conjurar (o custo é igual ao nível da magia, ex.: 2 pontos para uma magia de 1º nível). Durante um descanso pleno prepara um número de magias igual a metade do seu nível de Arcanista (mínimo 1) + seu modificador de Inteligência, entre as que conhece ou que estejam em seu grimório. Inteligência é seu atributo de conjuração: CD = 8 + bônus de proficiência + Inteligência; modificador de ataque = bônus de proficiência + Inteligência. Ritualista: pode conjurar como ritual magias conhecidas e preparadas com o descritor Ritual; magias anotadas no grimório podem ser conjuradas como ritual mesmo sem estar preparadas. Foco de Conjuração Aprimorado: pode usar um foco arcano, que concede benefícios conforme o tipo de foco."
+      },
+      {
+        "level": 1,
+        "name": "Despertar Arcano",
+        "description": "No 1º nível você desperta sua afinidade com uma quintessência: Celestial (Runas), Elemental (um Elemento) ou Espiritual (um Mistério Espiritual). Sua escolha concede características no 1º, 2º, 7º, 12º e 17º níveis."
+      },
+      {
+        "level": 1,
+        "name": "Glifo",
+        "description": "No 1º nível você escolhe um Glifo — a tradição que define seu entendimento da magia — entre: Glifo das Cinzas, Glifo da Efígie, Glifo Elementalista, Glifo Escarlate, Glifo Ígneo, Glifo do Magus, Glifo Púrpura, Glifo da Tecelã, Glifo Vítreo e Glifo de Zhonya. Sua escolha concede características no 1º, 8º, 14º, 18º e 20º níveis."
+      },
+      {
+        "level": 2,
+        "name": "Característica de Despertar Arcano",
+        "description": "Característica concedida pela sua escolha de Despertar Arcano."
+      },
+      {
+        "level": 2,
+        "name": "Arcana",
+        "description": "A partir do 2º nível você ganha pontos de Arcana conforme a coluna Pontos de Arcana de \"O Arcanista\", gastos para potencializar suas magias e características. Você recupera todos os pontos de Arcana ao completar um descanso pleno."
+      },
+      {
+        "level": 2,
+        "name": "Assinatura Arcana",
+        "description": "No 2º nível você determina sua Assinatura Arcana, recebendo características novas nos 7º, 12º e 17º níveis."
+      },
+      {
+        "level": 3,
+        "name": "Metamagia",
+        "description": "Gastando pontos de Arcana, você pode aplicar Metamagias para alterar o comportamento das suas magias. Você seleciona Metamagias adicionais nos níveis 3, 10 e 18."
+      },
+      {
+        "level": 4,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 7,
+        "name": "Característica de Assinatura Arcana",
+        "description": "Característica concedida pela sua Assinatura Arcana (também nos níveis 12 e 17)."
+      },
+      {
+        "level": 7,
+        "name": "Magia de Assinatura",
+        "description": "Você escolhe uma magia que passa a fazer parte da sua assinatura mágica (novamente no 17º nível)."
+      },
+      {
+        "level": 8,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 8,
+        "name": "Característica de Glifo",
+        "description": "Característica concedida pela sua escolha de Glifo (também nos níveis 14, 18 e 20)."
+      },
+      {
+        "level": 10,
+        "name": "Metamagia",
+        "description": "Você seleciona uma Metamagia adicional."
+      },
+      {
+        "level": 11,
+        "name": "Sobrecarga Arcana",
+        "description": "Você pode potencializar suas magias além dos limites usuais."
+      },
+      {
+        "level": 12,
+        "name": "Característica de Assinatura Arcana",
+        "description": "Característica concedida pela sua Assinatura Arcana."
+      },
+      {
+        "level": 12,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 14,
+        "name": "Característica de Glifo",
+        "description": "Característica concedida pela sua escolha de Glifo."
+      },
+      {
+        "level": 16,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 17,
+        "name": "Característica de Assinatura Arcana",
+        "description": "Característica concedida pela sua Assinatura Arcana."
+      },
+      {
+        "level": 17,
+        "name": "Magia de Assinatura",
+        "description": "Você escolhe uma magia que passa a fazer parte da sua assinatura mágica."
+      },
+      {
+        "level": 17,
+        "name": "Potência Arcana",
+        "description": "Aumenta a potência das suas magias."
+      },
+      {
+        "level": 18,
+        "name": "Característica de Glifo",
+        "description": "Característica concedida pela sua escolha de Glifo."
+      },
+      {
+        "level": 18,
+        "name": "Metamagia",
+        "description": "Você seleciona uma Metamagia adicional."
+      },
+      {
+        "level": 19,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 20,
+        "name": "Característica de Glifo",
+        "description": "Característica concedida pela sua escolha de Glifo."
+      }
+    ],
+    "subclass": {
+      "choiceName": "Glifo",
+      "grantedAt": 1,
+      "featureLevels": [1, 8, 14, 18, 20],
+      "options": [
+        {
+          "name": "Glifo das Cinzas",
+          "description": "Glifo voltado para a vida e a morte, que trabalha com a energia da necromancia. No 1º nível concede a Relíquia da Morte (armazena almas dos mortos) e o aprofundamento no Mistério da Necromancia."
+        },
+        {
+          "name": "Glifo da Efígie",
+          "description": "Estudo da invocação: o Arcanista manifesta sua mana através de uma invocação especial chamada Efígie, feita de mana, alma e energia vital, que o acompanha com empatia e devoção. No 1º nível concede proficiência em Natureza (ou especialidade), a magia especial manifestar efígie (não conta no máximo de magias) e o Mistério da Invocação."
+        },
+        {
+          "name": "Glifo Elementalista",
+          "description": "Conecta-se a um elemento principal, desenvolvendo a magia através da canalização e compreensão desse elemento e acessando novos elementos (primários ou derivados) conforme avança. No 1º nível concede Domar Elementos: escolha seu Elemento Principal (um Mistério Elemental que possua) e, gastando pontos de Mana ou de Arcana, aproveite a magia elemental do ambiente ao conjurar magias elementais (efeitos de Água, Cristal, Flora, Fogo, Gelo, Infernal, Magma, entre outros)."
+        },
+        {
+          "name": "Glifo Escarlate",
+          "description": "Praticante da pouco comum arte da Hemomancia, ligado ao Círculo Carmesim. No 1º nível concede o Pacto Carmesim (pontos de vida adicionais por nível e redução do custo de pontos de vida para conjurar magias de Hemomancia) e o conhecimento da Gema Escarlate (foco de conjuração com características que evoluem até o 17º nível)."
+        },
+        {
+          "name": "Glifo Ígneo",
+          "description": "Procura compreender as chamas como um todo, entendendo sua natureza e usando-a a seu favor. No 1º nível concede Iniciado das Chamas: escolha um dos aspectos psicológicos do fogo (o calor que protege, o poder destrutivo que combate ou o fascínio ligado à paixão)."
+        },
+        {
+          "name": "Glifo do Magus",
+          "description": "Concentra-se na compreensão da magia e da mana, nos fundamentos da energia arcana que sustentam todas as escolas."
+        },
+        {
+          "name": "Glifo Púrpura",
+          "description": "Glifo que mexe com a realidade e a percepção, moldando e transformando tudo ao seu alcance, e que acaba por transformar também as mentes que o praticam. No 1º nível concede Tulipas, Cores e Marmotas: conecta-se às forças da aleatoriedade, e magia imbuída de sorte e revés pode desencadear efeitos mágicos aleatórios da tabela Magia Púrpura quando o Mestre considerar você instável."
+        },
+        {
+          "name": "Glifo da Tecelã",
+          "description": "Conecta-se a moldar terra, areia e pedra, dobrando o inflexível e transpondo o intransponível. No 1º nível concede Voz da Rocha e o aprofundamento no Mistério da Terra."
+        },
+        {
+          "name": "Glifo Vítreo",
+          "description": "Estudo dos Mistérios da mente: Adivinhação, Ilusionismo, Encantamento e Oniromancia. No 1º nível concede Janela da Mente, escolhendo entre Charme (Encantamento), Oneiros (magia sono e Oniromancia), Pequeno Falsário (truque ilusão menor e Ilusão) ou Vislumbre (Adivinhação)."
+        },
+        {
+          "name": "Glifo de Zhonya",
+          "description": "Compreensão da passagem do tempo, nomeado em homenagem ao Arcano Zhonya de Icathia: enxerga alguns segundos no passado e no futuro ao mesmo tempo. No 1º nível concede Tempo Engarrafado (vantagem em iniciativa e nunca fica surpreso) e recebe o Mistério da Cronomancia, com cargas para usar efeitos como Rebobinar, Tente Outra Vez, Acelerar, Desacelerar, Dádiva do Tempo e Enfraquecer."
+        }
+      ]
+    },
+    "awakening": {
+      "choiceName": "Despertar Arcano",
+      "grantedAt": 1,
+      "featureLevels": [1, 2, 7, 12, 17],
+      "options": [
+        {
+          "name": "Celestial",
+          "description": "Afinação com a quintessência Celestial e as Runas. Concede acesso aos Mistérios da Cronomancia, Espaçomancia e Gravitomancia e a maestria de Runas, com magias de outros Mistérios adquiríveis ao gastar pontos de Mana."
+        },
+        {
+          "name": "Elemental",
+          "description": "Afinação com um Elemento de sua escolha, recebendo acesso ao respectivo Mistério Elemental e concedendo características ligadas àquele elemento."
+        },
+        {
+          "name": "Espiritual",
+          "description": "Afinação com a quintessência Espiritual, recebendo acesso a um Mistério Espiritual de sua escolha (Adivinhação, Encantamento, Étermancia, Hemomancia, Ilusão, Invocação, Necromancia, Oniromancia, Transmutação ou Umbramancia) e podendo adquirir os demais, com rituais conjurados com custo reduzido."
+        }
+      ]
+    },
+    "spellcasting": {
+      "attribute": "Inteligência",
+      "ritualCasting": true,
+      "focusDescription": "Foco de Conjuração Aprimorado: pode usar um foco arcano (armas contundentes, cortantes ou perfurantes, cajados, cristais, elementos, familiares, grimórios, hastes, orbes e varinhas, entre outros), cada tipo concedendo benefícios específicos.",
+      "cantripsKnown": { "1": 3, "2": 3, "3": 3, "4": 4, "5": 4, "6": 4, "7": 4, "8": 4, "9": 4, "10": 5, "11": 5, "12": 5, "13": 5, "14": 5, "15": 5, "16": 5, "17": 5, "18": 5, "19": 5, "20": 5 },
+      "spellsKnown": { "1": 4, "2": 5, "3": 6, "4": 7, "5": 8, "6": 9, "7": 10, "8": 11, "9": 12, "10": 12, "11": 13, "12": 13, "13": 14, "14": 14, "15": 15, "16": 15, "17": 16, "18": 16, "19": 18, "20": 18 },
+      "preparedFormula": "metade do nível de Arcanista (mínimo 1) + modificador de Inteligência, entre magias conhecidas ou do grimório",
+      "arcanaPoints": { "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, "13": 13, "14": 14, "15": 15, "16": 16, "17": 17, "18": 18, "19": 19, "20": 20 },
+      "manaPoints": { "1": 4, "2": 6, "3": 10, "4": 12, "5": 16, "6": 18, "7": 22, "8": 24, "9": 28, "10": 30, "11": 34, "12": 36, "13": 40, "14": 42, "15": 46, "16": 48, "17": 52, "18": 54, "19": 56, "20": 60 },
+      "maxSpellLevel": { "1": 1, "2": null, "3": 2, "4": null, "5": 3, "6": null, "7": 4, "8": null, "9": 5, "10": null, "11": 6, "12": null, "13": 7, "14": null, "15": 8, "16": null, "17": 9, "18": null, "19": null, "20": null },
+      "slotsTable": null
+    },
+    "spellList": null,
+    "levelTable": [
+      { "level": 1, "features": ["Conjuração", "Despertar Arcano", "Glifo"], "arcana": null, "truques": 3, "magias": 4, "mana": 4, "maxSpellLevel": 1 },
+      { "level": 2, "features": ["Característica de Despertar Arcano", "Arcana", "Assinatura Arcana"], "arcana": 2, "truques": 3, "magias": 5, "mana": 6, "maxSpellLevel": null },
+      { "level": 3, "features": ["Metamagia"], "arcana": 3, "truques": 3, "magias": 6, "mana": 10, "maxSpellLevel": 2 },
+      { "level": 4, "features": ["Aprimoramento"], "arcana": 4, "truques": 4, "magias": 7, "mana": 12, "maxSpellLevel": null },
+      { "level": 5, "features": [], "arcana": 5, "truques": 4, "magias": 8, "mana": 16, "maxSpellLevel": 3 },
+      { "level": 6, "features": [], "arcana": 6, "truques": 4, "magias": 9, "mana": 18, "maxSpellLevel": null },
+      { "level": 7, "features": ["Característica de Assinatura Arcana", "Magia de Assinatura"], "arcana": 7, "truques": 4, "magias": 10, "mana": 22, "maxSpellLevel": 4 },
+      { "level": 8, "features": ["Aprimoramento", "Característica de Glifo"], "arcana": 8, "truques": 4, "magias": 11, "mana": 24, "maxSpellLevel": null },
+      { "level": 9, "features": [], "arcana": 9, "truques": 4, "magias": 12, "mana": 28, "maxSpellLevel": 5 },
+      { "level": 10, "features": ["Metamagia"], "arcana": 10, "truques": 5, "magias": 12, "mana": 30, "maxSpellLevel": null },
+      { "level": 11, "features": ["Sobrecarga Arcana"], "arcana": 11, "truques": 5, "magias": 13, "mana": 34, "maxSpellLevel": 6 },
+      { "level": 12, "features": ["Característica de Assinatura Arcana", "Aprimoramento"], "arcana": 12, "truques": 5, "magias": 13, "mana": 36, "maxSpellLevel": null },
+      { "level": 13, "features": [], "arcana": 13, "truques": 5, "magias": 14, "mana": 40, "maxSpellLevel": 7 },
+      { "level": 14, "features": ["Característica de Glifo"], "arcana": 14, "truques": 5, "magias": 14, "mana": 42, "maxSpellLevel": null },
+      { "level": 15, "features": [], "arcana": 15, "truques": 5, "magias": 15, "mana": 46, "maxSpellLevel": 8 },
+      { "level": 16, "features": ["Aprimoramento"], "arcana": 16, "truques": 5, "magias": 15, "mana": 48, "maxSpellLevel": null },
+      { "level": 17, "features": ["Característica de Assinatura Arcana", "Magia de Assinatura", "Potência Arcana"], "arcana": 17, "truques": 5, "magias": 16, "mana": 52, "maxSpellLevel": 9 },
+      { "level": 18, "features": ["Característica de Glifo", "Metamagia"], "arcana": 18, "truques": 5, "magias": 16, "mana": 54, "maxSpellLevel": null },
+      { "level": 19, "features": ["Aprimoramento"], "arcana": 19, "truques": 5, "magias": 18, "mana": 56, "maxSpellLevel": null },
+      { "level": 20, "features": ["Característica de Glifo"], "arcana": 20, "truques": 5, "magias": 18, "mana": 60, "maxSpellLevel": null }
+    ],
+    "notes": [
+      "A página da classe não reproduz uma lista geral de magias de Arcanista (apenas indica que as magias vêm dos Mistérios), por isso spellList é nulo. O Despertar Arcano foi modelado como um campo próprio ('awakening'), pois é uma escolha de 1º nível separada do Glifo."
+    ]
+  },
+  "atirador": {
+    "slug": "atirador",
+    "name": "Atirador",
+    "description": "Especialista em armas de fogo e armas fantásticas que canaliza sua essência rúnica em sua Astra e usa Bravura e Ardis para dominar o campo de batalha.",
+    "hitDie": 8,
+    "primaryAbility": "Destreza",
+    "armorProficiencies": ["Armaduras leves"],
+    "shieldProficiency": false,
+    "weaponProficiencies": ["Armas simples", "Armas de fogo"],
+    "toolProficiencies": ["Ofício de Armeiro"],
+    "savingThrows": ["Destreza", "Sabedoria"],
+    "skillChoices": {
+      "count": 2,
+      "options": ["Acrobacia", "Intuição", "Medicina", "Percepção", "Prestidigitação", "Furtividade", "Tecnologia", "Sobrevivência"],
+      "description": "Escolha duas dentre Acrobacia, Intuição, Medicina, Percepção, Prestidigitação, Furtividade, Tecnologia e Sobrevivência."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Arma de fogo de Tier 1" },
+      { "qty": 1, "name": "Armadura de couro", "orAlternative": "Arma simples corpo a corpo" },
+      { "qty": 1, "name": "Conjunto de explorador", "orAlternative": "Conjunto de aventureiro" },
+      { "qty": 1, "name": "Ferramentas de armeiro e 30 munições da arma de fogo inicial" }
+    ],
+    "startingGold": null,
+    "features": [
+      {
+        "level": 1,
+        "name": "Armeiro",
+        "description": "Você se torna um especialista que entende de forma instintiva as capacidades e possibilidades das Armas de Fogo. A quantidade de fórmulas que recebe por nível de Ofício é baseada no seu modificador de Sabedoria (em vez de Inteligência) e você pode usar seu Ofício e ferramentas de Armeiro para construir armas de fogo, munições e repará-las. Qualquer jogada de Tecnologia é feita com Sabedoria em vez de Inteligência."
+      },
+      {
+        "level": 1,
+        "name": "Astra",
+        "description": "Todo atirador possui sua Astra — sua arma de assinatura e arma pela qual canaliza sua essência rúnica. Para definir sua Astra, você realiza um ritual de 1 hora com a arma escolhida, fazendo leves modificações com seu conjunto de armeiro. A Astra concede: seu bônus de proficiência adicionado ao dano; alcance aumentado em 5/10 pés; erro reduzido em metade do seu bônus de proficiência; Força necessária reduzida em metade do bônus de proficiência; recarga como ação bônus. Uma Astra não funciona na mão de outra pessoa; a partir do 7º nível você recarrega qualquer arma de fogo do seu estilo de Trilha com uma ação bônus."
+      },
+      {
+        "level": 1,
+        "name": "Maestria de Armas",
+        "description": "Seu treinamento permite utilizar a propriedade Maestria de armas escolhendo entre armas simples e armas de fogo com as quais tenha proficiência. Escolha um número de armas igual a 2; você pode trocar uma maestria por outra arma compatível durante um descanso pleno."
+      },
+      {
+        "level": 1,
+        "name": "Trilha",
+        "description": "No 1º nível você escolhe uma Trilha entre: Trilha do Atrnach, Trilha do Desperado, Trilha do Ravasz, Trilha do Vanator ou Trilha do Khorsan. Sua Trilha concede características nos níveis 1, 3, 6, 10, 13, 17 e 20."
+      },
+      {
+        "level": 2,
+        "name": "Bravura",
+        "description": "A partir do 2º nível você canaliza a energia rúnica do seu corpo em pontos de Bravura (coluna Bravura Máxima de \"O Atirador\"), gastos para potencializar Ardis. Recupera todos os pontos em um descanso curto ou longo e 1 ponto ao realizar um acerto crítico ou reduzir uma criatura a 0 pontos de vida. CD dos Truques de Tiro = 8 + bônus de proficiência + modificador de Destreza."
+      },
+      {
+        "level": 2,
+        "name": "Ardil: Bravata",
+        "description": "Ao fazer um ataque com uma arma de fogo, gaste pontos de Bravura para receber um bônus igual aos pontos gastos em suas jogadas de ataque e dano."
+      },
+      {
+        "level": 3,
+        "name": "Armeiro Artesão",
+        "description": "Você recebe Especialização com o Ofício de Armeiro e o segundo nível desse Ofício, ultrapassando o limite padrão de níveis. Evolui novamente nos 7º, 11º, 15º e 18º níveis."
+      },
+      {
+        "level": 3,
+        "name": "Característica da Trilha",
+        "description": "Característica concedida pela sua escolha de Trilha (também nos níveis 6, 10, 13, 17 e 20)."
+      },
+      {
+        "level": 4,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 5,
+        "name": "Ataque Extra",
+        "description": "Você ataca duas vezes, em vez de uma, sempre que usar a ação de Ataque no seu turno."
+      },
+      {
+        "level": 5,
+        "name": "Ardil: Disparo Rúnico",
+        "description": "Ao atacar com a sua Astra, gaste 1 ponto de Bravura para mirar uma região específica do corpo (braço, cabeça, perna, torso ou asa), adicionando um efeito (ex.: Forçar queda do item segurado, derrubar o alvo, impor desvantagem)."
+      },
+      {
+        "level": 6,
+        "name": "Característica da Trilha",
+        "description": "Característica concedida pela sua escolha de Trilha."
+      },
+      {
+        "level": 7,
+        "name": "Batismo da Pólvora",
+        "description": "O funcionamento das armas de fogo não tem mais segredos para você: qualquer arma de fogo que utilizar tem seu erro reduzido em 1, e armas modificadas por você têm erro reduzido em 1 enquanto não estiverem sem manutenção."
+      },
+      {
+        "level": 8,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 9,
+        "name": "Evasão",
+        "description": "Quando for alvo de um efeito que exija uma salvaguarda de Destreza para sofrer metade do dano, você não sofre dano se passar e apenas metade se falhar."
+      },
+      {
+        "level": 9,
+        "name": "Bravata Superior",
+        "description": "Ao usar a característica Bravata, se atingir o ataque, você recupera metade dos pontos de Bravura gastos e dobra o dano causado."
+      },
+      {
+        "level": 10,
+        "name": "Característica da Trilha",
+        "description": "Característica concedida pela sua escolha de Trilha."
+      },
+      {
+        "level": 11,
+        "name": "Ad Astra",
+        "description": "Você adquire um conhecimento especial da Astra: pode tornar uma arma adicional em Astra e passa a poder usar armas de fogo mágicas como sua Astra. O dano de suas Astras é considerado mágico."
+      },
+      {
+        "level": 11,
+        "name": "Talismã Pessoal",
+        "description": "Escolha um item como Talismã Pessoal (ex.: Capa de Atirador, Chapéu da Sorte, Charuto de Qualidade, Óculos de Funileiro, Sobretudo Confortável), que concede um bônus único."
+      },
+      {
+        "level": 12,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 13,
+        "name": "Característica da Trilha",
+        "description": "Característica concedida pela sua escolha de Trilha."
+      },
+      {
+        "level": 14,
+        "name": "Astra et Umbra",
+        "description": "Você extrai o potencial pleno de suas Astras: +1 em jogadas de ataque com elas e o dano aumenta em uma categoria na escala de dano."
+      },
+      {
+        "level": 15,
+        "name": "Enganar a Morte",
+        "description": "Ao receber um ataque que o reduziria a 0 pontos de vida, use sua reação e gaste 2 pontos de Bravura para ficar com 1 ponto de vida (usos adicionais custam mais 3 pontos de Bravura antes do descanso longo)."
+      },
+      {
+        "level": 16,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 17,
+        "name": "Característica da Trilha",
+        "description": "Característica concedida pela sua escolha de Trilha."
+      },
+      {
+        "level": 18,
+        "name": "Costas Quentes",
+        "description": "Antes de realizar uma salvaguarda, você pode optar por ter sucesso automaticamente, um número de vezes igual a metade do seu modificador de Sabedoria (mínimo 1) por descanso longo."
+      },
+      {
+        "level": 19,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 19,
+        "name": "Bravura Indômita",
+        "description": "Sempre que você recuperaria 1 ponto de Bravura, recupera 2 pontos."
+      },
+      {
+        "level": 20,
+        "name": "Característica da Trilha",
+        "description": "Característica concedida pela sua escolha de Trilha."
+      }
+    ],
+    "subclass": {
+      "choiceName": "Trilha",
+      "grantedAt": 1,
+      "featureLevels": [1, 3, 6, 10, 13, 17, 20],
+      "options": [
+        {
+          "name": "Trilha do Atrnach",
+          "description": "O Atrnach luta de forma perigosa, encarando situações mortais frente a frente. No 1º nível escolhe um Estilo Atrnach (Armas Médias — bônus de dano com a propriedade Dispersão a 5 pés; ou Baioneta — proficiência com baionetas e bônus no dano crítico corpo a corpo) e recebe Encarando o Perigo (Disparada como ação bônus reduzindo dano recebido; proficiência com armaduras médias)."
+        },
+        {
+          "name": "Trilha do Desperado",
+          "description": "O Desperado luta com habilidade, astúcia e um gatilho rápido, com reflexos moldados para esquivar de disparos velozes. No 1º nível escolhe um Estilo Desperado (Armas Curtas — metade do bônus de proficiência em ataques e dano com armas de fogo curtas; ou Akimbo — uma arma de fogo leve em cada mão, atacando com a segunda como ação bônus)."
+        },
+        {
+          "name": "Trilha do Ravasz",
+          "description": "O Ravasz eleva o poder rúnico através da magia, conjurando feitiços disparados através de seus tiros. No 1º nível escolhe um Estilo Ravasz (Leves, Médias, Longas ou Canhões) que modifica suas magias. A partir do 3º nível você se torna um conjurador com a tabela própria Atirador Conjurador (truques, magias conhecidas e pontos de Mana), usando Sabedoria como atributo de conjuração."
+        },
+        {
+          "name": "Trilha do Vanator",
+          "description": "O Vanator é um perito em lidar com o terreno e as distâncias, peça-chave em qualquer equipe. No 1º nível escolhe um Estilo Vanator (ex.: Armas Longas) e recebe características ligadas ao ataque à distância em diversos terrenos."
+        },
+        {
+          "name": "Trilha do Khorsan",
+          "description": "O Khorsan é especializado em lidar com grupos e atacar estruturas, tornando barreiras, esconderijos e vantagens numéricas pouco significativas. No 1º nível escolhe um Estilo Khorsan (Lança-chamas ou Transdutor Explosivo) e recebe o Ofício de Tecmaturgo."
+        }
+      ]
+    },
+    "spellcasting": null,
+    "spellList": null,
+    "levelTable": [
+      { "level": 1, "features": ["Armeiro", "Astra", "Maestria de Armas", "Trilha"], "bravura": null },
+      { "level": 2, "features": ["Bravura", "Ardil: Bravata"], "bravura": 2 },
+      { "level": 3, "features": ["Armeiro Artesão", "Característica da Trilha"], "bravura": 2 },
+      { "level": 4, "features": ["Aprimoramento"], "bravura": 3 },
+      { "level": 5, "features": ["Ataque Extra", "Ardil: Disparo Rúnico"], "bravura": 3 },
+      { "level": 6, "features": ["Característica da Trilha"], "bravura": 4 },
+      { "level": 7, "features": ["Batismo da Pólvora"], "bravura": 4 },
+      { "level": 8, "features": ["Aprimoramento"], "bravura": 5 },
+      { "level": 9, "features": ["Evasão", "Bravata Superior"], "bravura": 5 },
+      { "level": 10, "features": ["Característica da Trilha"], "bravura": 6 },
+      { "level": 11, "features": ["Ad Astra", "Talismã Pessoal"], "bravura": 6 },
+      { "level": 12, "features": ["Aprimoramento"], "bravura": 7 },
+      { "level": 13, "features": ["Característica da Trilha"], "bravura": 7 },
+      { "level": 14, "features": ["Astra et Umbra"], "bravura": 8 },
+      { "level": 15, "features": ["Enganar a Morte"], "bravura": 8 },
+      { "level": 16, "features": ["Aprimoramento"], "bravura": 9 },
+      { "level": 17, "features": ["Característica da Trilha"], "bravura": 9 },
+      { "level": 18, "features": ["Costas Quentes"], "bravura": 10 },
+      { "level": 19, "features": ["Aprimoramento", "Bravura Indômita"], "bravura": 10 },
+      { "level": 20, "features": ["Característica da Trilha"], "bravura": 12 }
+    ],
+    "notes": [
+      "O Atirador não possui conjuração de classe base (spellcasting nulo); apenas a Trilha do Ravasz concede conjuração a partir do 3º nível. A página da classe refere-se à lista de magias de Atirador, mas não a reproduz, portanto spellList é nulo."
+    ]
+  },
+  "bodisatva": {
+    "slug": "bodisatva",
+    "name": "Bodisatva",
+    "description": "Praticante do Ki que busca a plenitude entre corpo, mente e espírito, utilizando artes marciais, Sutras e armas bodisatva em comunhão com o mundo espiritual.",
+    "hitDie": 10,
+    "primaryAbility": "Força ou Destreza",
+    "armorProficiencies": [],
+    "shieldProficiency": false,
+    "weaponProficiencies": ["Armas simples", "Armas bodisatva"],
+    "toolProficiencies": ["Ofício Menor (à sua escolha)"],
+    "savingThrows": ["Força ou Destreza", "Sabedoria"],
+    "skillChoices": {
+      "count": 3,
+      "options": ["Acrobacia", "Atletismo", "Furtividade", "História", "Intimidação", "Intuição", "Medicina", "Natureza", "Percepção", "Persuasão", "Prestidigitação", "Religião", "Sobrevivência"],
+      "description": "Escolha três entre Acrobacia, Atletismo, Furtividade, História, Intimidação, Intuição, Medicina, Natureza, Percepção, Persuasão, Prestidigitação, Religião e Sobrevivência."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Espada curta", "orAlternative": "Qualquer arma simples ou lâmina navori" },
+      { "qty": 1, "name": "Uma arma bodisatva" },
+      { "qty": 1, "name": "Conjunto de explorador de masmorras", "orAlternative": "Conjunto de aventureiro ou conjunto de sacerdote" },
+      { "qty": 10, "name": "Shurikens" }
+    ],
+    "startingGold": null,
+    "features": [
+      {
+        "level": 1,
+        "name": "Ki",
+        "description": "A partir do 1º nível você controla a energia mística do Ki, representada por um número de pontos de Ki (coluna Ki de \"O Bodisatva\"), gastos para abastecer características de Ki. Pontos gastos voltam ao terminar um descanso longo ou pleno, exigindo ao menos 30 minutos de meditação. CD de resistência de Ki = 8 + bônus de proficiência + modificador de Sabedoria."
+      },
+      {
+        "level": 1,
+        "name": "Refinamento de Ki",
+        "description": "Sua prática nas artes marciais concede maestria nos estilos que usam golpes desarmados e armas bodisatva. Enquanto desarmado ou com uma arma bodisatva, sem armadura e sem escudo: você pode usar Destreza em vez de Força para ataque e dano, rola um d6 no lugar do dano normal (dado que muda conforme a coluna Marcial de \"O Bodisatva\") e, ao usar a ação de Ataque, pode realizar um golpe desarmado como ação bônus."
+      },
+      {
+        "level": 1,
+        "name": "Sutra",
+        "description": "No 1º nível você recebe características inerentes ao desenvolvimento do Ki, os Sutras. Escolhe um Sutra de Classe no 1º nível e novamente nos 2º, 4º, 6º, 8º, 10º, 12º, 14º, 16º, 18º e 20º níveis. Cada Doutrina concede Sutras de Subclasse, enquanto Sutras Gerais e Vel-Sutras podem ser aprendidos em aventuras (Capítulo 5)."
+      },
+      {
+        "level": 1,
+        "name": "Maestria de Armas",
+        "description": "Seu treinamento permite utilizar a propriedade Maestria de armas escolhendo entre armas simples e bodisatva com as quais tenha proficiência. Escolha um número de armas igual a 2; você pode trocar uma maestria por outra arma compatível durante um descanso pleno. A característica \"Imprópria\" não se aplica às armas bodisatva que você usa."
+      },
+      {
+        "level": 1,
+        "name": "Doutrina",
+        "description": "No 1º nível você escolhe uma Doutrina entre: Doutrina da Arte Wuju, Doutrina da Dança das Lâminas, Doutrina do Mosteiro de Shojin, Doutrina da Técnica Hakensai ou Doutrina da Via Shinobi. Sua escolha concede características no 1º, 3º, 6º, 11º, 15º, 17º e 20º níveis."
+      },
+      {
+        "level": 2,
+        "name": "Movimento sem Armadura",
+        "description": "Seu deslocamento aumenta em 10 pés enquanto você não estiver usando armadura nem empunhando um escudo. O bônus aumenta em 5 pés nos níveis 6, 10, 14 e 18."
+      },
+      {
+        "level": 2,
+        "name": "Estilo de Combate",
+        "description": "No 2º nível você adota dois estilos de luta (por exemplo, Arremessar, Arquearia, Combate com Arma de Duas Mãos, Combate com Duas Armas ou Duelismo) e um estilo adicional no 11º nível. Apenas um estilo pode estar ativo por vez; você alterna com uma ação bônus ou como reação ao acertar um ataque."
+      },
+      {
+        "level": 3,
+        "name": "Característica de Doutrina",
+        "description": "Característica concedida pela sua escolha de Doutrina (também nos níveis 6, 11, 15, 17 e 20)."
+      },
+      {
+        "level": 4,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5. Você também recebe acesso a um novo Sutra sempre que recebe um Aprimoramento."
+      },
+      {
+        "level": 4,
+        "name": "Intuição de Combate",
+        "description": "Você recebe visão às cegas de 10 pés (percebe criaturas invisíveis dentro do alcance, a menos que furtivas; o alcance cresce nos níveis 8, 12, 16 e 20). Com uma ação bônus você pode adicionar metade do seu modificador de Sabedoria às suas rolagens de acerto por um número de rodadas igual ao seu bônus de proficiência."
+      },
+      {
+        "level": 5,
+        "name": "Ataque Extra",
+        "description": "Você ataca duas vezes, em vez de uma, sempre que usar a ação de Ataque no seu turno."
+      },
+      {
+        "level": 6,
+        "name": "Característica de Doutrina",
+        "description": "Característica concedida pela sua escolha de Doutrina."
+      },
+      {
+        "level": 7,
+        "name": "Evasão",
+        "description": "Quando for alvo de um efeito que exija uma salvaguarda de Destreza para sofrer metade do dano, você não sofre dano se passar e apenas metade se falhar."
+      },
+      {
+        "level": 7,
+        "name": "Mente Tranquila",
+        "description": "Você pode usar sua ação para terminar um efeito em si mesmo que esteja enfeitiçando ou amedrontando você, ou um Episódio de um Abalo Episódico mundano."
+      },
+      {
+        "level": 8,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5. Você também recebe acesso a um novo Sutra."
+      },
+      {
+        "level": 10,
+        "name": "Pureza Corporal",
+        "description": "Você se torna imune a doenças mundanas e às condições Envenenado e Intoxicado, com vantagem em salvaguardas contra doenças mágicas. Você ignora componentes materiais de um Sutra, desde que não sejam consumidos por ele."
+      },
+      {
+        "level": 11,
+        "name": "Característica de Doutrina",
+        "description": "Característica concedida pela sua escolha de Doutrina."
+      },
+      {
+        "level": 12,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5. Você também recebe acesso a um novo Sutra."
+      },
+      {
+        "level": 13,
+        "name": "Plenitude",
+        "description": "Você não fica mais surpreso em combate e, durante a primeira rodada, tem vantagem em ataques contra criaturas que ainda não agiram."
+      },
+      {
+        "level": 15,
+        "name": "Característica de Doutrina",
+        "description": "Característica concedida pela sua escolha de Doutrina."
+      },
+      {
+        "level": 16,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5. Você também recebe acesso a um novo Sutra."
+      },
+      {
+        "level": 17,
+        "name": "Característica de Doutrina",
+        "description": "Característica concedida pela sua escolha de Doutrina."
+      },
+      {
+        "level": 19,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5. Você também recebe acesso a um novo Sutra."
+      },
+      {
+        "level": 20,
+        "name": "Característica de Doutrina",
+        "description": "Característica concedida pela sua escolha de Doutrina."
+      }
+    ],
+    "subclass": {
+      "choiceName": "Doutrina",
+      "grantedAt": 1,
+      "featureLevels": [1, 3, 6, 11, 15, 17, 20],
+      "options": [
+        {
+          "name": "Doutrina da Arte Wuju",
+          "description": "Ensina a filosofia do combate sem sangue através da meditação e do manejo de espada, canalizando a energia do Reino Espiritual pelo corpo até a arma. No 1º nível concede Meditação Wuju (estado meditativo que concede resistência a danos físicos simples e cura). A partir do 3º nível você aprende a canalizar magias espirituais pelo Ki (como auxílio, devastação mental e detectar o bem e o mal), com CD baseada na sua CD de resistência de Ki."
+        },
+        {
+          "name": "Doutrina da Dança das Lâminas",
+          "description": "Arte quase perdida, resgatada de Ionia, que utiliza o Ki para manipular lâminas especiais (Lâminas Navori) afiadas em toda a sua extensão, sem empunhadura. No 1º nível concede proficiência com Lâminas Navori e o controle de 1 lâmina flutuante (mais lâminas nos níveis 6, 11 e 17), usando o modificador de Sabedoria ou Destreza nos ataques."
+        },
+        {
+          "name": "Doutrina do Mosteiro de Shojin",
+          "description": "Doutrina o corpo, a mente e o espírito para alcançar a plenitude das habilidades físicas em comunhão com o mundo espiritual. No 1º nível concede os Ensinamentos do Dragão (Dracônico: +1 de CA e dado de dano nos ataques desarmados), Garra do Dragão e Malícia do Dragão, além da Sutra Shojin, com o caminho da Garra ou da Cauda."
+        },
+        {
+          "name": "Doutrina da Técnica Hakensai",
+          "description": "Técnicas de Ionia em que mestres de arma canalizam um elemento pelo Ki através de suas armas (como a espada de vento e a espada de Gelo). No 1º nível você escolhe um elemento no Caminho Elemental (Água — Estilo do Zelote, Terra — Estilo do Sentinela, Fogo — Estilo do Doutrinador, entre outros), que não poderá mais ser alterado, e pode ignorar componentes materiais de Sutras elementais do elemento escolhido."
+        },
+        {
+          "name": "Doutrina da Via Shinobi",
+          "description": "Doutrina dedicada à espionagem e à sabotagem, ligada às Ordens Kinkou e das Sombras e aos princípios de Neio e Neiyar. Concede técnicas de infiltração, assassinato e equilíbrio entre as ordens."
+        }
+      ]
+    },
+    "spellcasting": null,
+    "spellList": null,
+    "levelTable": [
+      { "level": 1, "features": ["Ki", "Sutra", "Maestria de Armas", "Doutrina"], "dadoMarcial": "1d6", "ki": 2, "vel": 1 },
+      { "level": 2, "features": ["Movimento sem Armadura", "Estilo de Combate"], "dadoMarcial": "1d6", "ki": 3, "vel": 1 },
+      { "level": 3, "features": ["Característica de Doutrina"], "dadoMarcial": "1d6", "ki": 4, "vel": 2 },
+      { "level": 4, "features": ["Aprimoramento", "Intuição de Combate"], "dadoMarcial": "1d6", "ki": 5, "vel": 2 },
+      { "level": 5, "features": ["Ataque Extra"], "dadoMarcial": "1d6", "ki": 7, "vel": 3 },
+      { "level": 6, "features": ["Característica de Doutrina"], "dadoMarcial": "1d6", "ki": 8, "vel": 3 },
+      { "level": 7, "features": ["Evasão", "Mente Tranquila"], "dadoMarcial": "1d8", "ki": 9, "vel": 4 },
+      { "level": 8, "features": ["Aprimoramento"], "dadoMarcial": "1d8", "ki": 10, "vel": 4 },
+      { "level": 9, "features": [], "dadoMarcial": "1d8", "ki": 11, "vel": 5 },
+      { "level": 10, "features": ["Pureza Corporal"], "dadoMarcial": "1d8", "ki": 12, "vel": 5 },
+      { "level": 11, "features": ["Característica de Doutrina"], "dadoMarcial": "1d10", "ki": 13, "vel": 6 },
+      { "level": 12, "features": ["Aprimoramento"], "dadoMarcial": "1d10", "ki": 14, "vel": 6 },
+      { "level": 13, "features": ["Plenitude"], "dadoMarcial": "1d10", "ki": 15, "vel": 7 },
+      { "level": 14, "features": [], "dadoMarcial": "1d10", "ki": 17, "vel": 7 },
+      { "level": 15, "features": ["Característica de Doutrina"], "dadoMarcial": "1d10", "ki": 18, "vel": 8 },
+      { "level": 16, "features": ["Aprimoramento"], "dadoMarcial": "1d10", "ki": 19, "vel": 8 },
+      { "level": 17, "features": ["Característica de Doutrina"], "dadoMarcial": "1d12", "ki": 21, "vel": 9 },
+      { "level": 18, "features": [], "dadoMarcial": "1d12", "ki": 22, "vel": 9 },
+      { "level": 19, "features": ["Aprimoramento"], "dadoMarcial": "1d12", "ki": 24, "vel": 10 },
+      { "level": 20, "features": ["Característica de Doutrina"], "dadoMarcial": "1d12", "ki": 25, "vel": 10 }
+    ],
+    "notes": [
+      "O Bodisatva não possui conjuração de classe (spellcasting nulo); sublasses como a Doutrina da Arte Wuju concedem magias espirituais canalizadas via Ki. A coluna \"vel\" da tabela foi mantida no levelTable como na página (referente aos Vel-Sutras)."
+    ]
+  },
+  "xama": {
+    "slug": "xama",
+    "name": "Xamã",
+    "description": "Canalizador das energias do reino espiritual que atua como ponte entre os dois mundos, conectando-se a um Grande Espírito e usando o próprio Ki para conjurar feitiços.",
+    "hitDie": 8,
+    "primaryAbility": "Sabedoria",
+    "armorProficiencies": [],
+    "shieldProficiency": false,
+    "weaponProficiencies": ["Armas simples"],
+    "toolProficiencies": ["Escolha um entre: Apotecário, Artesanato: Escultor, Coletor: Curtidor, Cozinheiro, Fermentador ou Modista"],
+    "savingThrows": ["Constituição", "Sabedoria"],
+    "skillChoices": {
+      "count": 3,
+      "options": ["Acrobacia", "Atletismo", "Furtividade", "Intimidação", "Intuição", "Medicina", "Natureza", "Percepção", "Persuasão", "Religião", "Sobrevivência"],
+      "description": "Escolha três entre Acrobacia, Atletismo, Furtividade, Intimidação, Intuição, Medicina, Natureza, Percepção, Persuasão, Religião e Sobrevivência."
+    },
+    "startingEquipment": [
+      { "qty": 1, "name": "Arma simples", "orAlternative": "Bolsa de componentes ou armadura leve (se proficiente)" },
+      { "qty": 1, "name": "Arma simples", "orAlternative": "Arco curto e aljava com 20 flechas" },
+      { "qty": 1, "name": "Conjunto de aventureiro", "orAlternative": "Conjunto de explorador de masmorras" }
+    ],
+    "startingGold": null,
+    "features": [
+      {
+        "level": 1,
+        "name": "Conjuração",
+        "description": "Conjura feitiços de Xamã das listas a que tem acesso. Conhece dois truques (coluna Truques de \"O Xamã\") e, a partir do 2º nível, feitiços conhecidos conforme a coluna Feitiços Conhecidos. Prepara um número de feitiços igual ao seu modificador de Sabedoria + metade do seu nível de Xamã (mínimo 1), de nível igual ou menor ao seu Nível Máximo de Feitiço. Diferente de outros conjuradores, o Xamã utiliza sua própria energia vital, o Ki, como combustível (a 1º nível um feitiço de 1º nível custa 1 ponto de Ki). Sabedoria é seu atributo de conjuração: CD = 8 + bônus de proficiência + Sabedoria; modificador de ataque = bônus de proficiência + Sabedoria. Ritualista: pode conjurar como ritual feitiços conhecidos e preparados que possuam o descritor Ritual."
+      },
+      {
+        "level": 1,
+        "name": "Totem",
+        "description": "No 1º nível você se conecta a um Grande Espírito guia, representado por um Totem que carrega consigo e que concede um benefício enquanto estiver com você. Seus olhos são capazes de ver as emanações do reino Espiritual, podendo ver e se comunicar com espíritos e enxergar até 60 pés no reino Espiritual a partir do reino Material."
+      },
+      {
+        "level": 1,
+        "name": "Caminho",
+        "description": "No 1º nível você escolhe um Caminho entre: Caminho do Canalizador, Caminho do Invocador, Caminho do Metamorfo ou Caminho do Propagador. Sua escolha concede características no 1º nível e novamente nos 3º, 6º, 9º, 12º, 15º, 18º e 20º níveis."
+      },
+      {
+        "level": 2,
+        "name": "Aliados Espirituais",
+        "description": "A partir do 2º nível você pode invocar aliados espirituais, definidos por posturas que você escolhe."
+      },
+      {
+        "level": 2,
+        "name": "Invocação",
+        "description": "A partir do 2º nível sua capacidade de invocação de aliados espirituais aumenta conforme você avança (2º, 5º, 9º, 14º e 20º níveis)."
+      },
+      {
+        "level": 3,
+        "name": "Característica de Caminho",
+        "description": "Característica concedida pela sua escolha de Caminho (também nos níveis 6, 9, 12, 15, 18 e 20)."
+      },
+      {
+        "level": 4,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 4,
+        "name": "Barreira Espiritual",
+        "description": "Característica de proteção espiritual concedida no 4º nível."
+      },
+      {
+        "level": 5,
+        "name": "Invocação",
+        "description": "Sua capacidade de invocação aumenta."
+      },
+      {
+        "level": 6,
+        "name": "Característica de Caminho",
+        "description": "Característica concedida pela sua escolha de Caminho."
+      },
+      {
+        "level": 7,
+        "name": "Canalização Espiritual",
+        "description": "Característica concedida no 7º nível relacionada à canalização de energia espiritual."
+      },
+      {
+        "level": 8,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 9,
+        "name": "Invocação",
+        "description": "Sua capacidade de invocação aumenta."
+      },
+      {
+        "level": 9,
+        "name": "Característica de Caminho",
+        "description": "Característica concedida pela sua escolha de Caminho."
+      },
+      {
+        "level": 12,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 12,
+        "name": "Característica de Caminho",
+        "description": "Característica concedida pela sua escolha de Caminho."
+      },
+      {
+        "level": 13,
+        "name": "Unidade Feral",
+        "description": "Característica concedida no 13º nível."
+      },
+      {
+        "level": 14,
+        "name": "Invocação",
+        "description": "Sua capacidade de invocação aumenta."
+      },
+      {
+        "level": 15,
+        "name": "Característica de Caminho",
+        "description": "Característica concedida pela sua escolha de Caminho."
+      },
+      {
+        "level": 16,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 18,
+        "name": "Característica de Caminho",
+        "description": "Característica concedida pela sua escolha de Caminho."
+      },
+      {
+        "level": 19,
+        "name": "Aprimoramento",
+        "description": "Aumente um atributo em 2 ou dois atributos em 1 (máximo 20) ou escolha um Aprimoramento Geral do Capítulo 5."
+      },
+      {
+        "level": 20,
+        "name": "Invocação",
+        "description": "Sua capacidade de invocação aumenta."
+      },
+      {
+        "level": 20,
+        "name": "Característica de Caminho",
+        "description": "Característica concedida pela sua escolha de Caminho."
+      }
+    ],
+    "subclass": {
+      "choiceName": "Caminho",
+      "grantedAt": 1,
+      "featureLevels": [1, 3, 6, 9, 12, 15, 18, 20],
+      "options": [
+        {
+          "name": "Caminho do Canalizador",
+          "description": "Canalizadores vivem no limiar entre o mundo espiritual e material, desenvolvendo uma capacidade quase natural de lidar com os espíritos animais e canalizando a energia espiritual para fortalecer o corpo. No 1º nível concedem Ataque Desarmado (1d4 + modificador de Força, com a opção de usar Sabedoria), Defesa sem Armadura (CA = 10 + Destreza + Sabedoria) e Vigor Espiritual (meio bônus de proficiência em pontos de vida máximos)."
+        },
+        {
+          "name": "Caminho do Invocador",
+          "description": "O Invocador aprende a manipular os fluxos entre os reinos material e espiritual, dando vazão à energia que lhe é mais favorável. No 1º nível concede Familiar (convocar o mesmo familiar sem gastar Ki), Armadura Espiritual (armadura arcana sem custo) e Controle Místico (mover criaturas atingidas pela rajada mística). A partir do 3º nível torna-se um conjurador completo, preparando Sabedoria + nível de Xamã feitiços."
+        },
+        {
+          "name": "Caminho do Metamorfo",
+          "description": "O Metamorfo compreende a impermanência das formas, manipulando a energia espiritual para alterar seu corpo. No 1º nível concede Comunhão (idioma Silvestre e proficiências com Lidar com Animais e Sobrevivência), Propriocepção (proficiência com armaduras leves e médias, broquéis e escudos leves) e Metamorfo, permitindo alterar sua forma conforme a tabela Forma Selvagem."
+        },
+        {
+          "name": "Caminho do Propagador",
+          "description": "O Propagador manifesta a energia espiritual ao seu redor na forma de auras, protegendo e fortalecendo aliados. No 1º nível concede Voz Etérea (idioma Espiritual), Energia Visível (meia cobertura) e Místico (Aura Etérea)."
+        }
+      ]
+    },
+    "spellcasting": {
+      "attribute": "Sabedoria",
+      "ritualCasting": true,
+      "focusDescription": "Pode usar seu Totem como foco de conjuração enquanto ele estiver com você; em posse do totem, ignora componentes materiais não consumidos dos seus feitiços, invocações e Sutras.",
+      "cantripsKnown": { "1": 2, "2": 2, "3": 3, "4": 3, "5": 3, "6": 3, "7": 4, "8": 4, "9": 4, "10": 4, "11": 4, "12": 4, "13": 5, "14": 5, "15": 5, "16": 5, "17": 5, "18": 5, "19": 5, "20": 5 },
+      "spellsKnown": { "2": 3, "3": 4, "4": 5, "5": 6, "6": 6, "7": 7, "8": 8, "9": 9, "10": 9, "11": 10, "12": 10, "13": 11, "14": 12, "15": 12, "16": 13, "17": 14, "18": 15, "19": 15, "20": 16 },
+      "preparedFormula": "modificador de Sabedoria + metade do nível de Xamã (mínimo 1)",
+      "kiPoints": { "1": 2, "2": 3, "3": 4, "4": 5, "5": 7, "6": 8, "7": 9, "8": 10, "9": 11, "10": 12, "11": 13, "12": 14, "13": 15, "14": 17, "15": 18, "16": 19, "17": 21, "18": 22, "19": 24, "20": 25 },
+      "maxSpellLevel": { "1": null, "2": 1, "3": 1, "4": 1, "5": 2, "6": 2, "7": 2, "8": 2, "9": 3, "10": 3, "11": 3, "12": 3, "13": 4, "14": 4, "15": 4, "16": 4, "17": 5, "18": 5, "19": 5, "20": 5 },
+      "slotsTable": null
+    },
+    "spellList": null,
+    "levelTable": [
+      { "level": 1, "features": ["Conjuração", "Totem", "Caminho"], "truques": 2, "feiticos": null, "maxSpellLevel": null, "ki": 2 },
+      { "level": 2, "features": ["Aliados Espirituais", "Invocação"], "truques": 2, "feiticos": 3, "maxSpellLevel": 1, "ki": 3 },
+      { "level": 3, "features": ["Característica de Caminho"], "truques": 3, "feiticos": 4, "maxSpellLevel": 1, "ki": 4 },
+      { "level": 4, "features": ["Aprimoramento", "Barreira Espiritual"], "truques": 3, "feiticos": 5, "maxSpellLevel": 1, "ki": 5 },
+      { "level": 5, "features": ["Invocação"], "truques": 3, "feiticos": 6, "maxSpellLevel": 2, "ki": 7 },
+      { "level": 6, "features": ["Característica de Caminho"], "truques": 3, "feiticos": 6, "maxSpellLevel": 2, "ki": 8 },
+      { "level": 7, "features": ["Canalização Espiritual"], "truques": 4, "feiticos": 7, "maxSpellLevel": 2, "ki": 9 },
+      { "level": 8, "features": ["Aprimoramento"], "truques": 4, "feiticos": 8, "maxSpellLevel": 2, "ki": 10 },
+      { "level": 9, "features": ["Invocação", "Característica de Caminho"], "truques": 4, "feiticos": 9, "maxSpellLevel": 3, "ki": 11 },
+      { "level": 10, "features": [], "truques": 4, "feiticos": 9, "maxSpellLevel": 3, "ki": 12 },
+      { "level": 11, "features": [], "truques": 4, "feiticos": 10, "maxSpellLevel": 3, "ki": 13 },
+      { "level": 12, "features": ["Aprimoramento", "Característica de Caminho"], "truques": 4, "feiticos": 10, "maxSpellLevel": 3, "ki": 14 },
+      { "level": 13, "features": ["Unidade Feral"], "truques": 5, "feiticos": 11, "maxSpellLevel": 4, "ki": 15 },
+      { "level": 14, "features": ["Invocação"], "truques": 5, "feiticos": 12, "maxSpellLevel": 4, "ki": 17 },
+      { "level": 15, "features": ["Característica de Caminho"], "truques": 5, "feiticos": 12, "maxSpellLevel": 4, "ki": 18 },
+      { "level": 16, "features": ["Aprimoramento"], "truques": 5, "feiticos": 13, "maxSpellLevel": 4, "ki": 19 },
+      { "level": 17, "features": [], "truques": 5, "feiticos": 14, "maxSpellLevel": 5, "ki": 21 },
+      { "level": 18, "features": ["Característica de Caminho"], "truques": 5, "feiticos": 15, "maxSpellLevel": 5, "ki": 22 },
+      { "level": 19, "features": ["Aprimoramento"], "truques": 5, "feiticos": 15, "maxSpellLevel": 5, "ki": 24 },
+      { "level": 20, "features": ["Invocação", "Característica de Caminho"], "truques": 5, "feiticos": 16, "maxSpellLevel": 5, "ki": 25 }
+    ],
+    "notes": [
+      "A página da classe refere-se à lista de feitiços de Xamã, mas não a reproduz; por isso spellList é nulo. O Xamã conjura usando pontos de Ki (não Mana); o Totem (Grande Espírito) é uma escolha/foco de 1º nível, enquanto a subclasse é o Caminho."
+    ]
+  }
+}

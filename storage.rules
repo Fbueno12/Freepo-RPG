@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// Imagens de tokens do mapa: `tokens/{campaignId}/{tokenId}.{ext}`.
+// Leitura para membros da campanha; escrita só para o mestre/dono
+// (só o mestre cria tokens). Upload limitado a imagens de até 2 MB.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /tokens/{campaignId}/{file} {
+      function memberRoles() {
+        return firestore
+          .get(/databases/(default)/documents/campaignMembers/$(campaignId))
+          .data.get('members', {});
+      }
+      function isMember() {
+        return request.auth != null
+          && memberRoles().keys().hasAny([request.auth.uid]);
+      }
+      function isGM() {
+        return isMember()
+          && memberRoles().get(request.auth.uid, '') == 'gm';
+      }
+      allow read: if isMember();
+      allow write: if isGM()
+        && request.resource.size < 2 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isGM();
+    }
+  }
+}

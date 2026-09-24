@@ -1,0 +1,155 @@
+{
+  "aguas-de-sentina": {
+    "name": "Águas de Sentina",
+    "languages": ["Buhru", "Sentinense"],
+    "skills": ["Enganação", "Furtividade", "Intimidação", "Medicina", "Percepção", "Prestidigitação", "Religião", "Sobrevivência"],
+    "traits": [
+      { "name": "Buhru", "description": "Nativos das Ilhas das Serpentes, conhecidos pela medicina tradicional e técnicas de caça a monstros marinhos; batalhar é um teste de vontade regido pela fé no Grande Cráquem." },
+      { "name": "Nagacáburos", "description": "Deusa Mãe Serpente da vida, do crescimento e do movimento perpétuo; sacerdotisas como Illaoi são Portadoras da Verdade que testam o valor dos mortais." },
+      { "name": "Névoa Sombria", "description": "Anualmente a névoa das Ilhas das Sombras alcança as praias, trazendo mortos-vivos e terrores." },
+      { "name": "Quadro de Recompensas", "description": "O código de leis de facto da cidade; caçadores e capitães disputam poder pelas cabeças dos mais procurados." }
+    ],
+    "_note": "Idioma: escolha um (Buhru ou Sentinense). Perícia: escolha uma. Atividade. Escolha duas proficiências entre as seguintes opções: Adaga, arpão, cimitarra, espada curta, espada longa, espada grande, tridente, pistola de pederneira, mosquete, canhão de mão, guia: cartógrafo ou navegador, chaveiro, uma disciplina de falsificador, apotecário, um jogo de jogador ou músico de um instrumento."
+  },
+  "bandopolis": {
+    "name": "Bandópolis",
+    "languages": ["Espiritual", "Elemental", "Feérico", "Silvestre"],
+    "skills": ["Arcanismo", "Atuação", "Furtividade", "Medicina", "Natureza", "Percepção", "Prestidigitação"],
+    "traits": [
+      { "name": "Reino Encantado dos Yordles", "description": "Dimensão paralela ao reino material com magia ilimitada, sensações amplificadas, cores vívidas e tempo atemporal para quem não é yordle." },
+      { "name": "Portais", "description": "Caminhos ocultos entre Runeterra e Bandópolis só se abrem em circunstâncias ou gestos específicos, para quem lê a linguagem dos yordles." }
+    ],
+    "_note": "Idioma: escolha um. Perícia: escolha uma. Arma: escolha duas. Ofício: escolha um entre Artesão, Herbalista ou Jogador."
+  },
+  "demacia": {
+    "name": "Demacia",
+    "languages": ["Demaciano"],
+    "skills": ["Acrobacia", "Atletismo", "História", "Intuição", "Lidar com Animais", "Medicina", "Percepção", "Persuasão"],
+    "traits": [
+      { "name": "Caçadores de Magos", "description": "A magia é ilegal e perseguida; os Caçadores de Magos erradicam conhecimento e prática de feitiçaria, gerando tensões sociais." },
+      { "name": "Exército de Elite", "description": "Sociedade de ordem, justiça, honra e dever; ostenta o melhor e mais bem treinado exército de Runeterra." }
+    ],
+    "_note": "Perícia: escolha uma. Atividade: escolha duas (arma marcial ou ofício menor)."
+  },
+  "freljord": {
+    "name": "Freljord",
+    "languages": ["Freljordiano"],
+    "skills": ["Arcanismo", "Atletismo", "Furtividade", "Intimidação", "Lidar com Animais", "Natureza", "Percepção", "Sobrevivência"],
+    "traits": [
+      { "name": "Avarosiano", "description": "Tribo liderada por Ashe que prega diplomacia e união pelos ensinamentos de Avarosa." },
+      { "name": "Garras do Inverno", "description": "Tribo guerreira e tradicionalista de Sejuani que sobrevive pilhando rumo ao sul nos meses de inverno." },
+      { "name": "Præglacius", "description": "Culto secreto de Lissandra que vigia o Howling Abyss, onde os Observadores do Vazio foram sepultados sob Gelo Verdadeiro." },
+      { "name": "Gelo Verdadeiro", "description": "Gelo natural que nunca derrete, empunhável apenas por guerreiros Glacinatas; seus segredos de forja se perderam no tempo." }
+    ],
+    "_note": "Perícia: escolha uma. Atividade: escolha duas."
+  },
+  "ilhas-das-sombras": {
+    "name": "Ilhas das Sombras",
+    "languages": ["Heliano", "Espiritual"],
+    "skills": ["Arcanismo", "Enganação", "Furtividade", "História", "Intimidação", "Intuição", "Percepção", "Prestidigitação", "Sobrevivência"],
+    "traits": [
+      { "name": "A Maldição (Ruína)", "description": "Outrora Ilhas das Bênçãos, foram corrompidas por um cataclisma mágico; a Névoa Sombria drena a vida e aprisiona almas como mortos-vivos." },
+      { "name": "Helia", "description": "Antiga capital agora alagada e amaldiçoada, repleta de relíquias perdidas e espíritos predatórios." }
+    ],
+    "_note": "Idioma: escolha um (Heliano ou Espiritual). Perícia: escolha uma. Atividade: escolha duas (arma simples/marcial, apotecário ou guia: navegador). Aventuras na região são desencorajadas para iniciantes."
+  },
+  "ionia": {
+    "name": "Ionia",
+    "languages": ["Ioniano"],
+    "skills": ["Acrobacia", "Arcanismo", "Furtividade", "História", "Intuição", "Lidar com Animais", "Medicina", "Natureza", "Percepção", "Prestidigitação"],
+    "traits": [
+      { "name": "Equilíbrio e Magia", "description": "A magia flui por toda a terra, moldando o povo e a natureza; a fronteira entre os reinos material e espiritual é mais flexível." },
+      { "name": "Adaptação", "description": "Os povos vivem em harmonia com flora e fauna fantásticas; a arquitetura incorpora a natureza em vez de substituí-la." },
+      { "name": "Os Kinkou", "description": "Ordem guardiã do equilíbrio sagrado de Ionia, que medeia conflitos entre os reinos material e espiritual." },
+      { "name": "Invasão Noxiana", "description": "A invasão de Noxus dividiu Ionia entre grupos isolacionistas e facções radicais que exigem vingança militarizada." }
+    ],
+    "_note": "Perícia: escolha uma. Atividade: escolha duas (arma simples ou ofício menor)."
+  },
+  "ixtal": {
+    "name": "Ixtal",
+    "languages": ["Ixtali"],
+    "skills": ["Acrobacia", "Arcanismo", "Atletismo", "Enganação", "Furtividade", "Intuição", "Natureza", "Percepção", "Prestidigitação", "Sobrevivência"],
+    "traits": [
+      { "name": "Magia Elemental", "description": "Nação isolada na selva a leste de Shurima, reconhecida pelo domínio da magia elemental e por repelir intrusos com ela." },
+      { "name": "Ixaocan", "description": "Cidade oculta de arcologias ligadas por linhas de poder, cada uma dedicada a uma disciplina da magia elemental." },
+      { "name": "Dragões Elementais", "description": "Ruínas espalhadas por Ixtal abrigam dragões antigos que não lutam ao lado dos mortais desde a guerra contra o Vazio." }
+    ],
+    "_note": "Idioma: Ixtali; pode-se pedir ao mestre a possibilidade de conhecer o Shurimane Antigo. Perícia: escolha uma. Atividade: escolha duas (arma marcial ou ofício menor)."
+  },
+  "noxus": {
+    "name": "Noxus",
+    "languages": ["Noxiano", "Minotáurico", "Sentinense", "Freljordano", "Ioniano", "Piltovense", "Zaunita"],
+    "skills": ["Qualquer perícia"],
+    "traits": [
+      { "name": "Meritocracia da Força", "description": "Noxus valoriza a força acima de tudo e julga qualquer um apenas por seu valor, independente de classe social, origem ou riqueza." },
+      { "name": "Culturamente Inclusivo", "description": "Povos conquistados podem jurar lealdade e prosperar; os que se recusam são esmagados sem piedade." },
+      { "name": "A Legião e a Trifarix", "description": "A elite militar 'a Legião', liderada por Darius, serve ao conselho Trifarix instituído pelo Grande General Swain." },
+      { "name": "Bastião Imortal", "description": "Capital erguida sob as ordens do revenã Mordekaiser; o império cresceu a partir desta primeira cidadela conquistada." }
+    ],
+    "_note": "Idioma: Noxiano + escolha um adicional (Minotáurico, Sentinense, Freljordano, Ioniano, Piltovense ou Zaunita). Perícia: escolha qualquer uma. Atividade: escolha duas."
+  },
+  "nazumah": {
+    "name": "Nazumah",
+    "languages": ["Nazumita"],
+    "skills": ["Acrobacia", "Atletismo", "Furtividade", "Intuição", "Investigação", "Lidar com Animais", "Natureza", "Percepção", "Persuasão", "Sobrevivência"],
+    "traits": [
+      { "name": "Liberdade", "description": "Maior valor nazumita, cultivado desde a fuga da tirania dos Deuses Guerreiros; o povo é criado em comunidade e respeita os mais velhos." },
+      { "name": "Caçadores de Monstros", "description": "Todo cidadão se torna adulto ao provar ser capaz de caçar uma criatura; a caça protege o oásis e rende materiais valiosos." },
+      { "name": "Artesãos", "description": "Artesãos imbuem armas, roupas e bens com a essência dos monstros derrotados; a cidade rivaliza em ciência e tecnologia com as principais nações." },
+      { "name": "Baccai", "description": "Criaturas monstruosas geradas por rituais de ascensão fracassados, alvos de caçadores experientes por seus materiais valiosos." }
+    ],
+    "_note": "Região com pouco material oficial; o conteúdo foi criado pela Runarcana e pode se provar impreciso. Perícia: escolha uma. Atividade: escolha um ofício de Coletor (Biologista ou Curtidor) e um entre Alquimista, Armoreiro, Arqueirista, Cuteleiro, Encantador ou Tecmaturgo."
+  },
+  "piltover": {
+    "name": "Piltover",
+    "languages": ["Zaunita Piltovense", "Demaciano", "Ioniano", "Noxiano", "Sentinense", "Shurimane", "Zaunita"],
+    "skills": ["Qualquer perícia"],
+    "traits": [
+      { "name": "Cidade do Amanhã", "description": "Centro cultural e comercial de Valoran, movido pelo comércio, pelos clãs mercantes e pela inovação; ruas e prédios ostentam riqueza e engenhosidade." },
+      { "name": "Hextec", "description": "Fusão emergente de magia e tecnologia que usa cristais raros; cada item hextec é um artefato único criado por um artífice." },
+      { "name": "Portões Solares", "description": "Portões marinhos gigantescos que fizeram de Piltover o centro do comércio entre Valoran e Shurima." },
+      { "name": "Os Vigias", "description": "Força de manutenção da lei financiada por impostos comerciais e doações dos clãs mercantis, equipada com tecnologia hextec." }
+    ],
+    "_note": "Idioma: Zaunita Piltovense + escolha um adicional. Perícia: escolha qualquer uma. Atividade: escolha duas."
+  },
+  "shurima": {
+    "name": "Shurima",
+    "languages": ["Shurimane"],
+    "skills": ["Acrobacia", "Arcanismo", "Atletismo", "Enganação", "Furtividade", "Intimidação", "Intuição", "Investigação", "Lidar com Animais", "Percepção", "Persuasão", "Prestidigitação", "Religião", "Sobrevivência"],
+    "traits": [
+      { "name": "Império Decaído", "description": "Outrora um império próspero guiado por Ascendentes, caiu quando sua capital afundou nas areias; tribos nômades agora vagam pelo deserto." },
+      { "name": "Nômades de Shurima", "description": "Catadores pilham ruínas de cidades destruídas, saqueadores emboscam viajantes e montadores vivem no topo de criaturas gigantes conhecidas como dormuns." },
+      { "name": "O Disco Solar", "description": "Artefato de origem targônica usado para ascender mortais à divindade; destruído junto com o império, agora volta a banhar-se ao sol." }
+    ],
+    "_note": "Perícia: escolha uma. Atividade: escolha duas."
+  },
+  "targon": {
+    "name": "Targon",
+    "languages": ["Targonense", "Rakkor"],
+    "skills": ["Arcanismo", "Atletismo", "Furtividade", "Intimidação", "Intuição", "Medicina", "Percepção", "Religião", "Sobrevivência"],
+    "traits": [
+      { "name": "O Monte Targon", "description": "A montanha mais imponente de Runeterra, onde os níveis superiores se expandem magicamente; o cume confere Aspectos aos dignos." },
+      { "name": "Rakkor", "description": "Habitantes das encostas que creem terem sido chamados à montanha por poderes misteriosos e veem a subida como um teste de força, espírito e alma." },
+      { "name": "Os Solari", "description": "Culto dominante que adora o sol como fonte de toda a vida e treina os templários Ra'Horak para defender a terra e executar hereges." },
+      { "name": "Os Lunari", "description": "Seita oculta que adora a luz da lua de prata, pratica em segredo e mapeia os movimentos celestiais para adivinhar o futuro." },
+      { "name": "Os Aspectos", "description": "Na raríssima ascensão ao cume, os Aspectos escolhem um herói digno como receptáculo mortal de poder sobrenatural." }
+    ],
+    "_note": "Idioma: escolha um (Targonense ou Rakkor). Perícia: escolha uma. Atividade: escolha duas."
+  },
+  "vazio": {
+    "name": "Vazio",
+    "_note": "A página do Vazio não lista idiomas, perícias ou proficiências iniciais para personagens - é descrito como reino/força de destruição (os Observadores, as criaturas do Vazio e a cidade caída de Icathia), não como terra natal com benefícios de criação de personagem."
+  },
+  "zaun": {
+    "name": "Zaun",
+    "languages": ["Zaunita", "Demaciano", "Ioniano", "Noxiano", "Sentinense", "Shurimane", "Zaunita Piltovense"],
+    "skills": ["Qualquer perícia"],
+    "traits": [
+      { "name": "Cidade Subterrânea", "description": "Espelho escuro de Piltover aos pés de cânions profundos, que vive sob o 'Cinza de Zaun' da poluição industrial." },
+      { "name": "Quimtec", "description": "Tecnologia movida por químicas potentes em vez de cristais; funciona como a hextec, mas é muito mais perigosa, tóxica e explosiva." },
+      { "name": "Barões da Química", "description": "Poderosos chefões que controlam, cada um, uma zona da cidade e impedem que Zaun seja tomada pelo caos." },
+      { "name": "Os Níveis de Zaun", "description": "Calçadão (comércio dos ricos), Entressol (oficinas e postos comerciais sob os penhascos) e Sumidouro (profundezas esquálidas e vibrantes)." }
+    ],
+    "_note": "Idioma: Zaunita + escolha um adicional. Perícia: escolha qualquer uma. Atividade: escolha duas."
+  }
+}
